@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dettaglio Ricetta - Made by Anna</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .contenitore-dettaglio {
+            background: white;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .contenitore-dettaglio img {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .contenitore-dettaglio h2 {
+            color: #b5657d;
+            margin-top: 0;
+        }
+        .pulsante-indietro {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #b5657d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .pulsante-indietro:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Le mie ricette</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="me.html">Chi sono</a></li>
+                <li><a href="ricette.html">Calcolatore</a></li>
+                <li><a href="mie-ricette.html">Le mie ricette</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div style="text-align: left; max-width: 700px; margin: 0 auto;">
+            <a href="mie-ricette.html" class="pulsante-indietro">← Torna a tutte le ricette</a>
+        </div>
+
+        <div id="corpoDettaglio" class="contenitore-dettaglio">
+            <p>Caricamento ricetta in corso...</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>Made by Anna</p>
+    </footer>
+
+    <script>
+        // Legge il nome della ricetta dall'indirizzo web
+        const urlParams = new URLSearchParams(window.location.search);
+        const nomeRicetta = urlParams.get("nome");
+
+        fetch("ricette.json")
+            .then(response => response.json())
+            .then(data => {
+                const corpo = document.getElementById("corpoDettaglio");
+                
+                if (nomeRicetta && data[nomeRicetta]) {
+                    let r = data[nomeRicetta];
+
+                    // Crea la lista degli ingredienti
+                    let htmlIngredienti = "<ul>";
+                    Object.keys(r.ingredienti).forEach(ing => {
+                        htmlIngredienti += `<li><strong>${ing}:</strong> ${r.ingredienti[ing].quantità} ${r.ingredienti[ing].unità}</li>`;
+                    });
+                    htmlIngredienti += "</ul>";
+
+                    // Crea la lista numerata del procedimento
+                    let htmlProcedimento = "<ol>";
+                    if (r.procedimento && r.procedimento.length > 0) {
+                        r.procedimento.forEach(passo => {
+                            htmlProcedimento += `<li style="margin-bottom: 10px;">${passo}</li>`;
+                        });
+                    } else {
+                        htmlProcedimento += "<li>Procedimento in arrivo!</li>";
+                    }
+                    htmlProcedimento += "</ol>";
+
+                    // Inserisce tutto nella pagina
+                    corpo.innerHTML = `
+                        <h2>${nomeRicetta}</h2>
+                        <img src="${r.foto}" alt="${nomeRicetta}" onerror="this.src='https://via.placeholder.com/700x350?text=Foto+in+arrivo'">
+                        
+                        <h3>Ingredienti base (per ${r.porzioni} porzioni)</h3>
+                        ${htmlIngredienti}
+
+                        <h3>Procedimento</h3>
+                        ${htmlProcedimento}
+                    `;
+                } else {
+                    corpo.innerHTML = "<h2>Ricetta non trovata</h2><p>La ricetta che cerchi non esiste o è stata spostata.</p>";
+                }
+            });
+    </script>
+</body>
+</html>
