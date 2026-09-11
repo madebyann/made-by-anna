@@ -139,6 +139,7 @@
     <!-- Script che gestisce tutto -->
     <script src="script.js"></script>
     <script>
+        <script>
         let datiGlobali = {};
 
         // Carica i dati all'avvio
@@ -147,6 +148,7 @@
             .then(data => {
                 datiGlobali = data;
                 creaVetrina(data);
+                popolaSelectCalcolatore(data);
             });
 
         function creaVetrina(data) {
@@ -173,6 +175,7 @@
             let dettaglio = document.getElementById("vistaDettaglio");
             dettaglio.classList.add("visibile");
 
+            // Generazione procedimento
             let htmlProc = "<ol>";
             if (r.procedimento && r.procedimento.length > 0) {
                 r.procedimento.forEach(passo => {
@@ -183,20 +186,85 @@
             }
             htmlProc += "</ol>";
 
-            let htmlIng = "<ul>";
-            Object.keys(r.ingredienti).forEach(ing => {
-                htmlIng += `<li><strong>${ing}:</strong> ${r.ingredienti[ing].quantità} ${r.ingredienti[ing].unità}</li>`;
-            });
-            htmlIng += "</ul>";
+            // Generazione ingredienti raggruppati per categoria
+            let htmlIng = "";
+            let primiKeys = Object.keys(r.ingredienti);
+            
+            // Controlla se gli ingredienti sono raggruppati (es. Craquelin, Choux) o piatti
+            let eGruppi = primiKeys.length > 0 && typeof r.ingredienti[primiKeys[0]] === 'object' && !r.ingredienti[primiKeys[0]].hasOwnProperty('quantità');
+
+            if (eGruppi) {
+                primiKeys.forEach(categoria => {
+                    htmlIng += `<h4 style="color: #b5657d; margin-top: 15px; margin-bottom: 5px; text-transform: uppercase; font-size: 0.9em;">${categoria}</h4><ul>`;
+                    let ingredientiCat = r.ingredienti[categoria];
+                    Object.keys(ingredientiCat).forEach(ing => {
+                        let item = ingredientiCat[ing];
+                        htmlIng += `<li><strong>${ing}:</strong> ${item.quantità} ${item.unità}</li>`;
+                    });
+                    htmlIng += `</ul>`;
+                });
+            } else {
+                htmlIng += "<ul>";
+                primiKeys.forEach(ing => {
+                    let item = r.ingredienti[ing];
+                    htmlIng += `<li><strong>${ing}:</strong> ${item.quantità} ${item.unità}</li>`;
+                });
+                htmlIng += "</ul>";
+            }
 
             document.getElementById("corpoDettaglioRicetta").innerHTML = `
                 <h2>${nome}</h2>
                 <img src="${r.foto || ''}" alt="${nome}" onerror="this.src='https://via.placeholder.com/700x350?text=Foto+in+arrivo'">
-                <h3>Ingredienti base (per ${r.porzioni} porzioni)</h3>
+                <h3 style="margin-top: 20px;">Ingredienti</h3>
                 ${htmlIng}
-                <h3 style="margin-top: 20px;">Procedimento</h3>
+                <h3 style="margin-top: 25px;">Procedimento</h3>
                 ${htmlProc}
             `;
+        }
+
+        function popolaSelectCalcolatore(data) {
+            const select = document.getElementById("selezionaRicetta");
+            select.innerHTML = '<option value="">-- Seleziona una ricetta --</option>';
+            Object.keys(data).forEach(nome => {
+                let opt = document.createElement("option");
+                opt.value = nome;
+                opt.textContent = nome;
+                select.appendChild(opt);
+            });
+
+            select.onchange = function() {
+                let nomeRicetta = this.value;
+                let divDettagli = document.getElementById("dettagliRicetta");
+                if (!nomeRicetta) {
+                    divDettagli.innerHTML = "";
+                    return;
+                }
+                let r = data[nomeRicetta];
+                let htmlIngCal = "";
+                let primiKeys = Object.keys(r.ingredienti);
+                let eGruppi = primiKeys.length > 0 && typeof r.ingredienti[primiKeys[0]] === 'object' && !r.ingredienti[primiKeys[0]].hasOwnProperty('quantità');
+
+                if (eGruppi) {
+                    primiKeys.forEach(categoria => {
+                        htmlIngCal += `<strong>${categoria}:</strong><ul>`;
+                        let ingredientiCat = r.ingredienti[categoria];
+                        Object.keys(ingredientiCat).forEach(ing => {
+                            let item = ingredientiCat[ing];
+                            htmlIngCal += `<li>${ing}: ${item.quantità} ${item.unità}</li>`;
+                        });
+                        htmlIngCal += `</ul>`;
+                    });
+                } else {
+                    htmlIngCal += "<ul>";
+                    primiKeys.forEach(ing => {
+                        let item = r.ingredienti[ing];
+                        htmlIngCal += `<li>${ing}: ${item.quantità} ${item.unità}</li>`;
+                    });
+                    htmlIngCal += "</ul>";
+                }
+
+                divDettagli.innerHTML = `<h3>${nomeRicetta}</h3>${htmlIngCal}`;
+            };
         }
 
         function mostraVetrina() {
@@ -216,6 +284,7 @@
             document.getElementById("btnCalcolatore").classList.add("attivo");
             document.getElementById("btnVetrina").classList.remove("attivo");
         }
+    </script>
     </script>
 </body>
 </html>
