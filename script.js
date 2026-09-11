@@ -51,12 +51,39 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         html += `<h3>Ingredienti base</h3>`;
-        html += `<ul>`;
-        Object.keys(datiRicetta.ingredienti).forEach(ingrediente => {
-            let datiIngrediente = datiRicetta.ingredienti[ingrediente];
-            html += `<li>${ingrediente}: ${datiIngrediente.quantità} ${datiIngrediente.unità}</li>`;
-        });
-        html += `</ul>`;
+        
+        // Controlla se gli ingredienti sono raggruppati in categorie o piatti
+        const primeKeys = Object.keys(datiRicetta.ingredienti);
+        const haCategorie = primeKeys.length > 0 && typeof datiRicetta.ingredienti[primeKeys[0]] === 'object' && !datiRicetta.ingredienti[primeKeys[0]].hasOwnProperty('quantità');
+
+        if (haCategorie) {
+            primeKeys.forEach(categoria => {
+                html += `<h4>${categoria}</h4><ul>`;
+                let ingredientiCat = datiRicetta.ingredienti[categoria];
+                Object.keys(ingredientiCat).forEach(ingrediente => {
+                    let datiIngrediente = ingredientiCat[ingrediente];
+                    html += `<li>${ingrediente}: ${datiIngrediente.quantità} ${datiIngrediente.unità}</li>`;
+                });
+                html += `</ul>`;
+            });
+        } else {
+            html += `<ul>`;
+            primeKeys.forEach(ingrediente => {
+                let datiIngrediente = datiRicetta.ingredienti[ingrediente];
+                html += `<li>${ingrediente}: ${datiIngrediente.quantità} ${datiIngrediente.unità}</li>`;
+            });
+            html += `</ul>`;
+        }
+
+        // Raccoglie tutti gli ingredienti in un unico elenco per il menu a tendina dell'ingrediente limitante
+        let listaIngredientiPiatti = {};
+        if (haCategorie) {
+            primeKeys.forEach(categoria => {
+                Object.assign(listaIngredientiPiatti, datiRicetta.ingredienti[categoria]);
+            });
+        } else {
+            listaIngredientiPiatti = datiRicetta.ingredienti;
+        }
 
         // Form per modificare la quantità
         html += `<h3>Modifica quantità</h3>`;
@@ -70,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <br><br>
             <input type="number" id="valore" placeholder="Inserisci il valore" step="any">
             <select id="ingredienteLimitante" style="display: none;">
-                ${Object.keys(datiRicetta.ingredienti).map(ing => `<option value="${ing}">${ing}</option>`).join("")}
+                ${Object.keys(listaIngredientiPiatti).map(ing => `<option value="${ing}">${ing}</option>`).join("")}
             </select>
             <br><br>
             <button onclick="calcolaIngredienti()">Calcola nuove dosi</button>
@@ -114,6 +141,10 @@ function calcolaIngredienti() {
         return;
     }
 
+    // Identifica se ci sono categorie
+    const primeKeys = Object.keys(datiRicetta.ingredienti);
+    const haCategorie = primeKeys.length > 0 && typeof datiRicetta.ingredienti[primeKeys[0]] === 'object' && !datiRicetta.ingredienti[primeKeys[0]].hasOwnProperty('quantità');
+
     let fattoreScala = 1;
 
     if (criterio === "porzioni") {
@@ -130,23 +161,62 @@ function calcolaIngredienti() {
     } 
     else if (criterio === "ingrediente") {
         const ingScelto = document.getElementById("ingredienteLimitante").value;
-        const quantitaBase = datiRicetta.ingredienti[ingScelto].quantità;
+        let quantitaBase = 0;
+        
+        if (haCategorie) {
+            // Cerca l'ingrediente dentro le categorie
+            for (let cat of primeKeys) {
+                if (datiRicetta.ingredienti[cat][ingScelto]) {
+                    quantitaBase = datiRicetta.ingredienti[cat][ingScelto].quantità;
+                    break;
+                }
+            }
+        } else {
+            quantitaBase = datiRicetta.ingredienti[ingScelto].quantità;
+        }
+        
         fattoreScala = valore / quantitaBase;
     }
 
-    let htmlRisultato = `<h4>Dosi ricalcolate:</h4><ul>`;
-    Object.keys(datiRicetta.ingredienti).forEach(ingrediente => {
-        let datiIng = datiRicetta.ingredienti[ingrediente];
-        let nuovaQuantita = datiIng.quantità * fattoreScala;
-        
-        if (datiIng.unità === "uova" || datiIng.unità === "mele") {
-            nuovaQuantita = Math.round(nuovaQuantita);
-        } else {
-            nuovaQuantita = Math.round(nuovaQuantita * 10) / 10;
-        }
+    let htmlRisultato = `<h4>Dosi ricalcolate:</h4>`;
 
-        htmlRisultato += `<li><strong>${ingrediente}:</strong> ${nuovaQuantita} ${datiIng.unità}</li>`;
-    });
+    if (haCategorie) {
+        primeKeys.forEach(categoria => {
+            htmlRisultato += `<h5>${categoria}</h5><ul>`;
+            let ingredientiCat = datiRicetta.ingredienti[categoria];
+            Object.keys(ingredientiCat).forEach(ingrediente => {
+                let datiIng = ingredientiCat[ingrediente];
+                let nuovaQuantita = datiIng.quantità * fattoreScala;
+                
+                if (datiIng.unità === "uova" || datiIng.unità === "mele" || datiIng.unità === "tuorli") {
+                    nuovaQuantita = Math.round(nuovaQuantita);
+                } else {
+                    nuovaQuantita = Math.round(nuovaQuantita * 10) / 10;
+                }
+
+                htmlRisultato += `<li><strong>${ingrediente}:</strong> ${nuovaQuantita} ${datiIng.unità}</li>`;
+            });
+            htmlRisultato += `</ul>`;
+        });
+    } else {
+        htmlRisultato += `<ul>`;
+        Object.keys(datiRicetta.ingredienti).forEach(ingrediente => {
+            let datiIng = datiRicetta.ingredienti[ingrediente];
+            let nuovaQuantita = datiIng.quantità * fattoreScala;
+            
+            if (datiIng.unità === "uova" || datiIng.unità === "mele" || datiIng.unità === "tuorli") {
+                nuovaQuantita = Math.round(nuovaQuantita);
+            } else {
+                nuovaQuantita = Math.round(nuovaQuantita * 10) / 10;
+            }
+
+            htmlRisultato += `<li><strong>${ingrediente}:</strong> ${nuovaQuantita} ${datiIng.unità}</li>`;
+        });
+        htmlRisultato += `</ul>`;
+    }
+
+    divRisultato.innerHTML = htmlRisultato;
+}
     htmlRisultato += `</ul>`;
 
     divRisultato.innerHTML = htmlRisultato;
