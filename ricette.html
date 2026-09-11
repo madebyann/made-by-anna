@@ -3,39 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Made by Anna - Calcolatore Ricette</title>
+    <title>Made by Anna - Le mie ricette</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .menu-interno {
+            margin-bottom: 30px;
+        }
+        .menu-interno button {
+            background-color: #d88ca2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .menu-interno button.attivo {
+            background-color: #b5657d;
+        }
+        .griglia-ricette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .card-ricetta {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 280px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card-ricetta:hover {
+            transform: translateY(-5px);
+        }
+        .card-ricetta img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .card-ricetta h3 {
+            margin: 15px 0;
+            color: #b5657d;
+        }
+        .sezione-contenuto {
+            display: none;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: left;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .sezione-contenuto.visibile {
+            display: block;
+            margin-top: 20px;
+        }
+        .sezione-contenuto img {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .pulsante-indietro {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #b5657d;
+            text-decoration: none;
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Calcolatore di Ricette</h1>
+        <h1>Il mio ricettario</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="me.html">Chi sono</a></li>
-                <li><a href="ricette.html">Ricette</a></li>
+                <li><a href="ricette.html">Ricette & Calcolatore</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section>
-            <h2>Scegli la ricetta e calcola le dosi</h2>
+        <!-- Pulsanti in alto per scegliere la vista -->
+        <div class="menu-interno">
+            <button id="btnVetrina" class="attivo" onclick="mostraVetrina()">Le mie ricette (Vetrina)</button>
+            <button id="btnCalcolatore" onclick="mostraCalcolatoreTab()">Calcolatore dosi</button>
+        </div>
+
+        <!-- 1. VETRINA DELLE RICETTE CON FOTO E PROCEDIMENTO -->
+        <div id="vistaVetrina">
+            <h2>I miei piatti del cuore</h2>
+            <p>Clicca su una ricetta per vedere la foto e leggere il procedimento passo dopo passo.</p>
+            <div id="grigliaCard" class="griglia-ricette">
+                <!-- Caricate dinamicamente da JSON -->
+            </div>
+        </div>
+
+        <!-- DETTAGLIO SINGOLA RICETTA (Nascosto finché non clicchi una foto) -->
+        <div id="vistaDettaglio" class="sezione-contenuto">
+            <button class="pulsante-indietro" onclick="mostraVetrina()">← Torna alla vetrina</button>
+            <div id="corpoDettaglioRicetta"></div>
+        </div>
+
+        <!-- 2. IL CALCOLATORE ORIGINALE -->
+        <div id="vistaCalcolatore" class="sezione-contenuto">
+            <h2>Calcolatore di dosi</h2>
             <p>Ridimensiona gli ingredienti in base alle porzioni, alla teglia o agli ingredienti che hai in casa.</p>
             
-            <label for="selezionaRicetta"><strong>Ricetta:</strong></label>
+            <label for="selezionaRicetta"><strong>Scegli ricetta:</strong></label>
             <select id="selezionaRicetta">
                 <option value="">-- Seleziona una ricetta --</option>
             </select>
             
-            <div id="dettagliRicetta" style="margin-top: 20px; text-align: left; display: inline-block; max-width: 500px;"></div>
-        </section>
+            <div id="dettagliRicetta" style="margin-top: 20px;"></div>
+        </div>
     </main>
 
     <footer>
         <p>Made by Anna</p>
     </footer>
 
+    <!-- Script che gestisce tutto -->
     <script src="script.js"></script>
+    <script>
+        let datiGlobali = {};
+
+        // Carica i dati all'avvio
+        fetch("ricette.json")
+            .then(response => response.json())
+            .then(data => {
+                datiGlobali = data;
+                creaVetrina(data);
+            });
+
+        function creaVetrina(data) {
+            const griglia = document.getElementById("grigliaCard");
+            griglia.innerHTML = "";
+
+            Object.keys(data).forEach(nome => {
+                let r = data[nome];
+                let card = document.createElement("div");
+                card.className = "card-ricetta";
+                card.innerHTML = `
+                    <img src="${r.foto || ''}" alt="${nome}" onerror="this.src='https://via.placeholder.com/280x180?text=Foto+in+arrivo'">
+                    <h3>${nome}</h3>
+                `;
+                card.onclick = () => apriDettaglioRicetta(nome, r);
+                griglia.appendChild(card);
+            });
+        }
+
+        function apriDettaglioRicetta(nome, r) {
+            document.getElementById("vistaVetrina").style.display = "none";
+            document.getElementById("vistaCalcolatore").classList.remove("visibile");
+            
+            let dettaglio = document.getElementById("vistaDettaglio");
+            dettaglio.classList.add("visibile");
+
+            let htmlProc = "<ol>";
+            if (r.procedimento && r.procedimento.length > 0) {
+                r.procedimento.forEach(passo => {
+                    htmlProc += `<li style="margin-bottom: 8px;">${passo}</li>`;
+                });
+            } else {
+                htmlProc += "<li>Procedimento non ancora inserito.</li>";
+            }
+            htmlProc += "</ol>";
+
+            let htmlIng = "<ul>";
+            Object.keys(r.ingredienti).forEach(ing => {
+                htmlIng += `<li><strong>${ing}:</strong> ${r.ingredienti[ing].quantità} ${r.ingredienti[ing].unità}</li>`;
+            });
+            htmlIng += "</ul>";
+
+            document.getElementById("corpoDettaglioRicetta").innerHTML = `
+                <h2>${nome}</h2>
+                <img src="${r.foto || ''}" alt="${nome}" onerror="this.src='https://via.placeholder.com/700x350?text=Foto+in+arrivo'">
+                <h3>Ingredienti base (per ${r.porzioni} porzioni)</h3>
+                ${htmlIng}
+                <h3 style="margin-top: 20px;">Procedimento</h3>
+                ${htmlProc}
+            `;
+        }
+
+        function mostraVetrina() {
+            document.getElementById("vistaDettaglio").classList.remove("visibile");
+            document.getElementById("vistaCalcolatore").classList.remove("visibile");
+            document.getElementById("vistaVetrina").style.display = "block";
+            
+            document.getElementById("btnVetrina").classList.add("attivo");
+            document.getElementById("btnCalcolatore").classList.remove("attivo");
+        }
+
+        function mostraCalcolatoreTab() {
+            document.getElementById("vistaVetrina").style.display = "none";
+            document.getElementById("vistaDettaglio").classList.remove("visibile");
+            document.getElementById("vistaCalcolatore").classList.add("visibile");
+            
+            document.getElementById("btnCalcolatore").classList.add("attivo");
+            document.getElementById("btnVetrina").classList.remove("attivo");
+        }
+    </script>
 </body>
 </html>
