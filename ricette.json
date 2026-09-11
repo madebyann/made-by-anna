@@ -1,48 +1,4 @@
 {
-  "Tiramisù": {
-    "porzioni": 4,
-    "teglia": {
-      "forma": "rettangolare",
-      "larghezza": 20,
-      "lunghezza": 30
-    },
-    "foto": "immagini/tiramisu.jpg",
-    "procedimento": [
-      "Monta i tuorli con lo zucchero fino a renderli spumosi.",
-      "Aggiungi il mascarpone e mescola delicatamente con una spatola.",
-      "Inzuppa velocemente i savoiardi nel caffè freddo.",
-      "Fai il primo strato di savoiardi in teglia, copri con la crema e ripeti.",
-      "Metti in frigo per almeno 3 ore e spolvera con il cacao prima di servire."
-    ],
-    "ingredienti": {
-      "uova": { "quantità": 4, "unità": "uova" },
-      "zucchero": { "quantità": 100, "unità": "g" },
-      "mascarpone": { "quantità": 250, "unità": "g" },
-      "savoiardi": { "quantità": 200, "unità": "g" },
-      "caffè": { "quantità": 150, "unità": "ml" }
-    }
-  },
-  "Frittelle": {
-    "porzioni": 10,
-    "teglia": {
-      "forma": "nessuna"
-    },
-    "foto": "immagini/frittelle.jpg",
-    "procedimento": [
-      "In una ciotola capiente unisci la farina, lo zucchero e le uova.",
-      "Aggiungi il latte a filo mescolando con una frusta per evitare i grumi.",
-      "Lavora l'impasto finché risulta liscio e omogeneo.",
-      "Friggi a cucchiaiate in olio caldo fino a doratura.",
-      "Scolale su carta assorbente e passa nello zucchero."
-    ],
-    "ingredienti": {
-      "farina": { "quantità": 200, "unità": "g" },
-      "uova": { "quantità": 2, "unità": "uova" },
-      "zucchero": { "quantità": 50, "unità": "g" },
-      "latte": { "quantità": 150, "unità": "ml" }
-    }
-  },
-
   "Brioche alle More": {
     "porzioni": 10,
     "teglia": {
