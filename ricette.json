@@ -164,9 +164,9 @@
       "Pralinato alle Mandorle": {
         "zucchero": { "quantità": 50, "unità": "g" },
         "mandorle tostate": { "quantità": 50, "unità": "g" }
-      } }
-    },
-  
+      }
+    }
+  },
   "Torta Pan di Spagna al Cacao con Doppia Diplomatica": {
     "porzioni": 12,
     "teglia": {
@@ -177,7 +177,7 @@
     "procedimento": [
       "Prepara il pan di spagna montando a lungo le uova intere con lo zucchero fino a renderle chiare e spumose.",
       "Setaccia insieme la farina 00, la fecola e il cacao amaro, poi incorporali delicatamente dal basso verso l'alto.",
-      "dividi l'impasto in due parti uguali e cuoci le due infornate separatamente in teglia tonda.",
+      "Dividi l'impasto in due parti uguali e cuoci le due infornate separatamente in teglia tonda.",
       "Prepara la crema pasticcera scaldando il latte con gli aromi (vaniglia o limone).",
       "A parte, sbatti i tuorli con lo zucchero e l'amido di mais, poi unisci il latte caldo e cuoci finché si addensa.",
       "Fuori dal fuoco, sciogli nella crema la gelatina precedentemente ammollata in acqua fredda.",
@@ -212,4 +212,4 @@
       }
     }
   }
-
+}
