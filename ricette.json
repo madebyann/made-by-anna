@@ -28,7 +28,6 @@
       "estratto di vaniglia": { "quantità": 1, "unità": "cucchiaino" }
     }
   },
-
   "Bignè con Craquelin, Caramello e Pistacchio": {
     "porzioni": 30,
     "teglia": {
@@ -79,8 +78,9 @@
         "zucchero": { "quantità": 40, "unità": "g" },
         "pasta di pistacchi": { "quantità": 50, "unità": "g" }
       }
-    } ,
-    "Curry di Lenticchie e Verdure al Latte di Cocco": {
+    }
+  },
+  "Curry di Lenticchie e Verdure al Latte di Cocco": {
     "porzioni": 4,
     "teglia": {
       "forma": "nessuna"
@@ -110,5 +110,4 @@
       "latte di cocco": { "quantità": 200, "unità": "ml" }
     }
   }
-  }
-
+}
