@@ -6,7 +6,7 @@
       "larghezza": 20,
       "lunghezza": 30
     },
-    "foto": "img/tiramisu.jpg",
+    "foto": "immagini/tiramisu.jpg",
     "procedimento": [
       "Monta i tuorli con lo zucchero fino a renderli spumosi.",
       "Aggiungi il mascarpone e mescola delicatamente con una spatola.",
@@ -27,7 +27,7 @@
     "teglia": {
       "forma": "nessuna"
     },
-    "foto": "img/frittelle.jpg",
+    "foto": "immagini/frittelle.jpg",
     "procedimento": [
       "In una ciotola capiente unisci la farina, lo zucchero e le uova.",
       "Aggiungi il latte a filo mescolando con una frusta per evitare i grumi.",
