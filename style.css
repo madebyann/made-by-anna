@@ -65,3 +65,34 @@ footer {
     color: white;
     margin-top: 40px;
 }
+
+/* Stile per la sezione Chi sono */
+.about-section {
+    display: flex;
+    align-items: center; /* Allinea verticalmente l'immagine e il testo */
+    gap: 30px;           /* Spazio tra l'immagine e il testo */
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Regole per l'immagine del profilo */
+.profile-img {
+    width: 200px;        /* Puoi regolare la dimensione */
+    height: 200px;       
+    object-fit: cover;   /* Evita che l'immagine si deformi */
+    border-radius: 50%;  /* Rende l'immagine rotonda (opzionale) */
+}
+
+/* Regole per il testo */
+.about-text {
+    flex: 1;             /* Occupa lo spazio rimanente a destra */
+}
+
+/* Adattamento per schermi piccoli (smartphone) */
+@media (max-width: 600px) {
+    .about-section {
+        flex-direction: column; /* Su smartphone l'immagine va sopra e il testo sotto */
+        text-align: center;
+    }
+}
