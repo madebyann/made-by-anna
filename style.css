@@ -1,16 +1,17 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #fff5f8; /* Sfondo rosa cipria chiarissimo */
+    color: #4a3b40; /* Testo color marrone/grigio scuro per leggibilità */
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #333;
+    background-color: #d88ca2; /* Rosa medio elegante per la testata */
     color: white;
-    padding: 10px 0;
+    padding: 15px 0;
     text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 header h1 {
@@ -20,6 +21,7 @@ header h1 {
 nav ul {
     list-style-type: none;
     padding: 0;
+    margin-top: 10px;
 }
 
 nav ul li {
@@ -33,15 +35,33 @@ nav ul li a {
     font-weight: bold;
 }
 
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
 main {
-    padding: 20px;
+    padding: 30px;
     text-align: center;
+}
+
+button {
+    background-color: #d88ca2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #c07389;
 }
 
 footer {
     text-align: center;
     padding: 15px;
-    background-color: #333;
+    background-color: #b5657d; /* Rosa scuro/vinaccia per il footer */
     color: white;
     margin-top: 40px;
 }
