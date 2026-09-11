@@ -1,30 +1,41 @@
-<!-- ricette.html -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ricette</title>
+    <title>Made by Anna - Calcolatore Ricette</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
+        <h1>Calcolatore di Ricette</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="made-by-anna.html">Chi sono</a></li>
-                <li><a href="giochini.html">Giochini</a></li>
+                <li><a href="me.html">Chi sono</a></li>
+                <li><a href="ricette.html">Ricette</a></li>
             </ul>
         </nav>
     </header>
 
-    <h1>Seleziona una ricetta</h1>
-    <select id="selezionaRicetta">
-        <option value="">Seleziona una ricetta</option>
-    </select>
+    <main>
+        <section>
+            <h2>Scegli la ricetta e calcola le dosi</h2>
+            <p>Ridimensiona gli ingredienti in base alle porzioni, alla teglia o agli ingredienti che hai in casa.</p>
+            
+            <label for="selezionaRicetta"><strong>Ricetta:</strong></label>
+            <select id="selezionaRicetta">
+                <option value="">-- Seleziona una ricetta --</option>
+            </select>
+            
+            <div id="dettagliRicetta" style="margin-top: 20px; text-align: left; display: inline-block; max-width: 500px;"></div>
+        </section>
+    </main>
 
-    <div id="dettagliRicetta"></div>
+    <footer>
+        <p>Made by Anna</p>
+    </footer>
 
-    <!-- Inclusione del file JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
