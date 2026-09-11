@@ -71,5 +71,48 @@
       "sale fino": { "quantità": 0.25, "unità": "cucchiaino" },
       "estratto di vaniglia": { "quantità": 1, "unità": "cucchiaino" }
     }
+  },
+
+  "Bignè con Craquelin, Caramello e Pistacchio": {
+    "porzioni": 30,
+    "teglia": {
+      "forma": "carta da forno"
+    },
+    "foto": "immagini/bigne.jpg",
+    "procedimento": [
+      "Prepara il craquelin: impasta il burro morbido con lo zucchero di canna e la farina, stendilo sottile tra due fogli di carta forno e mettilo in freezer a indurire, poi ricava dei dischetti.",
+      "Prepara la pasta choux: porta a bollore acqua, latte, burro, sale e zucchero, poi unisci tutta la farina in un colpo solo mescolando energicamente sul fuoco finché il composto si stacca dai bordi.",
+      "Lascia intiepidire l'impasto e incorpora le uova (150 g) una alla volta, mescolando fino a ottenere una consistenza liscia e lucida che forma un nastro.",
+      "Metti la choux in un sac a poche e forma i bignè (circa 3.5 cm) su una teglia coperta di carta forno.",
+      "Appoggia un dischetto di craquelin gelato su ogni bignè e cuoci in forno caldo.",
+      "Prepara la crema pasticcera con latte, panna, zucchero, tuorli e maizena, lasciala raffreddare e poi montala insieme al mascarpone freddissimo.",
+      "Prepara il caramello salato facendo sciogliere lo zucchero a secco, unendo la panna calda, il burro e un pizzico di sale.",
+      "Prepara il pralinato di pistacchio caramellando lo zucchero e unendolo alla pasta di pistacchi.",
+      "Farcisci i bignè con la crema diplomatica al mascarpone e decorali con il caramello salato e il pralinato."
+    ],
+    "ingredienti": {
+      "burro (craquelin)": { "quantità": 40, "unità": "g" },
+      "zucchero di canna": { "quantità": 40, "unità": "g" },
+      "farina (craquelin)": { "quantità": 40, "unità": "g" },
+      "latte (choux)": { "quantità": 75, "unità": "g" },
+      "acqua": { "quantità": 75, "unità": "g" },
+      "sale (choux)": { "quantità": 1.5, "unità": "g" },
+      "zucchero (choux)": { "quantità": 1.5, "unità": "g" },
+      "burro (choux)": { "quantità": 68, "unità": "g" },
+      "farina 00 (choux)": { "quantità": 75, "unità": "g" },
+      "uova (choux)": { "quantità": 150, "unità": "g" },
+      "latte (crema)": { "quantità": 400, "unità": "g" },
+      "panna (crema)": { "quantità": 100, "unità": "g" },
+      "zucchero (crema)": { "quantità": 120, "unità": "g" },
+      "tuorli": { "quantità": 4, "unità": "uova" },
+      "maizena": { "quantità": 40, "unità": "g" },
+      "mascarpone freddissimo": { "quantità": 250, "unità": "g" },
+      "zucchero (caramello)": { "quantità": 50, "unità": "g" },
+      "panna (caramello)": { "quantità": 42, "unità": "g" },
+      "burro (caramello)": { "quantità": 16, "unità": "g" },
+      "sale (caramello)": { "quantità": 1, "unità": "pizzico" },
+      "zucchero (pralinato)": { "quantità": 40, "unità": "g" },
+      "pasta di pistacchi": { "quantità": 50, "unità": "g" }
+    }
   }
 }
