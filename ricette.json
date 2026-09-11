@@ -41,5 +41,35 @@
       "zucchero": { "quantità": 50, "unità": "g" },
       "latte": { "quantità": 150, "unità": "ml" }
     }
+  },
+
+  "Brioche alle More": {
+    "porzioni": 10,
+    "teglia": {
+      "forma": "nessuna"
+    },
+    "foto": "img/brioche-more.jpg",
+    "procedimento": [
+      "Lavora in planetaria lo zucchero aromatizzato al limone con farina, lievito, uovo, latte, burro, sale e vaniglia per circa 30 minuti fino a completa incordatura.",
+      "Fai lievitare fino al raddoppio (1.5-2 ore) oppure in frigorifero per tutta la notte.",
+      "Per la crema all'albicocca: mescola il formaggio spalmabile con la marmellata.",
+      "Per la crema al cocco: mescola a freddo la crema di cocco densa con lo zucchero a velo e l'amido di mais.",
+      "Dividi l'impasto in 10 palline da circa 70g l'una, pirla bene e fai lievitare coperte sulla teglia per 45-60 minuti.",
+      "Crea un incavo profondo al centro di ogni pallina lievitata.",
+      "Passa ogni brioche prima nel burro fuso e poi nello zucchero semolato.",
+      "Farcisci 5 brioche con la crema all'albicocca e 5 con la crema al cocco, aggiungendo le more fresche e un pizzico di cocco rapè su queste ultime.",
+      "Cuoci in forno preriscaldato a 190°C con un pentolino d'acqua sul fondo per circa 12 minuti, poi ruota la teglia e cuoci per altri 4-6 minuti fino a doratura."
+    ],
+    "ingredienti": {
+      "farina 00": { "quantità": 350, "unità": "g" },
+      "latte intero": { "quantità": 180, "unità": "ml" },
+      "zucchero semolato (impasto)": { "quantità": 50, "unità": "g" },
+      "burro salato": { "quantità": 45, "unità": "g" },
+      "uovo": { "quantità": 1, "unità": "uova" },
+      "lievito di birra disidratato": { "quantità": 8, "unità": "g" },
+      "limone (scorza)": { "quantità": 1, "unità": "limone" },
+      "sale fino": { "quantità": 0.25, "unità": "cucchiaino" },
+      "estratto di vaniglia": { "quantità": 1, "unità": "cucchiaino" }
+    }
   }
 }
