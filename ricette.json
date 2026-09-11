@@ -110,6 +110,63 @@
       "latte di cocco": { "quantità": 200, "unità": "ml" }
     }
   },
+  "Éclair al Lampone, Cioccolato Bianco e Mandorle": {
+    "porzioni": 10,
+    "teglia": {
+      "forma": "carta da forno"
+    },
+    "foto": "immagini/eclair.jpg",
+    "procedimento": [
+      "Prepara la pasta choux portando a bollore acqua, latte, burro, zucchero e sale, poi unisci tutta la farina in un colpo solo asciugando il composto sul fuoco.",
+      "Lascia intiepidire e incorpora le uova (200 g) poco alla volta fino a ottenere la consistenza giusta per formare gli éclairs con il sac à poche.",
+      "Cuoci in forno ventilato o statico fino a doratura, poi lasciali asciugare.",
+      "Prepara la namelaka al cioccolato bianco sciogliendo il cioccolato e unendo il latte caldo, il glucosio e la gelatina ammollata, emulsiona e unisci la panna fredda (e successivamente la panna semimontata dopo il riposo in frigo).",
+      "Prepara la crema al cioccolato cuocendo latte, zucchero, maizena e cacao, unendo la Nutella a fine cottura e alleggerendola con la panna semimontata.",
+      "Prepara il coulis di lamponi cuocendo i lamponi con zucchero, maizena e succo di limone fino a densità.",
+      "Prepara il pralinato alle mandorle caramellando lo zucchero e unendolo alle mandorle tostate, poi trita finemente.",
+      "Farcisci gli éclairs, glassali con il cioccolato fondente fuso e decorali con il pralinato di mandorle e un tocco di coulis."
+    ],
+    "ingredienti": {
+      "Pasta Choux": {
+        "acqua": { "quantità": 100, "unità": "g" },
+        "latte": { "quantità": 100, "unità": "g" },
+        "burro": { "quantità": 90, "unità": "g" },
+        "farina": { "quantità": 100, "unità": "g" },
+        "zucchero": { "quantità": 1, "unità": "pizzico" },
+        "sale": { "quantità": 1, "unità": "pizzico" },
+        "uova": { "quantità": 200, "unità": "g" }
+      },
+      "Namelaka Cioccolato Bianco": {
+        "cioccolato bianco": { "quantità": 135, "unità": "g" },
+        "latte": { "quantità": 50, "unità": "g" },
+        "sciroppo di glucosio": { "quantità": 10, "unità": "g" },
+        "panna fredda": { "quantità": 60, "unità": "g" },
+        "gelatina": { "quantità": 1.5, "unità": "g" },
+        "panna semimontata": { "quantità": 160, "unità": "ml" }
+      },
+      "Crema al Cioccolato": {
+        "latte": { "quantità": 180, "unità": "g" },
+        "zucchero": { "quantità": 35, "unità": "g" },
+        "maizena": { "quantità": 18, "unità": "g" },
+        "cacao": { "quantità": 8, "unità": "g" },
+        "nutella": { "quantità": 40, "unità": "g" },
+        "panna semimontata": { "quantità": 100, "unità": "ml" }
+      },
+      "Coulis di Lamponi": {
+        "lamponi": { "quantità": 130, "unità": "g" },
+        "maizena": { "quantità": 1, "unità": "cucchiaino" },
+        "zucchero": { "quantità": 20, "unità": "g" },
+        "succo di limone": { "quantità": 0.25, "unità": "limone" }
+      },
+      "Copertura": {
+        "cioccolato fondente": { "quantità": 100, "unità": "g" }
+      },
+      "Pralinato alle Mandorle": {
+        "zucchero": { "quantità": 50, "unità": "g" },
+        "mandorle tostate": { "quantità": 50, "unità": "g" }
+      }
+    },
+  
   "Torta Pan di Spagna al Cacao con Doppia Diplomatica": {
     "porzioni": 12,
     "teglia": {
