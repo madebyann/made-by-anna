@@ -79,6 +79,36 @@
         "zucchero": { "quantità": 40, "unità": "g" },
         "pasta di pistacchi": { "quantità": 50, "unità": "g" }
       }
-    }    }
+    } ,
+    "Curry di Lenticchie e Verdure al Latte di Cocco": {
+    "porzioni": 4,
+    "teglia": {
+      "forma": "nessuna"
+    },
+    "foto": "immagini/curry-lenticchie.jpg",
+    "procedimento": [
+      "Trita la cipolla e falla soffriggere leggermente in una pentola con un filo d'olio e un pizzico d'acqua.",
+      "Aggiungi l'aglio in polvere, il peperoncino, lo zenzero, il curry e la curcuma, lasciandoli tostare per un minuto per liberare tutti gli aromi.",
+      "Taglia a dadini o rondelle le zucchine, le carote e i pomodori, poi uniscili alle spezie e insaporisci per qualche minuto.",
+      "Aggiungi le lenticchie (precedentemente sciacquate se occorre), il concentrato di pomodoro e copri con acqua o brodo.",
+      "Cuoci a fuoco lento con il coperchio per circa 25-30 minuti, finché le lenticchie e le verdure saranno teneri.",
+      "Versa il latte di cocco, mescola bene e lascia sobbollire scoperto per altri 5-10 minuti per far addensare la cremina.",
+      "Servi ben caldo, magari accompagnato da riso basmati."
+    ],
+    "ingredienti": {
+      "zucchine": { "quantità": 2, "unità": "pezzi" },
+      "carote": { "quantità": 2, "unità": "pezzi" },
+      "pomodori": { "quantità": 3, "unità": "pezzi" },
+      "cipolla": { "quantità": 1, "unità": "pezzi" },
+      "lenticchie": { "quantità": 200, "unità": "g" },
+      "concentrato di pomodoro": { "quantità": 1, "unità": "cucchiaio" },
+      "curry": { "quantità": 2, "unità": "cucchiaini" },
+      "curcuma": { "quantità": 1, "unità": "cucchiaino" },
+      "aglio in polvere": { "quantità": 1, "unità": "pizzico" },
+      "peperoncino": { "quantità": 1, "unità": "pizzico" },
+      "zenzero": { "quantità": 1, "unità": "pizzico" },
+      "latte di cocco": { "quantità": 200, "unità": "ml" }
+    }
+  }
   }
 
