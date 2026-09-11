@@ -109,5 +109,50 @@
       "zenzero": { "quantità": 1, "unità": "pizzico" },
       "latte di cocco": { "quantità": 200, "unità": "ml" }
     }
+  },
+  "Torta Pan di Spagna al Cacao con Doppia Diplomatica": {
+    "porzioni": 12,
+    "teglia": {
+      "forma": "tonda",
+      "diametro": 22
+    },
+    "foto": "immagini/torta-elisabetta.jpg",
+    "procedimento": [
+      "Prepara il pan di spagna montando a lungo le uova intere con lo zucchero fino a renderle chiare e spumose.",
+      "Setaccia insieme la farina 00, la fecola e il cacao amaro, poi incorporali delicatamente dal basso verso l'alto.",
+      "dividi l'impasto in due parti uguali e cuoci le due infornate separatamente in teglia tonda.",
+      "Prepara la crema pasticcera scaldando il latte con gli aromi (vaniglia o limone).",
+      "A parte, sbatti i tuorli con lo zucchero e l'amido di mais, poi unisci il latte caldo e cuoci finché si addensa.",
+      "Fuori dal fuoco, sciogli nella crema la gelatina precedentemente ammollata in acqua fredda.",
+      "Dividi la crema pasticcera in due parti: una da 283 g (bianca) e la rimanente arricchita con 100 g di cioccolato fondente fuso.",
+      "Per trasformarle in creme diplomatiche, unisci 150 g di panna montata alla crema bianca e 250 g di panna montata alla crema al cioccolato.",
+      "Prepara la crema di copertura e stuccatura montando insieme 700 g di panna e 700 g di mascarpone.",
+      "Assembla la torta alternando i dischi di pan di spagna e farcendoli con le due creme diplomatiche, poi stucca e decora con la crema di mascarpone e panna."
+    ],
+    "ingredienti": {
+      "Pan di Spagna": {
+        "uova intere": { "quantità": 360, "unità": "g" },
+        "zucchero": { "quantità": 240, "unità": "g" },
+        "farina 00": { "quantità": 155, "unità": "g" },
+        "fecola di patate": { "quantità": 55, "unità": "g" },
+        "cacao amaro in polvere": { "quantità": 30, "unità": "g" }
+      },
+      "Crema Pasticcera Base": {
+        "latte intero": { "quantità": 500, "unità": "ml" },
+        "tuorli d'uovo": { "quantità": 4, "unità": "uova" },
+        "zucchero": { "quantità": 130, "unità": "g" },
+        "amido di mais": { "quantità": 45, "unità": "g" },
+        "gelatina in fogli": { "quantità": 8, "unità": "g" }
+      },
+      "Aggiunte per Creme": {
+        "cioccolato fondente": { "quantità": 100, "unità": "g" },
+        "panna (per diplomatica bianca)": { "quantità": 150, "unità": "g" },
+        "panna (per diplomatica al cioccolato)": { "quantità": 250, "unità": "g" }
+      },
+      "Stuccatura e Decorazione": {
+        "panna": { "quantità": 700, "unità": "g" },
+        "mascarpone": { "quantità": 700, "unità": "g" }
+      }
+    }
   }
 }
