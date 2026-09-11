@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Made by Anna - Le mie ricette</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .griglia-ricette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .card-ricetta {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 280px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .card-ricetta:hover {
+            transform: translateY(-5px);
+        }
+        .card-ricetta img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .card-ricetta h3 {
+            margin: 15px 0 10px 0;
+            color: #b5657d;
+        }
+        .card-ricetta a {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 15px;
+            background-color: #d88ca2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .card-ricetta a:hover {
+            background-color: #b5657d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Le mie ricette</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="me.html">Chi sono</a></li>
+                <li><a href="ricette.html">Calcolatore</a></li>
+                <li><a href="mie-ricette.html">Le mie ricette</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>I miei piatti del cuore</h2>
+            <p>Clicca su una ricetta per scoprire foto, ingredienti e il procedimento completo!</p>
+            
+            <div id="listaRicetteCard" class="griglia-ricette">
+                <!-- Le ricette compariranno qui in automatico grazie al file JSON -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Made by Anna</p>
+    </footer>
+
+    <script>
+        // Legge il file JSON e crea le card con le foto in automatico
+        fetch("ricette.json")
+            .then(response => response.json())
+            .then(data => {
+                const contenitore = document.getElementById("listaRicetteCard");
+                contenitore.innerHTML = "";
+
+                Object.keys(data).forEach(nomeRicetta => {
+                    let ricetta = data[nomeRicetta];
+                    let card = document.createElement("div");
+                    card.className = "card-ricetta";
+
+                    card.innerHTML = `
+                        <img src="${ricetta.foto}" alt="${nomeRicetta}" onerror="this.src='https://via.placeholder.com/280x180?text=Foto+in+arrivo'">
+                        <h3>${nomeRicetta}</h3>
+                        <a href="dettaglio-ricetta.html?nome=${encodeURIComponent(nomeRicetta)}">Leggi la ricetta</a>
+                    `;
+                    contenitore.appendChild(card);
+                });
+            });
+    </script>
+</body>
+</html>
+        <p>Made by Anna</p>
+    </footer>
+</body>
+</html>
