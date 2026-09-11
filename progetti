@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Made by Anna - Progetti</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>I miei lavori</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ricette.html">Ricette</a></li>
+                <li><a href="progetti.html">Progetti</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="progetto-card">
+            <img src="foto-progetto1.jpg" alt="Il mio progetto a maglia" class="progetto-img">
+            <div class="progetto-testo">
+                <h2>Nome del progetto (es. Coperta o Maglione)</h2>
+                <p>Qui puoi raccontare qualcosa sul progetto: che tipo di lana hai usato, quanto ci hai messo a farlo o il punto che hai preferito.</p>
+            </div>
+        </section>
+
+        <!-- Puoi duplicare il blocco qui sopra se vuoi aggiungere altri progetti -->
+    </main>
+
+    <footer>
+        <p>Made by Anna</p>
+    </footer>
+</body>
+</html>
