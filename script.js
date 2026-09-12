@@ -37,17 +37,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function mostraRicetta(ricetta) {
     const dettagliRicetta = document.getElementById("dettagliRicetta");
+    if (!dettagliRicetta) return;
     dettagliRicetta.innerHTML = "";
 
     if (!ricetta) return;
 
     const r = ricette[ricetta];
+    if (!r) return;
 
     let html = `<h2>${ricetta}</h2>`;
-    html += `<p><strong>Porzioni standard:</strong> ${r.porzioni}</p>`;
+    html += `<p><strong>Porzioni standard:</strong> ${r.porzioni || 1}</p>`;
 
     // Gestione teglia
-    if (r.teglia && r.teglia.forma !== "nessuna") {
+    if (r.teglia && r.teglia.forma && r.teglia.forma !== "nessuna") {
         html += `<p><strong>Teglia:</strong> ${r.teglia.forma}`;
         if (r.teglia.forma === "rettangolare") {
             html += ` (${r.teglia.larghezza}x${r.teglia.lunghezza} cm)`;
@@ -56,6 +58,45 @@ function mostraRicetta(ricetta) {
         }
         html += `</p>`;
     }
+
+    // Foto se presente
+    if (r.foto) {
+        html += `<img src="${r.foto}" alt="${ricetta}" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">`;
+    }
+
+    html += `<h3>Ingredienti base</h3>`;
+    html += generaHTMLIngredienti(r.ingredienti);
+
+    // Sezione di calcolo dosi dinamico
+    html += `
+        <hr style="margin: 20px 0;">
+        <h3>Modifica quantità</h3>
+        <label for="criterio">Scegli il criterio:</label>
+        <select id="criterio" onchange="aggiornaECalcola()">
+            <option value="porzioni">Numero di porzioni</option>
+            ${r.teglia && r.teglia.forma === "tonda" ? '<option value="teglia">Diametro della teglia (cm)</option>' : ''}
+        </select>
+        <br><br>
+        <label id="etichettaValore" for="valore">Nuovo numero di porzioni:</label><br>
+        <input type="number" id="valore" value="${r.porzioni || 1}" step="any" oninput="calcolaIngredienti()" style="width: 100%; padding: 8px; margin-top: 5px;">
+        
+        <div id="risultatoCalcolo" style="margin-top: 20px;"></div>
+    `;
+
+    // Procedimento se presente
+    if (r.procedimento && r.procedimento.length > 0) {
+        html += `<h3>Procedimento</h3><ol>`;
+        r.procedimento.forEach(passo => {
+            html += `<li>${passo}</li>`;
+        });
+        html += `</ol>`;
+    }
+
+    dettagliRicetta.innerHTML = html;
+    
+    // Calcola subito il risultato iniziale all'apertura
+    calcolaIngredienti();
+}
 
     // Foto se presente
     if (r.foto) {
