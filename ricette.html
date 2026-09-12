@@ -136,19 +136,16 @@
         <p>Made by Anna</p>
     </footer>
 
-    <!-- Script che gestisce tutto -->
+    <!-- Script che carica la vetrina e le tab -->
     <script src="script.js"></script>
     <script>
-
         let datiGlobali = {};
 
-        // Carica i dati all'avvio
         fetch("ricette.json")
             .then(response => response.json())
             .then(data => {
                 datiGlobali = data;
                 creaVetrina(data);
-                popolaSelectCalcolatore(data);
             });
 
         function creaVetrina(data) {
@@ -175,7 +172,6 @@
             let dettaglio = document.getElementById("vistaDettaglio");
             dettaglio.classList.add("visibile");
 
-            // Generazione procedimento
             let htmlProc = "<ol>";
             if (r.procedimento && r.procedimento.length > 0) {
                 r.procedimento.forEach(passo => {
@@ -186,11 +182,8 @@
             }
             htmlProc += "</ol>";
 
-            // Generazione ingredienti raggruppati per categoria
             let htmlIng = "";
             let primiKeys = Object.keys(r.ingredienti);
-            
-            // Controlla se gli ingredienti sono raggruppati (es. Craquelin, Choux) o piatti
             let eGruppi = primiKeys.length > 0 && typeof r.ingredienti[primiKeys[0]] === 'object' && !r.ingredienti[primiKeys[0]].hasOwnProperty('quantità');
 
             if (eGruppi) {
@@ -222,51 +215,6 @@
             `;
         }
 
-        function popolaSelectCalcolatore(data) {
-            const select = document.getElementById("selezionaRicetta");
-            select.innerHTML = '<option value="">-- Seleziona una ricetta --</option>';
-            Object.keys(data).forEach(nome => {
-                let opt = document.createElement("option");
-                opt.value = nome;
-                opt.textContent = nome;
-                select.appendChild(opt);
-            });
-
-            select.onchange = function() {
-                let nomeRicetta = this.value;
-                let divDettagli = document.getElementById("dettagliRicetta");
-                if (!nomeRicetta) {
-                    divDettagli.innerHTML = "";
-                    return;
-                }
-                let r = data[nomeRicetta];
-                let htmlIngCal = "";
-                let primiKeys = Object.keys(r.ingredienti);
-                let eGruppi = primiKeys.length > 0 && typeof r.ingredienti[primiKeys[0]] === 'object' && !r.ingredienti[primiKeys[0]].hasOwnProperty('quantità');
-
-                if (eGruppi) {
-                    primiKeys.forEach(categoria => {
-                        htmlIngCal += `<strong>${categoria}:</strong><ul>`;
-                        let ingredientiCat = r.ingredienti[categoria];
-                        Object.keys(ingredientiCat).forEach(ing => {
-                            let item = ingredientiCat[ing];
-                            htmlIngCal += `<li>${ing}: ${item.quantità} ${item.unità}</li>`;
-                        });
-                        htmlIngCal += `</ul>`;
-                    });
-                } else {
-                    htmlIngCal += "<ul>";
-                    primiKeys.forEach(ing => {
-                        let item = r.ingredienti[ing];
-                        htmlIngCal += `<li>${ing}: ${item.quantità} ${item.unità}</li>`;
-                    });
-                    htmlIngCal += "</ul>";
-                }
-
-                divDettagli.innerHTML = `<h3>${nomeRicetta}</h3>${htmlIngCal}`;
-            };
-        }
-
         function mostraVetrina() {
             document.getElementById("vistaDettaglio").classList.remove("visibile");
             document.getElementById("vistaCalcolatore").classList.remove("visibile");
@@ -284,7 +232,6 @@
             document.getElementById("btnCalcolatore").classList.add("attivo");
             document.getElementById("btnVetrina").classList.remove("attivo");
         }
-    
     </script>
 </body>
 </html>
