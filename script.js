@@ -176,16 +176,16 @@ function calcolaIngredienti() {
         let resHTML = `<ul>`;
         for (let key in obj) {
             let item = obj[key];
-            if (item.hasOwnProperty('quantità')) {
+            if (item && typeof item === 'object' && item.hasOwnProperty('quantità')) {
                 let nuovaQta = item.quantità * fattore;
-                if (item.unità === "uova" || item.unità === "pezzi" || item.unità === "pizzico") {
+                if (item.unità === "uova" || item.unità === "pezzi" || item.unità === "pizzico" || item.unità === "limone") {
                     nuovaQta = Math.round(nuovaQta);
                     if (nuovaQta < 1 && item.quantità > 0) nuovaQta = 1;
                 } else {
                     nuovaQta = Math.round(nuovaQta * 10) / 10;
                 }
                 resHTML += `<li><strong>${key}:</strong> ${nuovaQta} ${item.unità}</li>`;
-            } else {
+            } else if (item && typeof item === 'object') {
                 resHTML += `<li><strong>${key}</strong>`;
                 resHTML += scalaElementi(item, fattore);
                 resHTML += `</li>`;
