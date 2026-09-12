@@ -12,12 +12,13 @@ document.addEventListener("DOMContentLoaded", function () {
             ricette = data;
             popolaMenuRicette();
         })
-        .catch(error => console.error("Errore:", error));
+        .catch(error => console.error("Errore di caricamento JSON:", error));
 
     function popolaMenuRicette() {
         const selectRicetta = document.getElementById("selezionaRicetta");
         if (!selectRicetta) return;
         
+        selectRicetta.innerHTML = '<option value="">-- Seleziona una ricetta --</option>';
         Object.keys(ricette).forEach(ricetta => {
             let option = document.createElement("option");
             option.value = ricetta;
@@ -63,46 +64,23 @@ function mostraRicetta(ricetta) {
 
     html += `<h3>Ingredienti base</h3>`;
 
-    // Funzione di supporto per capire se l'oggetto ha sottocategorie (es. Choux, Crema) o ingredienti diretti
-    let haSottocategorie = false;
-    for (let chiave in r.ingredienti) {
-        if (typeof r.ingredienti[chiave] === 'object' && r.ingredienti[chiave] !== null && !r.ingredienti[chiave].hasOwnProperty('quantità')) {
-            haSottocategorie = true;
-            break;
-        }
-    }
-
-    if (haSottocategorie) {
-        for (let categoria in r.ingredienti) {
-            html += `<h4>${categoria}</h4><ul>`;
-            let sottogruppo = r.ingredienti[categoria];
-            for (let ing in sottogruppo) {
-                let dati = sottogruppo[ing];
-                html += `<li>${ing}: ${dati.quantità} ${dati.unità}</li>`;
-            }
-            html += `</ul>`;
-        }
-    } else {
-        html += `<ul>`;
-        for (let ing in r.ingredienti) {
-            let dati = r.ingredienti[ing];
-            html += `<li>${ing}: ${dati.quantità} ${dati.unità}</li>`;
-        }
-        html += `</ul>`;
-    }
+    // Visualizzazione ingredienti (supporta categorie o lista piatta)
+    html += generaHTMLIngredienti(r.ingredienti);
 
     // Sezione di calcolo dosi
     html += `
+        <hr style="margin: 20px 0;">
         <h3>Modifica quantità</h3>
         <label for="criterio">Scegli il criterio:</label>
-        <select id="criterio">
+        <select id="criterio" onchange="aggiornaEtichettaInput()">
             <option value="porzioni">Numero di porzioni</option>
-            ${r.teglia && r.teglia.forma === "tonda" ? '<option value="teglia">Dimensione della teglia (Area cm²)</option>' : ''}
+            ${r.teglia && r.teglia.forma === "tonda" ? '<option value="teglia">Diametro della teglia (cm)</option>' : ''}
         </select>
         <br><br>
-        <input type="number" id="valore" value="${r.porzioni}" step="any">
+        <label id="etichettaValore" for="valore">Nuovo numero di porzioni:</label><br>
+        <input type="number" id="valore" value="${r.porzioni}" step="any" style="width: 100%; padding: 8px; margin-top: 5px;">
         <br><br>
-        <button onclick="calcolaIngredienti()">Calcola nuove dosi</button>
+        <button onclick="calcolaIngredienti()" style="padding: 10px 15px; background: #d97706; color: white; border: none; border-radius: 4px; cursor: pointer;">Calcola nuove dosi</button>
         
         <div id="risultatoCalcolo" style="margin-top: 20px;"></div>
     `;
@@ -117,6 +95,53 @@ function mostraRicetta(ricetta) {
     }
 
     dettagliRicetta.innerHTML = html;
+}
+
+function generaHTMLIngredienti(obj) {
+    let haSottocategorie = false;
+    for (let chiave in obj) {
+        if (typeof obj[chiave] === 'object' && obj[chiave] !== null && !obj[chiave].hasOwnProperty('quantità')) {
+            haSottocategorie = true;
+            break;
+        }
+    }
+
+    let html = `<ul>`;
+    if (haSottocategorie) {
+        for (let categoria in obj) {
+            html += `<li><strong>${categoria}</strong><ul>`;
+            let sottogruppo = obj[categoria];
+            for (let ing in sottogruppo) {
+                let dati = sottogruppo[ing];
+                html += `<li>${ing}: ${dati.quantità} ${dati.unità}</li>`;
+            }
+            html += `</ul></li>`;
+        }
+    } else {
+        for (let ing in obj) {
+            let dati = obj[ing];
+            html += `<li>${ing}: ${dati.quantità} ${dati.unità}</li>`;
+        }
+    }
+    html += `</ul>`;
+    return html;
+}
+
+function aggiornaEtichettaInput() {
+    const criterio = document.getElementById("criterio").value;
+    const etichetta = document.getElementById("etichettaValore");
+    const inputValore = document.getElementById("valore");
+    
+    const selectRicetta = document.getElementById("selezionaRicetta");
+    const r = ricette[selectRicetta.value];
+
+    if (criterio === "porzioni") {
+        etichetta.textContent = "Nuovo numero di porzioni:";
+        inputValore.value = r.porzioni;
+    } else if (criterio === "teglia") {
+        etichetta.textContent = "Nuovo diametro della teglia (cm):";
+        inputValore.value = r.teglia.diametro;
+    }
 }
 
 function calcolaIngredienti() {
@@ -141,25 +166,11 @@ function calcolaIngredienti() {
     if (criterio === "porzioni") {
         fattoreScala = valore / r.porzioni;
     } else if (criterio === "teglia" && r.teglia.forma === "tonda") {
-        let raggioBase = r.teglia.diametro / 2;
-        let areaBase = Math.PI * Math.pow(raggioBase, 2);
-        
-        let nuovoRaggio = Math.sqrt(valore / Math.PI);
-        let nuovoDiametro = nuovoRaggio * 2;
-        
-        let areaNuova = valore; 
-        fattoreScala = areaNuova / areaBase;
+        // Calcolo basato sul rapporto delle aree usando i diametri: (nuovoDiametro / vecchioDiametro)^2
+        let diametroVecchio = r.teglia.diametro;
+        let diametroNuovo = valore;
+        fattoreScala = Math.pow(diametroNuovo / diametroVecchio, 2);
     }
-
-    let haSottocategorie = false;
-    for (let chiave in r.ingredienti) {
-        if (typeof r.ingredienti[chiave] === 'object' && r.ingredienti[chiave] !== null && !r.ingredienti[chiave].hasOwnProperty('quantità')) {
-            haSottocategorie = true;
-            break;
-        }
-    }
-
-    let htmlRisultato = `<h4>Dosi ricalcolate:</h4>`;
 
     function scalaElementi(obj, fattore) {
         let resHTML = `<ul>`;
@@ -167,8 +178,9 @@ function calcolaIngredienti() {
             let item = obj[key];
             if (item.hasOwnProperty('quantità')) {
                 let nuovaQta = item.quantità * fattore;
-                if (item.unità === "uova" || item.unità === "pezzi") {
+                if (item.unità === "uova" || item.unità === "pezzi" || item.unità === "pizzico") {
                     nuovaQta = Math.round(nuovaQta);
+                    if (nuovaQta < 1 && item.quantità > 0) nuovaQta = 1; // Evita lo zero se c'è un pizzico
                 } else {
                     nuovaQta = Math.round(nuovaQta * 10) / 10;
                 }
@@ -183,6 +195,7 @@ function calcolaIngredienti() {
         return resHTML;
     }
 
+    let htmlRisultato = `<h4>Dosi ricalcolate:</h4>`;
     htmlRisultato += scalaElementi(r.ingredienti, fattoreScala);
     divRisultato.innerHTML = htmlRisultato;
 }
