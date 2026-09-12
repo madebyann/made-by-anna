@@ -164,7 +164,6 @@ function calcolaIngredienti() {
         let quantitaBase = 0;
         
         if (haCategorie) {
-            // Cerca l'ingrediente dentro le categorie
             for (let cat of primeKeys) {
                 if (datiRicetta.ingredienti[cat][ingScelto]) {
                     quantitaBase = datiRicetta.ingredienti[cat][ingScelto].quantità;
@@ -217,7 +216,3 @@ function calcolaIngredienti() {
 
     divRisultato.innerHTML = htmlRisultato;
 }
-    htmlRisultato += `</ul>`;
-
-    divRisultato.innerHTML = htmlRisultato;
-
