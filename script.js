@@ -1,7 +1,7 @@
 let ricette = {};
 
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("./ricette.json")
+    fetch("ricette.json")
         .then(response => {
             if (!response.ok) {
                 throw new Error("Impossibile caricare il file delle ricette");
@@ -47,7 +47,7 @@ function mostraRicetta(ricetta) {
     html += `<p><strong>Porzioni standard:</strong> ${r.porzioni}</p>`;
 
     // Gestione teglia
-    if (r.teglia) {
+    if (r.teglia && r.teglia.forma !== "nessuna") {
         html += `<p><strong>Teglia:</strong> ${r.teglia.forma}`;
         if (r.teglia.forma === "rettangolare") {
             html += ` (${r.teglia.larghezza}x${r.teglia.lunghezza} cm)`;
@@ -63,24 +63,20 @@ function mostraRicetta(ricetta) {
     }
 
     html += `<h3>Ingredienti base</h3>`;
-
-    // Visualizzazione ingredienti (supporta categorie o lista piatta)
     html += generaHTMLIngredienti(r.ingredienti);
 
-    // Sezione di calcolo dosi
+    // Sezione di calcolo dosi dinamico
     html += `
         <hr style="margin: 20px 0;">
         <h3>Modifica quantità</h3>
         <label for="criterio">Scegli il criterio:</label>
-        <select id="criterio" onchange="aggiornaEtichettaInput()">
+        <select id="criterio" onchange="aggiornaECalcola()">
             <option value="porzioni">Numero di porzioni</option>
             ${r.teglia && r.teglia.forma === "tonda" ? '<option value="teglia">Diametro della teglia (cm)</option>' : ''}
         </select>
         <br><br>
         <label id="etichettaValore" for="valore">Nuovo numero di porzioni:</label><br>
-        <input type="number" id="valore" value="${r.porzioni}" step="any" style="width: 100%; padding: 8px; margin-top: 5px;">
-        <br><br>
-        <button onclick="calcolaIngredienti()" style="padding: 10px 15px; background: #d97706; color: white; border: none; border-radius: 4px; cursor: pointer;">Calcola nuove dosi</button>
+        <input type="number" id="valore" value="${r.porzioni}" step="any" oninput="calcolaIngredienti()" style="width: 100%; padding: 8px; margin-top: 5px;">
         
         <div id="risultatoCalcolo" style="margin-top: 20px;"></div>
     `;
@@ -95,6 +91,9 @@ function mostraRicetta(ricetta) {
     }
 
     dettagliRicetta.innerHTML = html;
+    
+    // Calcola subito il risultato iniziale all'apertura
+    calcolaIngredienti();
 }
 
 function generaHTMLIngredienti(obj) {
@@ -127,7 +126,7 @@ function generaHTMLIngredienti(obj) {
     return html;
 }
 
-function aggiornaEtichettaInput() {
+function aggiornaECalcola() {
     const criterio = document.getElementById("criterio").value;
     const etichetta = document.getElementById("etichettaValore");
     const inputValore = document.getElementById("valore");
@@ -142,6 +141,8 @@ function aggiornaEtichettaInput() {
         etichetta.textContent = "Nuovo diametro della teglia (cm):";
         inputValore.value = r.teglia.diametro;
     }
+    
+    calcolaIngredienti();
 }
 
 function calcolaIngredienti() {
@@ -166,7 +167,6 @@ function calcolaIngredienti() {
     if (criterio === "porzioni") {
         fattoreScala = valore / r.porzioni;
     } else if (criterio === "teglia" && r.teglia.forma === "tonda") {
-        // Calcolo basato sul rapporto delle aree usando i diametri: (nuovoDiametro / vecchioDiametro)^2
         let diametroVecchio = r.teglia.diametro;
         let diametroNuovo = valore;
         fattoreScala = Math.pow(diametroNuovo / diametroVecchio, 2);
@@ -180,7 +180,7 @@ function calcolaIngredienti() {
                 let nuovaQta = item.quantità * fattore;
                 if (item.unità === "uova" || item.unità === "pezzi" || item.unità === "pizzico") {
                     nuovaQta = Math.round(nuovaQta);
-                    if (nuovaQta < 1 && item.quantità > 0) nuovaQta = 1; // Evita lo zero se c'è un pizzico
+                    if (nuovaQta < 1 && item.quantità > 0) nuovaQta = 1;
                 } else {
                     nuovaQta = Math.round(nuovaQta * 10) / 10;
                 }
