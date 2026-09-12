@@ -9,19 +9,16 @@
     <h1>Calcolatore per ricette</h1>
     
     <label for="ricetta">Scegli una ricetta:</label>
-    <select id="ricetta">
+    <select id="ricetta" onchange="calcolaRicetta()">
         <option value="tiramisu">Tiramisù</option>
-        <!-- Puoi aggiungere altre ricette qui -->
     </select>
     
     <br><br>
     
     <label for="porzioni">Numero di porzioni:</label>
-    <input type="number" id="porzioni" value="4" min="1">
+    <input type="number" id="porzioni" value="4" min="1" oninput="calcolaRicetta()">
     
-    <button onclick="calcolaRicetta()">Calcola le nuove quantità</button>
-    
-    <h2>Ingredienti per il Tiramisù:</h2>
+    <h2>Ingredienti:</h2>
     <ul id="ingredienti"></ul>
     
     <script>
@@ -31,9 +28,9 @@
                 ingredienti: {
                     mascarpone: 500,  // grammi
                     uova: 4,          // numero
-                    zucchero: 100,     // grammi
-                    savoiardi: 200,    // grammi
-                    caffè: 200         // ml
+                    zucchero: 100,    // grammi
+                    savoiardi: 200,   // grammi
+                    caffè: 200        // ml
                 }
             }
         };
@@ -43,21 +40,28 @@
             const numPorzioni = document.getElementById("porzioni").value;
             const ricetta = ricette[ricettaSelezionata];
             
+            if (!ricetta) return;
+            
             const fattoreMoltiplicazione = numPorzioni / ricetta.porzioni;
             const ingredientiModificati = Object.keys(ricetta.ingredienti).map(ingrediente => {
-                return `${ingrediente}: ${Math.round(ricetta.ingredienti[ingrediente] * fattoreMoltiplicazione)} ${getUnita(ingrediente)}`;
+                let quantita = Math.round(ricetta.ingredienti[ingrediente] * fattoreMoltiplicazione);
+                return `<li>${ingrediente}: ${quantita} ${getUnita(ingrediente)}</li>`;
             });
             
-            document.getElementById("ingredienti").innerHTML = ingredientiModificati.join('<br>');
+            document.getElementById("ingredienti").innerHTML = ingredientiModificati.join('');
         }
         
         function getUnita(ingrediente) {
-            // Funzione per restituire l'unità di misura giusta
-            if (ingrediente === 'savoiardi') return 'grammi';
+            if (ingrediente === 'savoiardi' || ingrediente === 'mascarpone' || ingrediente === 'zucchero') return 'grammi';
             if (ingrediente === 'caffè') return 'ml';
             if (ingrediente === 'uova') return 'numero';
             return 'grammi';
         }
+
+        // Avvia il calcolo non appena la pagina viene caricata
+        window.onload = function() {
+            calcolaRicetta();
+        };
     </script>
 </body>
 </html>
