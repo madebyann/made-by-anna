@@ -135,7 +135,7 @@ function mostraRicetta(ricetta) {
     
     // Calcola subito il risultato iniziale all'apertura
     calcolaIngredienti();
-}
+
 
 function generaHTMLIngredienti(obj) {
     let haSottocategorie = false;
