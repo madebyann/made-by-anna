@@ -220,4 +220,4 @@ function calcolaIngredienti() {
     htmlRisultato += `</ul>`;
 
     divRisultato.innerHTML = htmlRisultato;
-}
+
