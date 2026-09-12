@@ -98,45 +98,6 @@ function mostraRicetta(ricetta) {
     calcolaIngredienti();
 }
 
-    // Foto se presente
-    if (r.foto) {
-        html += `<img src="${r.foto}" alt="${ricetta}" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">`;
-    }
-
-    html += `<h3>Ingredienti base</h3>`;
-    html += generaHTMLIngredienti(r.ingredienti);
-
-    // Sezione di calcolo dosi dinamico
-    html += `
-        <hr style="margin: 20px 0;">
-        <h3>Modifica quantità</h3>
-        <label for="criterio">Scegli il criterio:</label>
-        <select id="criterio" onchange="aggiornaECalcola()">
-            <option value="porzioni">Numero di porzioni</option>
-            ${r.teglia && r.teglia.forma === "tonda" ? '<option value="teglia">Diametro della teglia (cm)</option>' : ''}
-        </select>
-        <br><br>
-        <label id="etichettaValore" for="valore">Nuovo numero di porzioni:</label><br>
-        <input type="number" id="valore" value="${r.porzioni}" step="any" oninput="calcolaIngredienti()" style="width: 100%; padding: 8px; margin-top: 5px;">
-        
-        <div id="risultatoCalcolo" style="margin-top: 20px;"></div>
-    `;
-
-    // Procedimento se presente
-    if (r.procedimento && r.procedimento.length > 0) {
-        html += `<h3>Procedimento</h3><ol>`;
-        r.procedimento.forEach(passo => {
-            html += `<li>${passo}</li>`;
-        });
-        html += `</ol>`;
-    }
-
-    dettagliRicetta.innerHTML = html;
-    
-    // Calcola subito il risultato iniziale all'apertura
-    calcolaIngredienti();
-
-
 function generaHTMLIngredienti(obj) {
     let haSottocategorie = false;
     for (let chiave in obj) {
@@ -173,7 +134,9 @@ function aggiornaECalcola() {
     const inputValore = document.getElementById("valore");
     
     const selectRicetta = document.getElementById("selezionaRicetta");
+    if (!selectRicetta) return;
     const r = ricette[selectRicetta.value];
+    if (!r) return;
 
     if (criterio === "porzioni") {
         etichetta.textContent = "Nuovo numero di porzioni:";
