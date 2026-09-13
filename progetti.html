@@ -8,7 +8,7 @@
     <style>
         .sezione-contenuto {
             display: none;
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
             text-align: left;
             background: white;
@@ -20,12 +20,33 @@
             display: block;
             margin-top: 20px;
         }
-        .sezione-contenuto img {
+        /* Foto principale grande */
+        .foto-principale {
             width: 100%;
-            max-height: 350px;
+            max-height: 450px;
             object-fit: cover;
             border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        /* Griglia per le foto secondarie (dettagli) */
+        .griglia-foto-extra {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
             margin-bottom: 20px;
+        }
+        .griglia-foto-extra img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            border: 2px solid transparent;
+        }
+        .griglia-foto-extra img:hover {
+            opacity: 0.8;
+            border-color: #b5657d;
         }
         .pulsante-indietro {
             display: inline-block;
@@ -54,15 +75,13 @@
     </header>
 
     <main>
-        <!-- GALLERIA DEI PROGETTI -->
+        <!-- GALLERIA PRINCIPALE -->
         <div id="vistaGalleria">
-            <p>Clicca su un progetto per scoprire i dettagli e le note di realizzazione.</p>
-            <div id="grigliaProgetti" class="gallery-container">
-                <!-- Caricati dinamicamente da progetti.json -->
-            </div>
+            <p>Clicca su un progetto per guardare le foto e i dettagli.</p>
+            <div id="grigliaProgetti" class="gallery-container"></div>
         </div>
 
-        <!-- DETTAGLIO SINGOLO PROGETTO (Nascosto finché non clicchi) -->
+        <!-- DETTAGLIO DEL SINGOLO PROGETTO -->
         <div id="vistaDettaglio" class="sezione-contenuto">
             <button class="pulsante-indietro" onclick="mostraGalleria()">← Torna alla galleria</button>
             <div id="corpoDettaglioProgetto"></div>
@@ -73,7 +92,6 @@
         <p>Made by Anna</p>
     </footer>
 
-    <!-- Script per la gestione dinamica -->
     <script>
         fetch("progetti.json")
             .then(response => response.json())
@@ -87,11 +105,14 @@
 
             Object.keys(data).forEach(nome => {
                 let p = data[nome];
+                // Prende la prima foto della lista come copertina della card
+                let fotoCopertina = p.fotoGalleria && p.fotoGalleria.length > 0 ? p.fotoGalleria[0] : '';
+                
                 let card = document.createElement("div");
                 card.className = "gallery-item";
                 card.style.cursor = "pointer";
                 card.innerHTML = `
-                    <img src="${p.foto || ''}" alt="${nome}" onerror="this.src='https://via.placeholder.com/280x180?text=Foto+in+arrivo'">
+                    <img src="${fotoCopertina}" alt="${nome}" onerror="this.src='https://via.placeholder.com/280x180?text=Foto+in+arrivo'">
                     <div class="gallery-caption">
                         <h3>${nome}</h3>
                         <p>${p.filato} - ${p.data}</p>
@@ -104,18 +125,35 @@
 
         function apriDettaglio(nome, p) {
             document.getElementById("vistaGalleria").style.display = "none";
+            document.getElementById("vistaDettaglio").classList.add("visibile");
+
+            let fotoList = p.fotoGalleria || [];
+            let fotoPrincipale = fotoList.length > 0 ? fotoList[0] : '';
+
+            // Genera la foto principale e le miniature extra sotto
+            let htmlFoty = `<img id="immaginePrincipale" src="${fotoPrincipale}" alt="${nome}" class="foto-principale" onerror="this.src='https://via.placeholder.com/800x450?text=Foto+in+arrivo'">`;
             
-            let dettaglio = document.getElementById("vistaDettaglio");
-            dettaglio.classList.add("visibile");
+            if (fotoList.length > 1) {
+                htmlFoty += `<div class="griglia-foto-extra">`;
+                fotoList.forEach(foto => {
+                    htmlFoty += `<img src="${foto}" alt="Dettaglio" onclick="cambiaFotoPrincipale('${foto}')">`;
+                });
+                htmlFoty += `</div>`;
+            }
 
             document.getElementById("corpoDettaglioProgetto").innerHTML = `
                 <h2>${nome}</h2>
-                <img src="${p.foto || ''}" alt="${nome}" onerror="this.src='https://via.placeholder.com/700x350?text=Foto+in+arrivo'">
-                <p><strong>Periodo:</strong> ${p.data}</p>
-                <p><strong>Materiali:</strong> ${p.filato}</p>
-                <h3 style="margin-top: 20px;">Note sul progetto</h3>
-                <p style="line-height: 1.6;">${p.descrizione}</p>
+                <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">${p.filato} • ${p.data}</p>
+                
+                ${htmlFoty}
+                
+                <p style="line-height: 1.6; margin-top: 15px;">${p.descrizione}</p>
             `;
+        }
+
+        // Funzione per cambiare la foto grande cliccando sulle miniature
+        window.cambiaFotoPrincipale = function(srcFoto) {
+            document.getElementById("immaginePrincipale").src = srcFoto;
         }
 
         function mostraGalleria() {
