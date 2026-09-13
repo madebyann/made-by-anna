@@ -64,9 +64,7 @@ function mostraRicetta(ricetta) {
         html += `<img src="${r.foto}" alt="${ricetta}" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">`;
     }
 
-    html += `<h3>Ingredienti base</h3>`;
-    html += generaHTMLIngredienti(r.ingredienti);
-
+   
     // Sezione di calcolo dosi dinamico
     html += `
         <hr style="margin: 20px 0;">
