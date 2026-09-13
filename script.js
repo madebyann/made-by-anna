@@ -83,14 +83,6 @@ function mostraRicetta(ricetta) {
         <div id="risultatoCalcolo" style="margin-top: 20px;"></div>
     `;
 
-    // Procedimento se presente
-    if (r.procedimento && r.procedimento.length > 0) {
-        html += `<h3>Procedimento</h3><ol>`;
-        r.procedimento.forEach(passo => {
-            html += `<li>${passo}</li>`;
-        });
-        html += `</ol>`;
-    }
 
     dettagliRicetta.innerHTML = html;
     
