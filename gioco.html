@@ -3,94 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Made by Anna - Mini Gioco Grafi</title>
+    <title>Made by Anna - Mini Rompicapo</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .gioco-container {
             max-width: 600px;
-            margin: 20px auto;
+            margin: 30px auto;
+            text-align: center;
             background: white;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            text-align: center;
         }
-        canvas {
-            background: #faf8f5;
-            border-radius: 8px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-            cursor: pointer;
-            margin: 20px 0;
-        }
-        .palette {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+        .istruzioni-gioco {
             margin-bottom: 20px;
+            color: #666;
+            line-height: 1.5;
         }
-        .colore-btn {
-            width: 40px;
-            height: 40px;
+        /* Griglia dei nodi del grafo */
+        #grigliaGrafo {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 20px;
+            justify-content: center;
+            margin: 30px auto;
+            position: relative;
+        }
+        .nodo {
+            width: 100px;
+            height: 100px;
+            background: #f7f3f5;
+            border: 2px solid #b5657d;
             border-radius: 50%;
-            border: 3px solid transparent;
-            cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        .colore-btn.attivo {
-            border-color: #333;
-            transform: scale(1.1);
-        }
-        .messaggio {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            margin-top: 15px;
-            min-height: 24px;
+            color: #b5657d;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .btn-azione {
+        .nodo:hover {
+            background: #b5657d;
+            color: white;
+            transform: scale(1.05);
+        }
+        .nodo.attivo {
+            background: #b5657d;
+            color: white;
+            box-shadow: 0 0 15px rgba(181, 101, 125, 0.6);
+        }
+        .nodo.risolto {
+            background: #4bb543;
+            border-color: #4bb543;
+            color: white;
+        }
+        #messaggioVittoria {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4bb543;
+            margin-top: 20px;
+            min-height: 30px;
+        }
+        .btn-reset {
             background: #b5657d;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 6px;
-            font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: opacity 0.2s;
         }
-        .btn-azione:hover {
+        .btn-reset:hover {
             opacity: 0.9;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Rompicapo a Grafo</h1>
+        <h1>Teoria dei Grafi</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="me.html">Chi sono</a></li>
                 <li><a href="ricette.html">Ricette</a></li>
                 <li><a href="progetti.html">Progetti</a></li>
-                <li><a href="gioco.html">Gioco</a></li>
+                <li><a href="gioco.html">Mini-Game</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <div class="gioco-container">
-            <h2>Colorazione dei Nodi</h2>
-            <p>Seleziona un colore dalla tavolozza e clicca sui nodi per colorarli. Attenzione: **due nodi collegati da una linea non possono avere lo stesso colore**!</p>
-            
-            <!-- Tavolozza dei colori -->
-            <div class="palette" id="palette">
-                <div class="colore-btn attivo" style="background-color: #e76f51;" onclick="selezionaColore('#e76f51', 0)"></div>
-                <div class="colore-btn" style="background-color: #2a9d8f;" onclick="selezionaColore('#2a9d8f', 1)"></div>
-                <div class="colore-btn" style="background-color: #e9c46a;" onclick="selezionaColore('#e9c46a', 2)"></div>
+            <h2>Attiva la Rete</h2>
+            <p class="istruzioni-gioco">
+                Collega tutti i nodi della rete! Clicca sui nodi in sequenza per accenderli tutti senza saltarne nessuno. Se sbagli sequenza, la rete si interrompe.
+            </p>
+
+            <div id="grigliaGrafo">
+                <!-- Generati via JavaScript -->
             </div>
 
-            <!-- Canvas del Grafo -->
-            <canvas id="grafoCanvas" width="450" height="350"></canvas>
-
-            <div class="messaggio" id="messaggioVittoria"></div>
-            <button class="btn-azione" onclick="nuovaPartita()">Nuovo Grafo</button>
+            <div id="messaggioVittoria"></div>
+            <button class="btn-reset" onclick="inizializzaGioco()">Ricomincia</button>
         </div>
     </main>
 
@@ -99,118 +119,63 @@
     </footer>
 
     <script>
-        const canvas = document.getElementById("grafoCanvas");
-        const ctx = canvas.getContext("2d");
+        // Logica del mini-gioco di connessione nodi (Grafo)
+        const totaleNodi = 9;
+        let sequenzaCorretta = [];
+        let passoAttuale = 0;
+        let giocoCompletato = false;
 
-        // Definizione di un grafo semplice (Nodi con coordinate x, y e lista di adiacenza)
-        let nodi = [
-            { x: 100, y: 100, colore: null },
-            { x: 350, y: 90,  colore: null },
-            { x: 225, y: 200, colore: null },
-            { x: 120, y: 280, colore: null },
-            { x: 330, y: 270, colore: null }
-        ];
-
-        let archi = [
-            [0, 1], [0, 2], [1, 2], [0, 3], [2, 3], [2, 4], [3, 4], [1, 4]
-        ];
-
-        let coloreCorrente = "#e76f51";
-
-        function selezionaColore(colore, index) {
-            coloreCorrente = colore;
-            document.querySelectorAll('.colore-btn').forEach((btn, i) => {
-                if(i === index) btn.classList.add('attivo');
-                else btn.classList.remove('attivo');
-            });
-        }
-
-        function disegnaGrafo() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Disegna gli archi
-            archi.forEach(([i, j]) => {
-                let n1 = nodi[i];
-                let n2 = nodi[j];
-                
-                // Controlla se c'è un conflitto di colore
-                let conflitto = (n1.colore !== null && n2.colore !== null && n1.colore === n2.colore);
-                
-                ctx.beginPath();
-                ctx.moveTo(n1.x, n1.y);
-                ctx.lineTo(n2.x, n2.y);
-                ctx.strokeStyle = conflitto ? "#e63946" : "#b0a8b9";
-                ctx.lineWidth = conflitto ? 4 : 2;
-                ctx.stroke();
-            });
-
-            // Disegna i nodi
-            nodi.forEach((n, index) => {
-                ctx.beginPath();
-                ctx.arc(n.x, n.y, 22, 0, Math.PI * 2);
-                ctx.fillStyle = n.colore ? n.colore : "#ffffff";
-                ctx.fill();
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = "#4a404a";
-                ctx.stroke();
-
-                // Numero del nodo
-                ctx.fillStyle = n.colore ? "#ffffff" : "#4a404a";
-                ctx.font = "bold 14px sans-serif";
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText(index + 1, n.x, n.y);
-            });
-
-            controllaVittoria();
-        }
-
-        // Gestione del click sul canvas per colorare il nodo più vicino
-        canvas.addEventListener("click", function(event) {
-            const rect = canvas.getBoundingClientRect();
-            const mouseX = event.clientX - rect.left;
-            const mouseY = event.clientY - rect.top;
-
-            nodi.forEach(n => {
-                let distanza = Math.hypot(n.x - mouseX, n.y - mouseY);
-                if (distanza < 22) {
-                    n.colore = coloreCorrente;
-                }
-            });
-
-            disegnaGrafo();
-        });
-
-        function controllaVittoria() {
-            let msg = document.getElementById("messaggioVittoria");
+        function inizializzaGioco() {
+            giocoCompletato = false;
+            passoAttuale = 0;
+            document.getElementById("messaggioVittoria").innerText = "";
             
-            // Verifica se tutti i nodi sono colorati
-            let tuttiColorati = nodi.every(n => n.colore !== null);
-            if (!tuttiColorati) {
-                msg.textContent = "";
-                return;
+            // Genera una sequenza casuale unica da 0 a 8 per i nodi da cliccare in ordine
+            let numeri = Array.from({length: totaleNodi}, (_, i) => i);
+            sequenzaCorretta = numeri.sort(() => Math.random() - 0.5);
+
+            const griglia = document.getElementById("grigliaGrafo");
+            griglia.innerHTML = "";
+
+            for (let i = 0; i < totaleNodi; i++) {
+                let nodo = document.createElement("div");
+                nodo.className = "nodo";
+                nodo.dataset.id = i;
+                nodo.innerText = `Nodo ${i + 1}`;
+                nodo.onclick = () => gestisciClickNodo(i, nodo);
+                griglia.appendChild(nodo);
             }
+        }
 
-            // Verifica conflitti sugli archi
-            let haConflitti = archi.some(([i, j]) => nodi[i].colore === nodi[j].colore);
+        function gestisciClickNodo(idNodo, elemento) {
+            if (giocoCompletato) return;
 
-            if (haConflitti) {
-                msg.style.color = "#e63946";
-                msg.textContent = "⚠️ Ci sono conflitti (linee rosse)! Due nodi collegati hanno lo stesso colore.";
+            // Controlla se il nodo cliccato è quello corretto nella sequenza logica
+            if (idNodo === sequenzaCorretta[passoAttuale]) {
+                elemento.classList.add("attivo");
+                passoAttuale++;
+
+                if (passoAttuale === totaleNodi) {
+                    giocoCompletato = true;
+                    document.getElementById("messaggioVittoria").innerText = "🎉 Ottimo! Rete perfettamente connessa!";
+                    document.querySelectorAll(".nodo").forEach(n => {
+                        n.classList.remove("attivo");
+                        n.classList.add("risolto");
+                    });
+                }
             } else {
-                msg.style.color = "#2a9d8f";
-                msg.textContent = "🎉 Bravissima! Grafo colorato correttamente senza conflitti!";
+                // Errore: la connessione salta, reset temporaneo visivo
+                document.getElementById("messaggioVittoria").innerText = "❌ Connessione interrotta! Riprova.";
+                document.querySelectorAll(".nodo").forEach(n => n.classList.remove("attivo"));
+                passoAttuale = 0;
+                setTimeout(() => {
+                    if(!giocoCompletato) document.getElementById("messaggioVittoria").innerText = "";
+                }, 1500);
             }
         }
 
-        function nuovaPartita() {
-            nodi.forEach(n => n.colore = null);
-            document.getElementById("messaggioVittoria").textContent = "";
-            disegnaGrafo();
-        }
-
-        // Avvio iniziale
-        disegnaGrafo();
+        // Avvia il gioco al caricamento della pagina
+        inizializzaGioco();
     </script>
 </body>
 </html>
