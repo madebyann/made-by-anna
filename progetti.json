@@ -2,13 +2,20 @@
   "Jenny Sweater": {
     "data": "Ottobre 2025",
     "filato": "Drops Fabel & Drops Kid Silk",
-    "foto": "immagini/jenny-sweater1.jpg",
-    "descrizione": "Qui puoi scrivere tutti i dettagli del Jenny Sweater, le modifiche apportate alla vestibilità, la gestione dei campioni e le note di lavorazione."
+    "fotoGalleria": [
+      "immagini/jenny-sweater1.jpg",
+      "immagini/jenny-sweater2.jpg",
+      "immagini/jenny-sweater3.jpg"
+    ],
+    "descrizione": "Versione customizzata con maniche leggermente più ampie e scollo modificato per una vestibilità più comoda."
   },
   "Sweater no. 15": {
     "data": "Marzo 2025",
     "filato": "Drops Fabel & Drops Kid Silk",
-    "foto": "immagini/sweater-no15.jpg",
-    "descrizione": "Qui inserisci la descrizione approfondita per lo Sweater no.15, la scelta dei ferri e le particolarità della costruzione."
+    "fotoGalleria": [
+      "immagini/sweater-no15.jpg",
+      "immagini/sweater-no15-dettaglio.jpg"
+    ],
+    "descrizione": "Lavorato a doppio capo seguendo fedelmente le istruzioni originali, bloccato a freddo."
   }
 }
