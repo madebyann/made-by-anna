@@ -5,6 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Made by Anna - Progetti</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .sezione-contenuto {
+            display: none;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: left;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .sezione-contenuto.visibile {
+            display: block;
+            margin-top: 20px;
+        }
+        .sezione-contenuto img {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .pulsante-indietro {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #b5657d;
+            text-decoration: none;
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -14,37 +48,80 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="me.html">Chi sono</a></li>
                 <li><a href="ricette.html">Ricette</a></li>
-                
+                <li><a href="progetti.html">Progetti</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="gallery-container">
-            
-            <!-- Progetto 1 (Cliccabile) -->
-            <a href="Jenny Sweater.html" class="gallery-item">
-                <img src="immagini/jenny-sweater1.jpg" alt="Jenny Sweater">
-                <div class="gallery-caption">
-                    <h3>Jenny Sweater</h3>
-                    <p>Drops Fabel & Drops Kid Silk, Ottobre 2025</p>
-                </div>
-            </a>
+        <!-- GALLERIA DEI PROGETTI -->
+        <div id="vistaGalleria">
+            <p>Clicca su un progetto per scoprire i dettagli e le note di realizzazione.</p>
+            <div id="grigliaProgetti" class="gallery-container">
+                <!-- Caricati dinamicamente da progetti.json -->
+            </div>
+        </div>
 
-            <!-- Progetto 2 (Cliccabile) -->
-            <a href="Sweater no. 15.html" class="gallery-item">
-                <img src="immagini/sweater-no15.jpg" alt="Sweater no. 15">
-                <div class="gallery-caption">
-                    <h3>Sweater no.15</h3>
-                    <p>Drops Fabel & Drops Kid Silk, Marzo 2025</p>
-                </div>
-            </a>
-
-        </section>
+        <!-- DETTAGLIO SINGOLO PROGETTO (Nascosto finché non clicchi) -->
+        <div id="vistaDettaglio" class="sezione-contenuto">
+            <button class="pulsante-indietro" onclick="mostraGalleria()">← Torna alla galleria</button>
+            <div id="corpoDettaglioProgetto"></div>
+        </div>
     </main>
 
     <footer>
         <p>Made by Anna</p>
     </footer>
+
+    <!-- Script per la gestione dinamica -->
+    <script>
+        fetch("progetti.json")
+            .then(response => response.json())
+            .then(data => {
+                creaGalleria(data);
+            });
+
+        function creaGalleria(data) {
+            const griglia = document.getElementById("grigliaProgetti");
+            griglia.innerHTML = "";
+
+            Object.keys(data).forEach(nome => {
+                let p = data[nome];
+                let card = document.createElement("div");
+                card.className = "gallery-item";
+                card.style.cursor = "pointer";
+                card.innerHTML = `
+                    <img src="${p.foto || ''}" alt="${nome}" onerror="this.src='https://via.placeholder.com/280x180?text=Foto+in+arrivo'">
+                    <div class="gallery-caption">
+                        <h3>${nome}</h3>
+                        <p>${p.filato} - ${p.data}</p>
+                    </div>
+                `;
+                card.onclick = () => apriDettaglio(nome, p);
+                griglia.appendChild(card);
+            });
+        }
+
+        function apriDettaglio(nome, p) {
+            document.getElementById("vistaGalleria").style.display = "none";
+            
+            let dettaglio = document.getElementById("vistaDettaglio");
+            dettaglio.classList.add("visibile");
+
+            document.getElementById("corpoDettaglioProgetto").innerHTML = `
+                <h2>${nome}</h2>
+                <img src="${p.foto || ''}" alt="${nome}" onerror="this.src='https://via.placeholder.com/700x350?text=Foto+in+arrivo'">
+                <p><strong>Periodo:</strong> ${p.data}</p>
+                <p><strong>Materiali:</strong> ${p.filato}</p>
+                <h3 style="margin-top: 20px;">Note sul progetto</h3>
+                <p style="line-height: 1.6;">${p.descrizione}</p>
+            `;
+        }
+
+        function mostraGalleria() {
+            document.getElementById("vistaDettaglio").classList.remove("visibile");
+            document.getElementById("vistaGalleria").style.display = "block";
+        }
+    </script>
 </body>
 </html>
