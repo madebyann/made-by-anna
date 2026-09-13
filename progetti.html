@@ -8,7 +8,7 @@
     <style>
         .sezione-contenuto {
             display: none;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: left;
             background: white;
@@ -20,33 +20,25 @@
             display: block;
             margin-top: 20px;
         }
-        /* Foto principale grande */
-        .foto-principale {
-            width: 100%;
-            max-height: 450px;
+        /* Griglia delle foto tutte uguali nel dettaglio */
+        .griglia-foto-progetto {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        .griglia-foto-progetto img {
+            width: 200px;
+            height: 200px;
             object-fit: cover;
             border-radius: 8px;
-            margin-bottom: 15px;
-        }
-        /* Griglia per le foto secondarie (dettagli) */
-        .griglia-foto-extra {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-        .griglia-foto-extra img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 6px;
             cursor: pointer;
-            transition: opacity 0.2s;
-            border: 2px solid transparent;
+            transition: transform 0.2s, opacity 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .griglia-foto-extra img:hover {
-            opacity: 0.8;
-            border-color: #b5657d;
+        .griglia-foto-progetto img:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
         }
         .pulsante-indietro {
             display: inline-block;
@@ -58,6 +50,43 @@
             border: none;
             cursor: pointer;
             padding: 0;
+        }
+        /* Finestra modale per l'ingrandimento dell'immagine */
+        dialog {
+            border: none;
+            border-radius: 12px;
+            padding: 0;
+            background: transparent;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .modal-content {
+            position: relative;
+            text-align: center;
+        }
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+        .modal-close {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #b5657d;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -77,7 +106,7 @@
     <main>
         <!-- GALLERIA PRINCIPALE -->
         <div id="vistaGalleria">
-            <p>Clicca su un progetto per guardare le foto e i dettagli.</p>
+            <p>Clicca su un progetto per vedere la galleria fotografica.</p>
             <div id="grigliaProgetti" class="gallery-container"></div>
         </div>
 
@@ -87,6 +116,14 @@
             <div id="corpoDettaglioProgetto"></div>
         </div>
     </main>
+
+    <!-- FINESTRA MODALE PER L'INGRANDIMENTO (LIGHTBOX) -->
+    <dialog id="modalImmagine">
+        <div class="modal-content">
+            <button class="modal-close" onclick="chiudiZoom()">×</button>
+            <img id="imgIngrandita" src="" alt="Zoom">
+        </div>
+    </dialog>
 
     <footer>
         <p>Made by Anna</p>
@@ -105,7 +142,6 @@
 
             Object.keys(data).forEach(nome => {
                 let p = data[nome];
-                // Prende la prima foto della lista come copertina della card
                 let fotoCopertina = p.fotoGalleria && p.fotoGalleria.length > 0 ? p.fotoGalleria[0] : '';
                 
                 let card = document.createElement("div");
@@ -128,33 +164,43 @@
             document.getElementById("vistaDettaglio").classList.add("visibile");
 
             let fotoList = p.fotoGalleria || [];
-            let fotoPrincipale = fotoList.length > 0 ? fotoList[0] : '';
-
-            // Genera la foto principale e le miniature extra sotto
-            let htmlFoty = `<img id="immaginePrincipale" src="${fotoPrincipale}" alt="${nome}" class="foto-principale" onerror="this.src='https://via.placeholder.com/800x450?text=Foto+in+arrivo'">`;
+            let htmlGrigliaFoto = `<div class="griglia-foto-progetto">`;
             
-            if (fotoList.length > 1) {
-                htmlFoty += `<div class="griglia-foto-extra">`;
-                fotoList.forEach(foto => {
-                    htmlFoty += `<img src="${foto}" alt="Dettaglio" onclick="cambiaFotoPrincipale('${foto}')">`;
-                });
-                htmlFoty += `</div>`;
-            }
+            fotoList.forEach(foto => {
+                // Ogni foto è quadrata, esteticamente ordinata e cliccabile per lo zoom
+                htmlGrigliaFoto += `<img src="${foto}" alt="Dettaglio progetto" onclick="apriZoom('${foto}')" onerror="this.src='https://via.placeholder.com/200x200?text=Foto'">`;
+            });
+            htmlGrigliaFoto += `</div>`;
 
             document.getElementById("corpoDettaglioProgetto").innerHTML = `
                 <h2>${nome}</h2>
-                <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">${p.filato} • ${p.data}</p>
+                <p style="color: #666; font-size: 0.9em; margin-bottom: 20px;">${p.filato} • ${p.data}</p>
                 
-                ${htmlFoty}
+                ${htmlGrigliaFoto}
                 
                 <p style="line-height: 1.6; margin-top: 15px;">${p.descrizione}</p>
             `;
         }
 
-        // Funzione per cambiare la foto grande cliccando sulle miniature
-        window.cambiaFotoPrincipale = function(srcFoto) {
-            document.getElementById("immaginePrincipale").src = srcFoto;
+        // Funzioni per gestire la finestra di ingrandimento
+        window.apriZoom = function(srcFoto) {
+            const modal = document.getElementById("modalImmagine");
+            const imgTarget = document.getElementById("imgIngrandita");
+            imgTarget.src = srcFoto;
+            modal.showModal();
         }
+
+        window.chiudiZoom = function() {
+            const modal = document.getElementById("modalImmagine");
+            modal.close();
+        }
+
+        // Chiude la modale se si clicca sullo sfondo scuro
+        document.getElementById("modalImmagine").addEventListener("click", function(event) {
+            if (event.target === this) {
+                chiudiZoom();
+            }
+        });
 
         function mostraGalleria() {
             document.getElementById("vistaDettaglio").classList.remove("visibile");
