@@ -167,6 +167,69 @@
       }
     }
   },
+
+  "Torta Moderna Cocco e Lime": {
+    "porzioni": 8,
+    "teglia": {
+      "forma": "tonda",
+      "diametro": 18
+    },
+    "foto": "immagini/torta-cocco-lime.jpg",
+    "procedimento": [
+      "Prepara il curd al lime cuocendo a fuoco dolce uova, succo e scorza di lime, zucchero e burro, unendo la gelatina idratata e colando uno strato di circa 10 mm.",
+      "Prepara la gelée al lime scaldando succo di lime, acqua, zucchero e zenzero grattugiato, sciogliendo la gelatina idratata e il colorante, e colando uno strato di circa 6 mm.",
+      "Prepara il biscuit al limone montando tuorli e albumi con lo zucchero, unendo la farina 00 e la buccia di limone grattugiata, e cuoci in teglia per ottenere uno spessore di circa 8 mm.",
+      "Prepara il crumble al cocco impastando burro morbido, farina debole, zucchero a velo, cocco rapè e corn flakes, poi cuoci a 160°C fino a doratura per formare uno strato di circa 4 mm.",
+      "Prepara la mousse al cocco scaldando il latte di cocco con il cocco rapè in infusione, unendo lo zucchero e la gelatina reidratata, incorporando la panna e infine la panna semimontata.",
+      "Monta la torta moderna in negativo all'interno di uno stampo Dot Silikomart, inserendo gli strati in sequenza (mousse, gelée, curd, biscuit, crumble) e completando con uno spessore di mousse tra 2.2 e 3.2 cm.",
+      "Abbatti di temperatura la torta fino a congelamento completo, sformala e glassala da congelata con la glassa a specchio al cioccolato bianco."
+    ],
+    "ingredienti": {
+      "Crumble al cocco": {
+        "burro morbido": { "quantità": 48, "unità": "g" },
+        "farina debole": { "quantità": 36, "unità": "g" },
+        "zucchero a velo": { "quantità": 36, "unità": "g" },
+        "cocco rapè": { "quantità": 18, "unità": "g" },
+        "corn flakes": { "quantità": 12, "unità": "g" }
+      },
+      "Biscuit al limone": {
+        "albume": { "quantità": 45, "unità": "g" },
+        "tuorlo": { "quantità": 30, "unità": "g" },
+        "zucchero semolato": { "quantità": 37, "unità": "g" },
+        "farina 00": { "quantità": 37, "unità": "g" },
+        "buccia di limone": { "quantità": 1, "unità": "q.b." }
+      },
+      "Curd al lime": {
+        "uovo intero": { "quantità": 90, "unità": "g" },
+        "succo di lime + scorza grattugiata": { "quantità": 64, "unità": "g" },
+        "zucchero semolato": { "quantità": 73, "unità": "g" },
+        "burro (freddo a cubetti)": { "quantità": 36, "unità": "g" },
+        "gelatina in fogli": { "quantità": 1, "unità": "g" }
+      },
+      "Gelée al lime": {
+        "succo di lime": { "quantità": 65, "unità": "g" },
+        "acqua": { "quantità": 35, "unità": "g" },
+        "zucchero semolato": { "quantità": 30, "unità": "g" },
+        "zenzero fresco grattugiato": { "quantità": 3.5, "unità": "g" },
+        "gelatina in fogli (200 Bloom)": { "quantità": 2.7, "unità": "g" },
+        "acqua per idratare la gelatina": { "quantità": 13.5, "unità": "g" },
+        "colorante giallo/verde": { "quantità": 1, "unità": "q.b." }
+      },
+      "Mousse al cocco": {
+        "cocco rapè": { "quantità": 50, "unità": "g" },
+        "latte di cocco": { "quantità": 60, "unità": "g" },
+        "panna": { "quantità": 100, "unità": "g" },
+        "zucchero": { "quantità": 45, "unità": "g" },
+        "panna semimontata": { "quantità": 200, "unità": "g" },
+        "gelatina 200 bloom": { "quantità": 7.5, "unità": "g" },
+        "acqua per idratazione": { "quantità": 37.5, "unità": "g" }
+      },
+      "Copertura": {
+        "glassa a specchio al cioccolato bianco": { "quantità": 1, "unità": "q.b." }
+      }
+    }
+  },
+  
   "Torta Pan di Spagna al Cacao con Doppia Diplomatica": {
     "porzioni": 12,
     "teglia": {
