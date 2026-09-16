@@ -3,96 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Made by Anna - Mini Rompicapo</title>
+    <title>Made by Anna - 2048</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .gioco-container {
-            max-width: 600px;
+            max-width: 450px;
             margin: 30px auto;
             text-align: center;
-            background: white;
-            padding: 30px;
+            background: #fff;
+            padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .istruzioni-gioco {
-            margin-bottom: 20px;
-            color: #666;
-            line-height: 1.5;
-        }
-        /* Griglia dei nodi del grafo */
-        #grigliaGrafo {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 20px;
-            justify-content: center;
-            margin: 30px auto;
-            position: relative;
-        }
-        .nodo {
-            width: 100px;
-            height: 100px;
-            background: #f7f3f5;
-            border: 2px solid #b5657d;
-            border-radius: 50%;
+        .header-gioco {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .punteggio-box {
+            background: #bbada0;
+            padding: 8px 15px;
+            border-radius: 6px;
+            color: white;
             font-weight: bold;
-            color: #b5657d;
-            cursor: pointer;
-            transition: all 0.2s;
-            user-select: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .nodo:hover {
-            background: #b5657d;
-            color: white;
-            transform: scale(1.05);
-        }
-        .nodo.attivo {
-            background: #b5657d;
-            color: white;
-            box-shadow: 0 0 15px rgba(181, 101, 125, 0.6);
-        }
-        .nodo.risolto {
-            background: #4bb543;
-            border-color: #4bb543;
-            color: white;
-        }
-        #messaggioVittoria {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #4bb543;
-            margin-top: 20px;
-            min-height: 30px;
         }
         .btn-reset {
             background: #b5657d;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            margin-top: 15px;
             transition: opacity 0.2s;
         }
         .btn-reset:hover {
             opacity: 0.9;
         }
+        /* Griglia 2048 */
+        .grid-2048 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 10px;
+            background: #bbada0;
+            padding: 10px;
+            border-radius: 6px;
+            width: 100%;
+            aspect-ratio: 1;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        .tile {
+            background: rgba(238, 228, 218, 0.35);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #776e65;
+            user-select: none;
+            transition: background 0.1s;
+        }
+        /* Colori dinamici delle tessere */
+        .tile-2 { background: #eee4da; }
+        .tile-4 { background: #ede0c8; }
+        .tile-8 { background: #f2b179; color: #f9f6f2; }
+        .tile-16 { background: #f59563; color: #f9f6f2; }
+        .tile-32 { background: #f67c5f; color: #f9f6f2; }
+        .tile-64 { background: #f65e3b; color: #f9f6f2; }
+        .tile-128 { background: #edcf72; color: #f9f6f2; font-size: 1.3rem; }
+        .tile-256 { background: #edcc61; color: #f9f6f2; font-size: 1.3rem; }
+        .tile-512 { background: #edc850; color: #f9f6f2; font-size: 1.3rem; }
+        .tile-1024 { background: #edc53f; color: #f9f6f2; font-size: 1.1rem; }
+        .tile-2048 { background: #edc22e; color: #f9f6f2; font-size: 1.1rem; box-shadow: 0 0 15px rgba(237, 194, 46, 0.6); }
+
+        /* Controlli touch per telefono */
+        .controlli-touch {
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-template-rows: repeat(2, 50px);
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .btn-dir {
+            background: #f7f3f5;
+            border: 2px solid #b5657d;
+            color: #b5657d;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-dir:active {
+            background: #b5657d;
+            color: white;
+        }
+        .btn-su { grid-column: 2; grid-row: 1; }
+        .btn-sx { grid-column: 1; grid-row: 2; }
+        .btn-giu { grid-column: 2; grid-row: 2; }
+        .btn-dx { grid-column: 3; grid-row: 2; }
+
+        #messaggioFine {
+            font-weight: bold;
+            margin-top: 10px;
+            min-height: 24px;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Teoria dei Grafi</h1>
+        <h1>2048</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="me.html">Chi sono</a></li>
                 <li><a href="ricette.html">Ricette</a></li>
-                <li><a href="progetti.html">Progetti</a></li>
                 <li><a href="gioco.html">Mini-Game</a></li>
             </ul>
         </nav>
@@ -100,17 +129,24 @@
 
     <main>
         <div class="gioco-container">
-            <h2>Attiva la Rete</h2>
-            <p class="istruzioni-gioco">
-                Collega tutti i nodi della rete! Clicca sui nodi in sequenza per accenderli tutti senza saltarne nessuno. Se sbagli sequenza, la rete si interrompe.
-            </p>
-
-            <div id="grigliaGrafo">
-                <!-- Generati via JavaScript -->
+            <div class="header-gioco">
+                <div class="punteggio-box">Punti: <span id="punteggio">0</span></div>
+                <button class="btn-reset" onclick="inizializzaGioco()">Ricomincia</button>
             </div>
 
-            <div id="messaggioVittoria"></div>
-            <button class="btn-reset" onclick="inizializzaGioco()">Ricomincia</button>
+            <div class="grid-2048" id="grid">
+                <!-- Generate via JS -->
+            </div>
+
+            <div id="messaggioFine"></div>
+
+            <!-- Pulsanti per cellulare -->
+            <div class="controlli-touch">
+                <button class="btn-dir btn-su" onclick="muovi('su')">▲</button>
+                <button class="btn-dir btn-sx" onclick="muovi('sinistra')">◀</button>
+                <button class="btn-dir btn-giu" onclick="muovi('giu')">▼</button>
+                <button class="btn-dir btn-dx" onclick="muovi('destra')">▶</button>
+            </div>
         </div>
     </main>
 
@@ -119,62 +155,135 @@
     </footer>
 
     <script>
-        // Logica del mini-gioco di connessione nodi (Grafo)
-        const totaleNodi = 9;
-        let sequenzaCorretta = [];
-        let passoAttuale = 0;
-        let giocoCompletato = false;
+        let board = [];
+        let score = 0;
+        let gameOver = false;
 
         function inizializzaGioco() {
-            giocoCompletato = false;
-            passoAttuale = 0;
-            document.getElementById("messaggioVittoria").innerText = "";
-            
-            // Genera una sequenza casuale unica da 0 a 8 per i nodi da cliccare in ordine
-            let numeri = Array.from({length: totaleNodi}, (_, i) => i);
-            sequenzaCorretta = numeri.sort(() => Math.random() - 0.5);
-
-            const griglia = document.getElementById("grigliaGrafo");
-            griglia.innerHTML = "";
-
-            for (let i = 0; i < totaleNodi; i++) {
-                let nodo = document.createElement("div");
-                nodo.className = "nodo";
-                nodo.dataset.id = i;
-                nodo.innerText = `Nodo ${i + 1}`;
-                nodo.onclick = () => gestisciClickNodo(i, nodo);
-                griglia.appendChild(nodo);
-            }
+            board = [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 0]
+            ];
+            score = 0;
+            gameOver = false;
+            document.getElementById("messaggioFine").innerText = "";
+            aggiungiNumero();
+            aggiungiNumero();
+            aggiornaGrafica();
         }
 
-        function gestisciClickNodo(idNodo, elemento) {
-            if (giocoCompletato) return;
+        function aggiungiRecord(val) {
+            score += val;
+            document.getElementById("punteggio").innerText = score;
+        }
 
-            // Controlla se il nodo cliccato è quello corretto nella sequenza logica
-            if (idNodo === sequenzaCorretta[passoAttuale]) {
-                elemento.classList.add("attivo");
-                passoAttuale++;
-
-                if (passoAttuale === totaleNodi) {
-                    giocoCompletato = true;
-                    document.getElementById("messaggioVittoria").innerText = "🎉 Ottimo! Rete perfettamente connessa!";
-                    document.querySelectorAll(".nodo").forEach(n => {
-                        n.classList.remove("attivo");
-                        n.classList.add("risolto");
-                    });
+        function aggiungiNumero() {
+            let celleVuote = [];
+            for (let r = 0; r < 4; r++) {
+                for (let c = 0; c < 4; c++) {
+                    if (board[r][c] === 0) celleVuote.push({r, c});
                 }
-            } else {
-                // Errore: la connessione salta, reset temporaneo visivo
-                document.getElementById("messaggioVittoria").innerText = "❌ Connessione interrotta! Riprova.";
-                document.querySelectorAll(".nodo").forEach(n => n.classList.remove("attivo"));
-                passoAttuale = 0;
-                setTimeout(() => {
-                    if(!giocoCompletato) document.getElementById("messaggioVittoria").innerText = "";
-                }, 1500);
+            }
+            if (celleVuote.length > 0) {
+                let cellaCasuale = celleVuote[Math.floor(Math.random() * celleVuote.length)];
+                board[cellaCasuale.r][cellaCasuale.c] = Math.random() < 0.9 ? 2 : 4;
             }
         }
 
-        // Avvia il gioco al caricamento della pagina
+        function aggiornaGrafica() {
+            const gridEl = document.getElementById("grid");
+            gridEl.innerHTML = "";
+            for (let r = 0; r < 4; r++) {
+                for (let c = 0; c < 4; c++) {
+                    let tile = document.createElement("div");
+                    let val = board[r][c];
+                    tile.className = "tile" + (val > 0 ? " tile-" + val : "");
+                    tile.innerText = val > 0 ? val : "";
+                    gridEl.appendChild(tile);
+                }
+            }
+        }
+
+        function filtraZero(riga) {
+            return riga.filter(num => num !== 0);
+        }
+
+        function scorri(riga) {
+            riga = filtraZero(riga);
+            for (let i = 0; i < riga.length - 1; i++) {
+                if (riga[i] === riga[i+1]) {
+                    riga[i] *= 2;
+                    riga[i+1] = 0;
+                    aggiungiRecord(riga[i]);
+                }
+            }
+            riga = filtraZero(riga);
+            while (riga.length < 4) {
+                riga.push(0);
+            }
+            return riga;
+        }
+
+        function muovi(direzione) {
+            if (gameOver) return;
+            let boardPrecedente = JSON.stringify(board);
+
+            if (direzione === "sinistra") {
+                for (let r = 0; r < 4; r++) {
+                    board[r] = scorri(board[r]);
+                }
+            } else if (direzione === "destra") {
+                for (let r = 0; r < 4; r++) {
+                    board[r] = scorri(board[r].reverse()).reverse();
+                }
+            } else if (direzione === "su") {
+                for (let c = 0; c < 4; c++) {
+                    let riga = [board[0][c], board[1][c], board[2][c], board[3][c]];
+                    riga = scorri(riga);
+                    for (let r = 0; r < 4; r++) { board[r][c] = riga[r]; }
+                }
+            } else if (direzione === "giu") {
+                for (let c = 0; c < 4; c++) {
+                    let riga = [board[3][c], board[2][c], board[1][c], board[0][c]];
+                    riga = scorri(riga);
+                    for (let r = 0; r < 4; r++) { board[3-r][c] = riga[r]; }
+                }
+            }
+
+            if (boardPrecedente !== JSON.stringify(board)) {
+                aggiungiNumero();
+                aggiornaGrafica();
+                controllaStatoGioco();
+            }
+        }
+
+        function controllaStatoGioco() {
+            let mosseDisponibili = false;
+            for (let r = 0; r < 4; r++) {
+                for (let c = 0; c < 4; c++) {
+                    if (board[r][c] === 0) mosseDisponibili = true;
+                    if (r < 3 && board[r][c] === board[r+1][c]) mosseDisponibili = true;
+                    if (c < 3 && board[r][c] === board[r][c+1]) mosseDisponibili = true;
+                }
+            }
+            if (!mosseDisponibili) {
+                gameOver = true;
+                document.getElementById("messaggioFine").innerText = "❌ Game Over! Nessuna mossa rimasta.";
+                document.getElementById("messaggioFine").style.color = "#f65e3b";
+            }
+        }
+
+        // Ascolta i tasti freccia della tastiera
+        document.addEventListener("keydown", (e) => {
+            if (["ArrowLeft", "KeyA"].includes(e.code)) { muovi("sinistra"); e.preventDefault(); }
+            else if (["ArrowRight", "KeyD"].includes(e.code)) { muovi("destra"); e.preventDefault(); }
+            else if (["ArrowUp", "KeyW"].includes(e.code)) { muovi("su"); e.preventDefault(); }
+            else if (["ArrowDown", "KeyS"].includes(e.code)) { muovi("giu"); e.preventDefault(); }
+        });
+
+        // Avvio automatico al caricamento
         inizializzaGioco();
     </script>
 </body>
