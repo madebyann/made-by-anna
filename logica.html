@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Made by Anna - Gioco di Logica</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h1 { color: #4a4e69; }
+        .opzioni {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        button.scelta {
+            padding: 15px;
+            font-size: 18px;
+            cursor: pointer;
+            border: 2px solid #4a4e69;
+            background-color: #fff;
+            color: #4a4e69;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        button.scelta:hover {
+            background-color: #4a4e69;
+            color: white;
+        }
+        #btnInizio, #btnRiprova {
+            padding: 12px 25px;
+            font-size: 16px;
+            background-color: #4a4e69;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #btnInizio:hover, #btnRiprova:hover {
+            background-color: #22223b;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html">Home</a> | 
+            <a href="me.html">Chi sono</a> | 
+            <a href="ricette.html">Ricette</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Sfida di Logica Astratta</h1>
+        
+        <!-- Schermata Iniziale -->
+        <div id="schermata-inizio">
+            <p>Affronta una serie di livelli crescenti basati su sequenze geometriche e logiche.</p>
+            <p>Il punteggio ti verrà svelato <strong>solo alla fine</strong> dell'ultimo livello!</p>
+            <button id="btnInizio" onclick="iniziaGioco()">Inizia la Sfida</button>
+        </div>
+
+        <!-- Schermata di Gioco -->
+        <div id="schermata-gioco" class="hidden">
+            <h3 id="indicatore-livello">Livello 1 di 5</h3>
+            <p id="testo-domanda" style="font-size: 20px; font-weight: bold; margin: 20px 0;"></p>
+            <div class="opzioni" id="contenitore-opzioni">
+                <!-- I bottoni delle risposte verranno inseriti qui dinamicamente -->
+            </div>
+        </div>
+
+        <!-- Schermata Finale (Punteggio) -->
+        <div id="schermata-fine" class="hidden">
+            <h2>Fine della Sfida!</h2>
+            <p id="testo-risultato" style="font-size: 22px; margin: 20px 0;"></p>
+            <button id="btnRiprova" onclick="iniziaGioco()">Gioca di nuovo</button>
+        </div>
+    </div>
+
+    <script>
+        // Definizione dei livelli di logica/pattern geometrici
+        const livelli = [
+            {
+                domanda: "Quale figura completa la sequenza?<br>🔵 🟥 🔵 🟥 🔵 ❓",
+                opzioni: ["🔵", "🟥", "🟢", "⭐"],
+                corretta: "🟥"
+            },
+            {
+                domanda: "Trova il numero mancante nella matrice logica:<br>2, 4, 8, 16, ❓",
+                opzioni: ["20", "24", "32", "64"],
+                corretta: "32"
+            },
+            {
+                domanda: "Quale simbolo segue la regola di rotazione?<br>⬆️ ➡️ ⬇️ ⬅️ ❓",
+                opzioni: ["⬆️", "⬇️", "➡️", "↗️"],
+                corretta: "⬆️"
+            },
+            {
+                domanda: "Quale colore completa la sequenza alternata?<br>⬛ ⬜ ⬛ ⬛ ⬜ ⬛ ⬛ ⬛ ❓",
+                opzioni: ["⬜", "⬛", "🟥", "🟦"],
+                corretta: "⬜"
+            },
+            {
+                domanda: "Risolvi il pattern numerico nascosto:<br>3, 6, 9, 12, ❓",
+                opzioni: ["13", "14", "15", "18"],
+                corretta: "15"
+            }
+        ];
+
+        let livelloCorrente = 0;
+        let punteggio = 0;
+
+        function iniziaGioco() {
+            livelloCorrente = 0;
+            punteggio = 0;
+            document.getElementById("schermata-inizio").classList.add("hidden");
+            document.getElementById("schermata-fine").classList.add("hidden");
+            document.getElementById("schermata-gioco").classList.remove("hidden");
+            caricaLivello();
+        }
+
+        function caricaLivello() {
+            if (livelloCorrente >= livelli.length) {
+                mostraFineGioco();
+                return;
+            }
+
+            const dati = livelli[livelloCorrente];
+            document.getElementById("indicatore-livello").textContent = `Livello ${livelloCorrente + 1} di ${livelli.length}`;
+            document.getElementById("testo-domanda").innerHTML = dati.domanda;
+
+            const contenitoreOpzioni = document.getElementById("contenitore-opzioni");
+            contenitoreOpzioni.innerHTML = "";
+
+            dati.opzioni.forEach(opzione => {
+                const btn = document.createElement("button");
+                btn.className = "scelta";
+                btn.textContent = opzione;
+                btn.onclick = () => controllaRisposta(opzione);
+                contenitoreOpzioni.appendChild(btn);
+            });
+        }
+
+        function controllaRisposta(sceltaUtente) {
+            const dati = livelli[livelloCorrente];
+            if (sceltaUtente === dati.corretta) {
+                punteggio++;
+            }
+            livelloCorrente++;
+            caricaLivello();
+        }
+
+        function mostraFineGioco() {
+            document.getElementById("schermata-gioco").classList.add("hidden");
+            document.getElementById("schermata-fine").classList.remove("hidden");
+            
+            const percentuale = (punteggio / livelli.length) * 100;
+            let messaggio = "";
+
+            if (punteggio === livelli.length) {
+                messaggio = `Incredibile! Hai totalizzato ${punteggio}/${livelli.length}. Mente matematica perfetta! 🏆`;
+            } else if (punteggio >= 3) {
+                messaggio = `Ottimo lavoro! Hai totalizzato ${punteggio}/${livelli.length}. Ottimo intuito logico! ⭐`;
+            } else {
+                messaggio = `Hai totalizzato ${punteggio}/${livelli.length}. La logica richiede allenamento, riprova! 💪`;
+            }
+
+            document.getElementById("testo-risultato").textContent = messaggio;
+        }
+    </script>
+</body>
+</html>
