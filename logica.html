@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Made by Anna - Gioco di Logica</title>
+    <title>Made by Anna - Logica Avanzata</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +14,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 40px auto;
             background: white;
             padding: 30px;
@@ -69,59 +69,83 @@
     </header>
 
     <div class="container">
-        <h1>Sfida di Logica Astratta</h1>
+        <h1>Test di Logica e Analisi Avanzata</h1>
         
         <!-- Schermata Iniziale -->
         <div id="schermata-inizio">
-            <p>Affronta una serie di livelli crescenti basati su sequenze geometriche e logiche.</p>
-            <p>Il punteggio ti verrà svelato <strong>solo alla fine</strong> dell'ultimo livello!</p>
-            <button id="btnInizio" onclick="iniziaGioco()">Inizia la Sfida</button>
+            <p>10 livelli di complessità crescente. Sequenze numeriche non lineari, matrici e deduzioni logiche rigorose.</p>
+            <p>Il punteggio totale verrà mostrato esclusivamente al completamento dell'ultimo livello.</p>
+            <button id="btnInizio" onclick="iniziaGioco()">Avvia Test</button>
         </div>
 
         <!-- Schermata di Gioco -->
         <div id="schermata-gioco" class="hidden">
-            <h3 id="indicatore-livello">Livello 1 di 5</h3>
-            <p id="testo-domanda" style="font-size: 20px; font-weight: bold; margin: 20px 0;"></p>
+            <h3 id="indicatore-livello">Livello 1 di 10</h3>
+            <p id="testo-domanda" style="font-size: 18px; font-weight: bold; margin: 25px 0; line-height: 1.5;"></p>
             <div class="opzioni" id="contenitore-opzioni">
-                <!-- I bottoni delle risposte verranno inseriti qui dinamicamente -->
+                <!-- Bottoni generati dinamicamente -->
             </div>
         </div>
 
-        <!-- Schermata Finale (Punteggio) -->
+        <!-- Schermata Finale -->
         <div id="schermata-fine" class="hidden">
-            <h2>Fine della Sfida!</h2>
-            <p id="testo-risultato" style="font-size: 22px; margin: 20px 0;"></p>
-            <button id="btnRiprova" onclick="iniziaGioco()">Gioca di nuovo</button>
+            <h2>Test Completato</h2>
+            <p id="testo-risultato" style="font-size: 20px; margin: 25px 0;"></p>
+            <button id="btnRiprova" onclick="iniziaGioco()">Ricomincia</button>
         </div>
     </div>
 
     <script>
-        // Definizione dei livelli di logica/pattern geometrici
         const livelli = [
             {
-                domanda: "Quale figura completa la sequenza?<br>🔵 🟥 🔵 🟥 🔵 ❓",
-                opzioni: ["🔵", "🟥", "🟢", "⭐"],
-                corretta: "🟥"
+                domanda: "Completare la sequenza numerica:<br>1, 3, 6, 10, 15, 21, ?",
+                opzioni: ["26", "28", "30", "32"],
+                corretta: "28"
             },
             {
-                domanda: "Trova il numero mancante nella matrice logica:<br>2, 4, 8, 16, ❓",
-                opzioni: ["20", "24", "32", "64"],
-                corretta: "32"
+                domanda: "Se 5 macchine producono 5 oggetti in 5 minuti, quanto tempo impiegano 100 macchine per produrre 100 oggetti?",
+                opzioni: ["100 minuti", "20 minuti", "5 minuti", "1 minuto"],
+                corretta: "5 minuti"
             },
             {
-                domanda: "Quale simbolo segue la regola di rotazione?<br>⬆️ ➡️ ⬇️ ⬅️ ❓",
-                opzioni: ["⬆️", "⬇️", "➡️", "↗️"],
-                corretta: "⬆️"
+                domanda: "Individuare il numero mancante nella serie:<br>2, 3, 5, 7, 11, 13, 17, ?",
+                opzioni: ["19", "21", "23", "25"],
+                corretta: "19"
             },
             {
-                domanda: "Quale colore completa la sequenza alternata?<br>⬛ ⬜ ⬛ ⬛ ⬜ ⬛ ⬛ ⬛ ❓",
-                opzioni: ["⬜", "⬛", "🟥", "🟦"],
-                corretta: "⬜"
+                domanda: "In un cassetto ci sono 10 calze nere e 10 calze blu indistinguibili al buio. Qual è il numero minimo di calze da estrarre per essere sicuri di avere almeno un paio dello stesso colore?",
+                opzioni: ["2", "3", "10", "11"],
+                corretta: "3"
             },
             {
-                domanda: "Risolvi il pattern numerico nascosto:<br>3, 6, 9, 12, ❓",
-                opzioni: ["13", "14", "15", "18"],
-                corretta: "15"
+                domanda: "Completare la sequenza alfanumerica logica:<br>Z1, Y2, X4, W7, V11, ?",
+                opzioni: ["U14", "U16", "T15", "T16"],
+                corretta: "U16"
+            },
+            {
+                domanda: "Un'alga in uno stagno raddoppia la sua superficie ogni giorno. Se copre l'intero stagno in 48 giorni, in quanti giorni ne copriva esattamente la metà?",
+                opzioni: ["24 giorni", "46 giorni", "47 giorni", "36 giorni"],
+                corretta: "47 giorni"
+            },
+            {
+                domanda: "Trovare il valore logico mancante nella serie:<br>8, 27, 64, 125, ?",
+                opzioni: ["180", "216", "243", "512"],
+                corretta: "216"
+            },
+            {
+                domanda: "Anna è alta il doppio di Marco. Fra 5 anni, Anna avrà 50 anni. Quanti anni ha Marco adesso?",
+                opzioni: ["20 anni", "22.5 anni", "25 anni", "45 anni"],
+                corretta: "22.5 anni"
+            },
+            {
+                domanda: "Quale numero completa logicamente la matrice?<br>3 (21) 7<br>4 (32) 8<br>5 ( ? ) 9",
+                opzioni: ["40", "45", "50", "55"],
+                corretta: "45"
+            },
+            {
+                domanda: "Se un mattone pesa un chilo più mezzo mattone, quanto pesa un mattone e mezzo?",
+                opzioni: ["1.5 chili", "2 chili", "3 chili", "4.5 chili"],
+                corretta: "3 chili"
             }
         ];
 
@@ -172,18 +196,18 @@
             document.getElementById("schermata-gioco").classList.add("hidden");
             document.getElementById("schermata-fine").classList.remove("hidden");
             
-            const percentuale = (punteggio / livelli.length) * 100;
-            let messaggio = "";
-
-            if (punteggio === livelli.length) {
-                messaggio = `Incredibile! Hai totalizzato ${punteggio}/${livelli.length}. Mente matematica perfetta! 🏆`;
-            } else if (punteggio >= 3) {
-                messaggio = `Ottimo lavoro! Hai totalizzato ${punteggio}/${livelli.length}. Ottimo intuito logico! ⭐`;
+            let giudizio = "";
+            if (punteggio === 10) {
+                giudizio = "Risultato: 10/10. Precisione e logica impeccabili.";
+            } else if (punteggio >= 7) {
+                giudizio = `Risultato: ${punteggio}/10. Ottime capacità analitiche.`;
+            } else if (punteggio >= 4) {
+                giudizio = `Risultato: ${punteggio}/10. Livello medio, ampi margini di miglioramento.`;
             } else {
-                messaggio = `Hai totalizzato ${punteggio}/${livelli.length}. La logica richiede allenamento, riprova! 💪`;
+                giudizio = `Risultato: ${punteggio}/10. Test fallito, è richiesta maggiore concentrazione analitica.`;
             }
 
-            document.getElementById("testo-risultato").textContent = messaggio;
+            document.getElementById("testo-risultato").textContent = giudizio;
         }
     </script>
 </body>
