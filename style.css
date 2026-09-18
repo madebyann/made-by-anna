@@ -26,8 +26,8 @@ body {
 
 /* Header (striscia in alto) in Dark Spruce */
 header {
-    background-color: var(--dark-spruce);
-    color: var(--lavender-blush);
+    background-color: var(--muted-olive);
+    color: var(--vanilla-cream);
     padding: 20px 40px;
     display: flex;
     justify-content: space-between;
@@ -52,7 +52,7 @@ nav ul {
 
 nav ul li a {
     background-color: var(--card-bg);
-    color: var(--dark-spruce);
+    color: var(--ash-brown);
     padding: 8px 16px;
     border-radius: 8px;
     text-decoration: none;
@@ -62,8 +62,8 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: var(--lavender-blush);
-    color: var(--dark-spruce);
+    background-color: var(--vanilla-cream);
+    color: var(--muted-olive);
 }
 
 main {
@@ -78,7 +78,7 @@ main > *:last-child {
 /* Pulsanti stile widget/dashboard */
 button, .btn {
     background-color: var(--tea-green);
-    color: var(--dark-spruce);
+    color: var(--ash-brown);
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
@@ -88,7 +88,7 @@ button, .btn {
 }
 
 button:hover, .btn:hover {
-    background-color: var(--lavender-blush);
+    background-color: var(--vanilla-cream);
     transform: translateY(-1px);
 }
 
@@ -96,7 +96,7 @@ button:hover, .btn:hover {
 
 /* Sezione Chi sono (Riquadro con la descrizione) in Lavender Blush */
 .about-section {
-    background-color: var(--lavender-blush);
+    background-color: var(--vanilla-cream);
     display: flex;
     align-items: center;
     gap: 40px;
@@ -113,7 +113,7 @@ button:hover, .btn:hover {
     height: 180px;
     object-fit: cover;
     border-radius: 12px;
-    border: 3px solid var(--dark-spruce);
+    border: 3px solid var(--muted-olive);
 }
 
 .about-text {
@@ -121,7 +121,7 @@ button:hover, .btn:hover {
 }
 
 .about-text h2 {
-    color: var(--dark-spruce);
+    color: var(--iron-grey);
     margin-top: 0;
 }
 
@@ -163,7 +163,7 @@ button:hover, .btn:hover {
 .gallery-caption h3 {
     font-size: 1.1rem;
     margin: 0 0 8px 0;
-    color: var(--dark-spruce);
+    color: var(--iron-grey);
 }
 
 .gallery-caption p {
