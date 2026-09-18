@@ -14,10 +14,10 @@ html, body {
     padding: 0;
 }
 
-/* Sfondo generale della pagina in Dark Spruce */
+/* Sfondo generale della pagina in Tea Green */
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--dark-spruce);
+    background-color: var(--tea-green);
     color: var(--lavender-blush);
     margin: 0;
     padding: 0;
