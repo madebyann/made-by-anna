@@ -4,53 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codice e Progetti - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet5" href="style.css"> <!-- Sostituisci con style.css -->
     <style>
-        /* Stile specifico per la griglia della vetrina */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            max-width: 1000px;
+        /* Stili per la vetrina a scomparsa */
+        .projects-container {
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 20px;
-        }
-        .project-card {
-            background-color: var(--lavender-blush);
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            gap: 25px;
         }
-        .project-card:hover {
-            transform: translateY(-5px);
+
+        .project-details {
+            background-color: var(--lavender-blush);
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .project-details[open] {
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
         }
-        .project-card h3 {
+
+        /* La "vetrina" cliccabile che fa da copertina */
+        .project-summary {
+            padding: 25px;
+            cursor: pointer;
+            list-style: none; /* Rimuove lafreccia di default del browser */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Trucco per nascondere il triangolino standard e metterne uno personalizzato o gestirlo pulito */
+        .project-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .project-info h3 {
             color: var(--dark-spruce);
-            margin-top: 0;
-            margin-bottom: 10px;
+            margin: 0 0 10px 0;
         }
-        .project-card p {
+
+        .project-info p {
             color: var(--iron-grey);
+            margin: 0;
             font-size: 0.95rem;
-            margin-bottom: 20px;
         }
-        .project-btn {
+
+        .toggle-icon {
+            background-color: var(--tea-green);
+            color: var(--dark-spruce);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        /* Gira l'icona quando il riquadro è aperto */
+        .project-details[open] .toggle-icon {
+            transform: rotate(45deg);
+        }
+
+        /* Il contenuto che si apre (Codice + Pulsanti esterni) */
+        .project-content {
+            padding: 0 25px 25px 25px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .external-links {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-external {
             display: inline-block;
             background-color: var(--tea-green);
             color: var(--dark-spruce);
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 8px;
             text-decoration: none;
+            font-size: 0.9rem;
             font-weight: bold;
-            text-align: center;
             transition: opacity 0.2s;
         }
-        .project-btn:hover {
+
+        .btn-external:hover {
             opacity: 0.85;
         }
     </style>
@@ -68,34 +115,56 @@
         </nav>
     </header>
 
-    <!-- Contenuto Principale: La Vetrina -->
+    <!-- Contenuto Principale -->
     <main>
         <section style="text-align: center; margin-bottom: 40px;">
             <h2 style="color: var(--tea-green); font-size: 2rem; margin-bottom: 10px;">I miei Progetti Python</h2>
             <p style="color: var(--lavender-blush); font-size: 1.1rem;">Algoritmi, teoria dei grafi e ottimizzazione.</p>
         </section>
 
-        <!-- Griglia dei progetti -->
-        <div class="projects-grid">
+        <div class="projects-container">
 
-            <!-- PROGETTO 1 -->
-            <div class="project-card">
-                <div>
-                    <h3>Randomized Algorithm for Max-Cut</h3>
-                    <p>Implementazione in Python dell'algoritmo randomizzato per il problema del Max-Cut, con analisi e visualizzazione dei grafi tramite NetworkX.</p>
-                </div>
-                <!-- Cliccando qui si apre direttamente il notebook formattato su nbviewer (o GitHub) -->
-                <a href="https://nbviewer.org/github/madebyann/colab/blob/main/Randomized_algorithm_max_cut.ipynb" target="_blank" class="project-btn">Visualizza Codice</a>
-            </div>
+            <!-- PROGETTO 1 (A scomparsa) -->
+            <details class="project-details">
+                <summary class="project-summary">
+                    <div class="project-info">
+                        <h3>Randomized Algorithm for Max-Cut</h3>
+                        <p>Implementazione in Python dell'algoritmo randomizzato per il problema del Max-Cut, con analisi e visualizzazione dei grafi.</p>
+                    </div>
+                    <div class="toggle-icon">+</div>
+                </summary>
+                
+                <div class="project-content">
+                    <!-- Pulsanti per aprire su Colab o GitHub in un'altra scheda (opzionali ma utilissimi) -->
+                    <div class="external-links">
+                        <a href="https://colab.research.google.com/github/madebyann/colab/blob/main/Randomized_algorithm_max_cut.ipynb" target="_blank" class="btn-external">Apri in Colab 🚀</a>
+                        <a href="https://github.com/madebyann/colab/blob/main/Randomized_algorithm_max_cut.ipynb" target="_blank" class="btn-external">Vedi su GitHub 🐙</a>
+                    </div>
 
-            <!-- PROGETTO 2 (Esempio per quando ne aggiungerai un altro) -->
-            <div class="project-card">
-                <div>
-                    <h3>Titolo Secondo Progetto</h3>
-                    <p>Breve descrizione del prossimo algoritmo o script che caricherai (es. Sahni-Gonzalez o programmazione semidefinita).</p>
+                    <!-- Finestra del codice integrata nel sito -->
+                    <iframe src="https://nbviewer.org/github/madebyann/colab/blob/main/Randomized_algorithm_max_cut.ipynb" width="100%" height="550px" style="border:1px solid var(--tea-green); border-radius: 8px; background: white;"></iframe>
                 </div>
-                <a href="INSERISCI_LINK_QUI" target="_blank" class="project-btn">Visualizza Codice</a>
-            </div>
+            </details>
+
+            <!-- PROGETTO 2 (Modello pronto da duplicare per il prossimo) -->
+            <details class="project-details">
+                <summary class="project-summary">
+                    <div class="project-info">
+                        <h3>Titolo Secondo Progetto</h3>
+                        <p>Breve descrizione del prossimo script o algoritmo che caricherai.</p>
+                    </div>
+                    <div class="toggle-icon">+</div>
+                </summary>
+                
+                <div class="project-content">
+                    <div class="external-links">
+                        <a href="#" target="_blank" class="btn-external">Apri in Colab 🚀</a>
+                        <a href="#" target="_blank" class="btn-external">Vedi su GitHub 🐙</a>
+                    </div>
+
+                    <iframe src="" width="100%" height="550px" style="border:1px solid var(--tea-green); border-radius: 8px; background: white;"></iframe>
+                </div>
+            </details>
 
         </div>
     </main>
