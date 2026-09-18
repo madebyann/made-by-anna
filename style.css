@@ -96,7 +96,7 @@ button:hover, .btn:hover {
 
 /* Sezione Chi sono (Riquadro con la descrizione) in Lavender Blush */
 .about-section {
-    background-color: var(--vanilla-cream);
+    background-color: var(--tea-green);
     display: flex;
     align-items: center;
     gap: 40px;
