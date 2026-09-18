@@ -191,98 +191,46 @@ button:hover, .btn:hover {
     }
 }
 
-/* Stili per la sezione Collage */
-.work-collage-section {
-    padding: 60px 20px;
-    background-color: var(--lavender-blush); /* Sfondo leggero */
-}
-
-.bento-grid-orizzontale {
-    display: grid;
-    /* Griglia fluida: 4 colonne di base, si restringono su mobile */
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 150px; /* Altezza base delle celle */
-    gap: 15px; /* Spazio tra i blocchi */
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.bento-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
-}
-
-.bento-item:hover {
-    transform: translateY(-5px); /* Effetto sollevamento al passaggio */
-}
-
-.bento-item img {
+.collage-scorrevole {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Mantiene le proporzioni dell'immagine */
-    display: block;
+    overflow-x: auto;
+    padding: 20px 0;
+    background-color: #f9f9f9;
 }
 
-/* Elemento alto (copre 2 righe in verticale) */
-.bento-item.tall {
-    grid-row: span 2;
+.masonry-row {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+    padding: 0 20px;
 }
 
-/* Stile per il blocco di codice */
-.bento-item.code-snippet {
-    background-color: #2d2d2d; /* Sfondo scuro per il codice */
-    color: #f8f8f2;
-    padding: 15px;
-    font-family: 'Courier New', Courier, monospace; /* Font monospace per il codice */
-    font-size: 0.8rem;
-    overflow: auto; /* Scrollbar se il codice è troppo lungo */
-    grid-column: span 2; /* Il codice occupa 2 colonne in larghezza */
+.masonry-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 140px; /* Larghezza della colonna */
 }
 
-.bento-item.code-snippet pre {
-    margin: 0;
+.masonry-item {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
 }
 
-/* Overlay scuro con testo che appare al passaggio del mouse */
-.bento-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    /* Sfumatura scura dal basso verso l'alto */
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-    padding: 20px;
-    color: white;
-    opacity: 0; /* Nascosto di default */
-    transition: opacity 0.3s ease;
+.masonry-item:hover {
+    transform: scale(1.03);
 }
 
-.bento-item:hover .bento-overlay {
-    opacity: 1; /* Appare al passaggio del mouse */
+/* Gestione delle diverse altezze */
+.masonry-item.small {
+    height: 85px;  /* Usato quando ci sono 3 elementi nella colonna */
 }
 
-.bento-overlay h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: white;
+.masonry-item.medium {
+    height: 130px; /* Usato per elementi medi */
 }
 
-/* RESPONSIVE DESIGN per Smartphone */
-@media (max-width: 768px) {
-    .bento-grid-orizzontale {
-        grid-template-columns: repeat(2, 1fr); /* Su mobile diventa 2 colonne */
-        grid-auto-rows: 120px;
-    }
-    
-    .bento-item.code-snippet {
-        grid-column: span 2; /* Il codice rimane largo su 2 colonne */
-        grid-row: span 1;
-    }
-    
-     .bento-item.tall {
-        grid-row: span 1; /* Su mobile l'immagine alta diventa quadrata */
-    }
+.masonry-item.tall {
+    height: 182px; /* Usato per elementi lunghi */
 }
