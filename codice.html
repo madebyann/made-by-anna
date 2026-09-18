@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codice e Progetti - Portfolio</title>
-    <link rel="stylesheet5" href="style.css"> <!-- Sostituisci con style.css -->
+    <!-- CORRETTO: Il link ora punta al tuo file CSS reale -->
+    <link rel="stylesheet" href="style.css">
     <style>
-        /* Stili per la vetrina a scomparsa */
+        /* Stili per la vetrina a scomparsa (aggiunte locali per la struttura specifica) */
         .projects-container {
             max-width: 900px;
             margin: 0 auto;
@@ -17,7 +18,8 @@
         }
 
         .project-details {
-            background-color: var(--lavender-blush);
+            /* Usa i colori definiti nel tuo style.css */
+            background-color: var(--lavender-blush); 
             border-radius: 16px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -32,29 +34,35 @@
         .project-summary {
             padding: 25px;
             cursor: pointer;
-            list-style: none; /* Rimuove lafreccia di default del browser */
+            list-style: none; /* Nasconde la freccia di default */
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* Trucco per nascondere il triangolino standard e metterne uno personalizzato o gestirlo pulito */
+        /* Nasconde l'icona standard di summary su Safari/Chrome */
         .project-summary::-webkit-details-marker {
             display: none;
         }
 
         .project-info h3 {
+            /* Usa i colori definiti nel tuo style.css */
             color: var(--dark-spruce);
             margin: 0 0 10px 0;
+            font-size: 1.4rem;
         }
 
         .project-info p {
+            /* Usa i colori definiti nel tuo style.css */
             color: var(--iron-grey);
             margin: 0;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            line-height: 1.4;
         }
 
+        /* Il pulsantino +/- */
         .toggle-icon {
+            /* Usa i colori definiti nel tuo style.css */
             background-color: var(--tea-green);
             color: var(--dark-spruce);
             width: 36px;
@@ -64,8 +72,10 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 1.2rem;
             flex-shrink: 0;
             transition: transform 0.3s ease;
+            margin-left: 20px;
         }
 
         /* Gira l'icona quando il riquadro è aperto */
@@ -76,55 +86,84 @@
         /* Il contenuto che si apre (Codice + Pulsanti esterni) */
         .project-content {
             padding: 0 25px 25px 25px;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            /* Linea divisoria sottile */
+            border-top: 1px solid rgba(0, 0, 0, 0.06); 
         }
 
+        /* Area Pulsanti esterni */
         .external-links {
             margin-bottom: 15px;
+            margin-top: 20px;
             display: flex;
             gap: 10px;
         }
 
+        /* Stile pulsanti esterni (simile al tuo style.css) */
         .btn-external {
             display: inline-block;
+            /* Usa i colori definiti nel tuo style.css */
             background-color: var(--tea-green);
             color: var(--dark-spruce);
-            padding: 8px 16px;
+            padding: 10px 18px;
             border-radius: 8px;
             text-decoration: none;
             font-size: 0.9rem;
-            font-weight: bold;
-            transition: opacity 0.2s;
+            font-weight: 600;
+            transition: background-color 0.2s, opacity 0.2s;
+            border: none;
+            cursor: pointer;
         }
 
         .btn-external:hover {
             opacity: 0.85;
         }
+
+        /* Stile del titolo della pagina */
+        .page-title-section {
+            text-align: center;
+            margin-bottom: 50px;
+            margin-top: 20px;
+        }
+        
+        .page-title-section h2 {
+            color: var(--dark-spruce);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .page-title-section p {
+            color: var(--iron-grey);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body class="page-code">
 
-    <!-- Header / Barra di navigazione -->
+    <!-- Header / Barra di navigazione (Assunta presente in style.css) -->
     <header>
-        <h1>Portfolio</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="codice.html">Codice</a></li>
-            </ul>
-        </nav>
+        <div class="container">
+            <h1>Portfolio</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="codice.html">Codice</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <!-- Contenuto Principale -->
-    <main>
-        <section style="text-align: center; margin-bottom: 40px;">
-            <h2 style="color: var(--tea-green); font-size: 2rem; margin-bottom: 10px;">I miei Progetti Python</h2>
-            <p style="color: var(--lavender-blush); font-size: 1.1rem;">Algoritmi, teoria dei grafi e ottimizzazione.</p>
+    <main class="container">
+        <section class="page-title-section">
+            <h2>I miei Progetti Python</h2>
+            <p>Algoritmi, teoria dei grafi e ottimizzazione.</p>
         </section>
 
         <div class="projects-container">
 
-            <!-- PROGETTO 1 (A scomparsa) -->
+            <!-- PROGETTO 1 (A scomparsa - Copia questo blocco per i successivi) -->
             <details class="project-details">
                 <summary class="project-summary">
                     <div class="project-info">
@@ -135,18 +174,18 @@
                 </summary>
                 
                 <div class="project-content">
-                    <!-- Pulsanti per aprire su Colab o GitHub in un'altra scheda (opzionali ma utilissimi) -->
+                    <!-- Pulsanti per aprire su Colab o GitHub in un'altra scheda -->
                     <div class="external-links">
                         <a href="https://colab.research.google.com/github/madebyann/colab/blob/main/Randomized_algorithm_max_cut.ipynb" target="_blank" class="btn-external">Apri in Colab 🚀</a>
                         <a href="https://github.com/madebyann/colab/blob/main/Randomized_algorithm_max_cut.ipynb" target="_blank" class="btn-external">Vedi su GitHub 🐙</a>
                     </div>
 
                     <!-- Finestra del codice integrata nel sito -->
-                    <iframe src="https://nbviewer.org/github/madebyann/colab/blob/main/Randomized_algorithm_max_cut.ipynb" width="100%" height="550px" style="border:1px solid var(--tea-green); border-radius: 8px; background: white;"></iframe>
+                    <iframe src="https://nbviewer.org/github/madebyann/colab/blob/main/Randomized_algorithm_max_cut.ipynb" width="100%" height="600px" style="border:none; border-radius: 8px; background: white; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);"></iframe>
                 </div>
             </details>
 
-            <!-- PROGETTO 2 (Modello pronto da duplicare per il prossimo) -->
+            <!-- ESEMPIO PROGETTO 2 (Modello pronto da duplicare) -->
             <details class="project-details">
                 <summary class="project-summary">
                     <div class="project-info">
@@ -162,17 +201,15 @@
                         <a href="#" target="_blank" class="btn-external">Vedi su GitHub 🐙</a>
                     </div>
 
-                    <iframe src="" width="100%" height="550px" style="border:1px solid var(--tea-green); border-radius: 8px; background: white;"></iframe>
+                    <!-- Sostituisci l'attributo src con il link del tuo prossimo notebook -->
+                    <iframe src="" width="100%" height="600px" style="border:none; border-radius: 8px; background: white; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);"></iframe>
                 </div>
             </details>
 
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 - Portfolio Accademico</p>
-    </footer>
+    
 
 </body>
 </html>
