@@ -1,39 +1,33 @@
 :root {
-  --tea-green: #c3deab;
-  --soft-blossom: #e0adbb;
-  --dark-spruce: #2c5530;
-  --lavender-blush: #ffebf2;
-  --lobster-pink: #ce646b;
-  --iron-grey: #43484c;
-  --card-bg: #ffffff;
+    --tea-green: #c3deab;
+    --soft-blossom: #e0adbb;
+    --dark-spruce: #2c5530;
+    --lavender-blush: #ffebf2;
+    --lobster-pink: #ce646b;
+    --iron-grey: #43484c;
+    --card-bg: #ffffff;
 }
 
-/* Sfondo di default per tutte le pagine (es. Ricette, Progetti) */
+/* Sfondo generale della pagina in Dark Spruce */
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--lavender-blush);
-    color: var(--iron-grey);
+    background-color: var(--dark-spruce);
+    color: var(--lavender-blush);
     margin: 0;
     padding: 0;
     transition: background-color 0.3s ease;
 }
 
-/* Sfondo specifico per la pagina Chi sono */
-body.page-about {
-    background-color: var(--lobster-pink);
-    color: var(--lavender-blush);
-}
-
-/* Header in stile dashboard pulita */
+/* Header (striscia in alto) in Tea Green */
 header {
-    background-color: var(--card-bg);
+    background-color: var(--tea-green);
     color: var(--dark-spruce);
     padding: 20px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid var(--tea-green);
-    box-shadow: 0 4px 12px rgba(44, 85, 48, 0.03);
+    border-bottom: 2px solid rgba(44, 85, 48, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
@@ -51,7 +45,7 @@ nav ul {
 }
 
 nav ul li a {
-    background-color: var(--lavender-blush);
+    background-color: var(--card-bg);
     color: var(--dark-spruce);
     padding: 8px 16px;
     border-radius: 8px;
@@ -62,7 +56,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: var(--tea-green);
+    background-color: var(--lavender-blush);
     color: var(--dark-spruce);
 }
 
@@ -74,8 +68,8 @@ main {
 
 /* Pulsanti stile widget/dashboard */
 button, .btn {
-    background-color: var(--dark-spruce);
-    color: var(--lavender-blush);
+    background-color: var(--tea-green);
+    color: var(--dark-spruce);
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
@@ -85,23 +79,23 @@ button, .btn {
 }
 
 button:hover, .btn:hover {
-    background-color: var(--lobster-pink);
+    background-color: var(--lavender-blush);
     transform: translateY(-1px);
 }
 
 footer {
     text-align: center;
     padding: 20px;
-    background-color: var(--card-bg);
-    color: var(--iron-grey);
+    background-color: var(--tea-green);
+    color: var(--dark-spruce);
     margin-top: 60px;
-    border-top: 1px solid var(--tea-green);
+    border-top: 1px solid rgba(44, 85, 48, 0.2);
     font-size: 0.9rem;
 }
 
-/* Sezione Chi sono (Card a blocco) */
+/* Sezione Chi sono (Riquadro con la descrizione) in Lavender Blush */
 .about-section {
-    background-color: var(--card-bg);
+    background-color: var(--lavender-blush);
     display: flex;
     align-items: center;
     gap: 40px;
@@ -109,7 +103,7 @@ footer {
     margin: 0 auto 40px auto;
     padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     color: var(--iron-grey);
 }
 
@@ -118,7 +112,7 @@ footer {
     height: 180px;
     object-fit: cover;
     border-radius: 12px;
-    border: 3px solid var(--tea-green);
+    border: 3px solid var(--dark-spruce);
 }
 
 .about-text {
@@ -143,14 +137,14 @@ footer {
     background-color: var(--card-bg);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(44, 85, 48, 0.04);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(195, 222, 171, 0.4);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .gallery-item:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(44, 85, 48, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .gallery-item img {
