@@ -51,8 +51,8 @@ nav ul {
 }
 
 nav ul li a {
-    background-color: var(--card-bg);
-    color: var(--ash-brown);
+    background-color: var(--ash-brown);
+    color: var(--vanilla-cream);
     padding: 8px 16px;
     border-radius: 8px;
     text-decoration: none;
@@ -94,7 +94,7 @@ button:hover, .btn:hover {
 
 
 
-/* Sezione Chi sono (Riquadro con la descrizione) in Lavender Blush */
+/* Sezione Chi sono (Riquadro con la descrizione) in Tea Green */
 .about-section {
     background-color: var(--tea-green);
     display: flex;
