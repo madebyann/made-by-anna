@@ -135,7 +135,7 @@ button:hover, .btn:hover {
 }
 
 .gallery-item {
-    background-color: var(--card-bg);
+    background-color: var(--vanilla-cream);
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
@@ -195,7 +195,7 @@ button:hover, .btn:hover {
     width: 100%;
     overflow-x: auto;
     padding: 20px 0;
-    background-color: #f9f9f9;
+    background-color: --vanilla-cream;
 }
 
 .masonry-row {
