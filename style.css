@@ -18,10 +18,10 @@ body {
     transition: background-color 0.3s ease;
 }
 
-/* Header (striscia in alto) in Tea Green */
+/* Header (striscia in alto) in Soft Blossom */
 header {
-    background-color: var(--tea-green);
-    color: var(--dark-spruce);
+    background-color: var(--soft-blossom);
+    color: var(--iron-grey);
     padding: 20px 40px;
     display: flex;
     justify-content: space-between;
@@ -33,7 +33,7 @@ header {
 header h1 {
     margin: 0;
     font-size: 1.5rem;
-    color: var(--dark-spruce);
+    color: var(--iron-grey);
 }
 
 nav ul {
@@ -86,8 +86,8 @@ button:hover, .btn:hover {
 footer {
     text-align: center;
     padding: 20px;
-    background-color: var(--tea-green);
-    color: var(--dark-spruce);
+    background-color: var(--soft-blossom);
+    color: var(--iron-grey);
     margin-top: 60px;
     border-top: 1px solid rgba(44, 85, 48, 0.2);
     font-size: 0.9rem;
