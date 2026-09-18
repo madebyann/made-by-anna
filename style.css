@@ -92,15 +92,7 @@ button:hover, .btn:hover {
     transform: translateY(-1px);
 }
 
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: var(--soft-blossom);
-    color: var(--iron-grey);
-    margin-top: 60px;
-    border-top: 1px solid rgba(44, 85, 48, 0.2);
-    font-size: 0.9rem;
-}
+
 
 /* Sezione Chi sono (Riquadro con la descrizione) in Lavender Blush */
 .about-section {
