@@ -5,6 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codice e Progetti - Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Stile specifico per la griglia della vetrina */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .project-card {
+            background-color: var(--lavender-blush);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        .project-card h3 {
+            color: var(--dark-spruce);
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .project-card p {
+            color: var(--iron-grey);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        .project-btn {
+            display: inline-block;
+            background-color: var(--tea-green);
+            color: var(--dark-spruce);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            text-align: center;
+            transition: opacity 0.2s;
+        }
+        .project-btn:hover {
+            opacity: 0.85;
+        }
+    </style>
 </head>
 <body class="page-code">
 
@@ -15,24 +64,39 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="codice.html">Codice</a></li>
-                <!-- Aggiungi qui altri link alle tue pagine se vuoi -->
             </ul>
         </nav>
     </header>
 
-    <!-- Contenuto Principale -->
+    <!-- Contenuto Principale: La Vetrina -->
     <main>
-        <section style="text-align: center; margin-bottom: 30px;">
+        <section style="text-align: center; margin-bottom: 40px;">
             <h2 style="color: var(--tea-green); font-size: 2rem; margin-bottom: 10px;">I miei Progetti Python</h2>
             <p style="color: var(--lavender-blush); font-size: 1.1rem;">Algoritmi, teoria dei grafi e ottimizzazione.</p>
         </section>
 
-        <!-- Riquadro con il tuo notebook incorporato -->
-        <div class="code-card" style="grid-column: 1 / -1; margin: 0 auto; max-width: 900px; background-color: var(--lavender-blush); padding: 30px; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);">
-            <h3 style="color: var(--dark-spruce); margin-top: 0;">Randomized Algorithm for Max-Cut</h3>
-            <p style="color: var(--iron-grey);">Implementazione in Python dell'algoritmo randomizzato per il problema del Max-Cut, con analisi e visualizzazione dei grafi.</p>
-            
-            <iframe src="https://nbviewer.org/github/madebyann/colab/blob/main/Randomized_algorithm_max_cut.ipynb" width="100%" height="600px" style="border:1px solid var(--tea-green); border-radius: 8px; margin-top: 15px; background: white;"></iframe>
+        <!-- Griglia dei progetti -->
+        <div class="projects-grid">
+
+            <!-- PROGETTO 1 -->
+            <div class="project-card">
+                <div>
+                    <h3>Randomized Algorithm for Max-Cut</h3>
+                    <p>Implementazione in Python dell'algoritmo randomizzato per il problema del Max-Cut, con analisi e visualizzazione dei grafi tramite NetworkX.</p>
+                </div>
+                <!-- Cliccando qui si apre direttamente il notebook formattato su nbviewer (o GitHub) -->
+                <a href="https://nbviewer.org/github/madebyann/colab/blob/main/Randomized_algorithm_max_cut.ipynb" target="_blank" class="project-btn">Visualizza Codice</a>
+            </div>
+
+            <!-- PROGETTO 2 (Esempio per quando ne aggiungerai un altro) -->
+            <div class="project-card">
+                <div>
+                    <h3>Titolo Secondo Progetto</h3>
+                    <p>Breve descrizione del prossimo algoritmo o script che caricherai (es. Sahni-Gonzalez o programmazione semidefinita).</p>
+                </div>
+                <a href="INSERISCI_LINK_QUI" target="_blank" class="project-btn">Visualizza Codice</a>
+            </div>
+
         </div>
     </main>
 
