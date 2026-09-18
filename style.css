@@ -14,20 +14,20 @@ html, body {
     padding: 0;
 }
 
-/* Sfondo generale della pagina in Tea Green */
+/* Sfondo generale della pagina in Lavender Blush */
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--tea-green);
-    color: var(--lavender-blush);
+    background-color: var(--lavender-blush);
+    color: var(--iron-grey);
     margin: 0;
     padding: 0;
     transition: background-color 0.3s ease;
 }
 
-/* Header (striscia in alto) in Soft Blossom */
+/* Header (striscia in alto) in Dark Spruce */
 header {
-    background-color: var(--soft-blossom);
-    color: var(--iron-grey);
+    background-color: var(--dark-spruce);
+    color: var(--lavender-blush);
     padding: 20px 40px;
     display: flex;
     justify-content: space-between;
