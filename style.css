@@ -8,12 +8,20 @@
   --card-bg: #ffffff;
 }
 
+/* Sfondo di default per tutte le pagine (es. Ricette, Progetti) */
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background-color: var(--lavender-blush);
     color: var(--iron-grey);
     margin: 0;
     padding: 0;
+    transition: background-color 0.3s ease;
+}
+
+/* Sfondo specifico per la pagina Chi sono */
+body.page-about {
+    background-color: var(--lobster-pink);
+    color: var(--lavender-blush);
 }
 
 /* Header in stile dashboard pulita */
@@ -101,15 +109,15 @@ footer {
     margin: 0 auto 40px auto;
     padding: 30px;
     border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(44, 85, 48, 0.04);
-    border: 1px solid rgba(195, 222, 171, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    color: var(--iron-grey);
 }
 
 .profile-img {
     width: 180px;
     height: 180px;
     object-fit: cover;
-    border-radius: 12px; /* Angoli leggermente arrotondati stile UI moderna */
+    border-radius: 12px;
     border: 3px solid var(--tea-green);
 }
 
