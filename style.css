@@ -1,21 +1,32 @@
+:root {
+  --tea-green: #c3deab;
+  --soft-blossom: #e0adbb;
+  --dark-spruce: #2c5530;
+  --lavender-blush: #ffebf2;
+  --lobster-pink: #ce646b;
+  --iron-grey: #43484c;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #fff5f8; /* Sfondo rosa cipria chiarissimo */
-    color: #4a3b40; /* Testo color marrone/grigio scuro per leggibilità */
+    background-color: var(--lavender-blush); /* Sfondo delicato chiaro */
+    color: var(--iron-grey); /* Testo grigio scuro per ottima leggibilità */
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #d88ca2; /* Rosa medio elegante per la testata */
-    color: white;
+    background-color: var(--soft-blossom); /* Rosa cipria elegante per la testata */
+    color: var(--dark-spruce);
     padding: 15px 0;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-bottom: 2px solid var(--tea-green);
 }
 
 header h1 {
     margin: 0;
+    color: var(--dark-spruce);
 }
 
 nav ul {
@@ -30,12 +41,14 @@ nav ul li {
 }
 
 nav ul li a {
-    color: white;
+    color: var(--dark-spruce);
     text-decoration: none;
     font-weight: bold;
+    transition: color 0.2s ease;
 }
 
 nav ul li a:hover {
+    color: var(--lobster-pink); /* Tocco vivace al passaggio del mouse */
     text-decoration: underline;
 }
 
@@ -45,24 +58,25 @@ main {
 }
 
 button {
-    background-color: #d88ca2;
-    color: white;
+    background-color: var(--dark-spruce);
+    color: var(--lavender-blush);
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 button:hover {
-    background-color: #c07389;
+    background-color: var(--lobster-pink);
 }
 
 footer {
     text-align: center;
     padding: 15px;
-    background-color: #b5657d; /* Rosa scuro/vinaccia per il footer */
-    color: white;
+    background-color: var(--dark-spruce); /* Verde bosco scuro per il footer */
+    color: var(--lavender-blush);
     margin-top: 40px;
 }
 
@@ -81,7 +95,8 @@ footer {
     width: 200px;        /* Puoi regolare la dimensione */
     height: 200px;       
     object-fit: cover;   /* Evita che l'immagine si deformi */
-    border-radius: 50%;  /* Rende l'immagine rotonda (opzionale) */
+    border-radius: 50%;  /* Rende l'immagine rotonda */
+    border: 3px solid var(--tea-green);
 }
 
 /* Regole per il testo */
@@ -111,8 +126,9 @@ footer {
     background-color: #ffffff;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease;
+    border: 1px solid var(--tea-green);
 }
 
 .gallery-item:hover {
@@ -134,11 +150,11 @@ footer {
 .gallery-caption h3 {
     font-size: 1.1rem;
     margin-bottom: 5px;
-    color: #333;
+    color: var(--dark-spruce);
 }
 
 .gallery-caption p {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--iron-grey);
     margin: 0;
 }
