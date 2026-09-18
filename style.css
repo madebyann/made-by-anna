@@ -14,10 +14,10 @@ html, body {
     padding: 0;
 }
 
-/* Sfondo generale della pagina in Lavender Blush */
+/* Sfondo generale della pagina in Vanilla Cream */
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--lavender-blush);
+    background-color: var(--vanilla-cream);
     color: var(--iron-grey);
     margin: 0;
     padding: 0;
