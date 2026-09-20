@@ -205,19 +205,21 @@ button:hover, .btn:hover {
 
 
 
+/* --- COLLAGE SCORREVOLE --- */
+
 .collage-scorrevole {
     width: 100%;
-    overflow-x: auto;
+    overflow-x: scroll; /* Usiamo 'scroll' invece di 'auto' per forzare sempre il comportamento di scorrimento */
     overflow-y: hidden;
-    -webkit-overflow-scrolling: touch; /* Fondamentale per iOS */
-    touch-action: pan-x;               /* Dice al touch screen di consentire lo scroll orizzontale fluido */
+    -webkit-overflow-scrolling: touch; /* Attiva l'inerzia nativa su iOS */
+    touch-action: pan-x;               /* Dice al browser di gestire solo il movimento orizzontale */
     padding: 20px 30px;
     background-color: var(--vanilla-cream);
     box-sizing: border-box;
-    scrollbar-width: none;             /* Nasconde la barra su Firefox per pulizia */
+    scrollbar-width: none;             /* Nasconde la barra su Firefox */
 }
 
-/* Nasconde la barra di scorrimento su Chrome/Safari mobile per un look più pulito */
+/* Nasconde la barra di scorrimento su Chrome/Safari mobile */
 .collage-scorrevole::-webkit-scrollbar {
     display: none;
 }
@@ -251,6 +253,10 @@ button:hover, .btn:hover {
     display: block;
 }
 
+.masonry-item:hover {
+    transform: scale(1.03);
+}
+
 /* Gestione delle diverse altezze */
 .masonry-item.small {
     height: 85px;
@@ -264,29 +270,25 @@ button:hover, .btn:hover {
     height: 182px;
 }
 
-/* Responsive per smartphone: scroll orizzontale fluido */
-/* Responsive per smartphone: scroll orizzontale fluido e senza intoppi */
+/* Responsive per smartphone */
 @media (max-width: 768px) {
     .collage-scorrevole {
-        width: 100%;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch; /* Attiva l'inerzia dello scroll su iOS */
-        touch-action: pan-x;               /* Ottimizza il tocco orizzontale */
         padding: 20px 16px;
-        box-sizing: border-box;
+        /* Rimuoviamo eventuali attriti impostando la proprietà di scorrimento fluido pulito */
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
     }
 
     .masonry-row {
-        display: inline-flex;  /* Fondamentale: permette alla riga di estendersi orizzontalmente in modo nativo */
+        display: inline-flex;  
         flex-wrap: nowrap;     
         gap: 12px;
-        width: auto;           /* Lascia che si adatti agli elementi senza forzature */
-        padding-right: 16px;   /* Spazio di respiro alla fine dello scroll */
+        width: auto;           
+        padding-right: 24px;   
     }
 
     .masonry-col {
-        flex: 0 0 130px;       /* Blocca la larghezza fissa di ogni colonna a 130px */
+        flex: 0 0 130px;       
         min-width: 130px;
     }
 }
