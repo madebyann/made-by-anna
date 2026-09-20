@@ -209,14 +209,14 @@ button:hover, .btn:hover {
     max-width: 1200px;
     margin: 0 auto;
     overflow-x: auto;
-    padding: 20px 16px; /* Spazio simmetrico sui bordi anche su PC */
+    padding: 20px 0; /* Via il padding laterale qui, usiamo la larghezza standard */
     background-color: var(--vanilla-cream);
     box-sizing: border-box;
 }
 
 .masonry-row {
     display: flex;
-    flex-wrap: wrap; /* Su PC vanno a capo normalmente se serve */
+    flex-wrap: wrap; /* Su PC vanno a capo normalmente */
     gap: 12px;
     width: 100%;
 }
@@ -252,21 +252,22 @@ button:hover, .btn:hover {
     height: 182px;
 }
 
-/* Responsive per smartphone: qui attiviamo lo scroll orizzontale */
+/* Responsive per smartphone */
 @media (max-width: 768px) {
     .collage-scorrevole {
+        /* Qui mettiamo un piccolo margine solo su telefono per non attaccarlo ai bordi dello schermo */
         padding-left: 16px;
         padding-right: 16px;
     }
 
     .masonry-row {
-        flex-wrap: nowrap;     /* Solo su telefono diventano un'unica riga scorrevole */
+        flex-wrap: nowrap;     
         overflow-x: auto;      
         -webkit-overflow-scrolling: touch; 
         padding-bottom: 15px;
     }
 
     .masonry-col {
-        flex: 0 0 138px;       /* Larghezza fissa per le colonne sul telefono */
+        flex: 0 0 138px;       
     }
 }
