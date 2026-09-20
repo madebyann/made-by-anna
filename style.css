@@ -263,18 +263,21 @@ button:hover, .btn:hover {
 /* Responsive per smartphone: scroll orizzontale fluido e completo */
 @media (max-width: 768px) {
     .collage-scorrevole {
-        padding: 20px 16px;
+        width: 100%;
         overflow-x: auto;
+        overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
+        padding: 20px 16px;
+        box-sizing: border-box;
     }
 
     .masonry-row {
         display: flex;
         flex-wrap: nowrap;     
         gap: 12px;
-        /* Calcoliamo dinamicamente lo spazio di tutte le colonne per forzare il browser a farle entrare tutte */
-        width: calc(10px * 10 + 120px * 8); 
-        padding-right: 40px;   /* Margine extra generoso alla fine per non tagliare nulla */
+        /* Forziamo una larghezza minima generosa basata sul numero di colonne (es. 8 colonne da 120px + gap) */
+        min-width: 1100px; 
+        padding-right: 30px;   
     }
 
     .masonry-col {
