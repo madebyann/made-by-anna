@@ -261,20 +261,83 @@ button:hover, .btn:hover {
 }
 
 /* Responsive per smartphone: scroll orizzontale fluido e completo */
+/* --- COLLAGE SCORREVOLE --- */
+
+.collage-scorrevole {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch; /* Fondamentale per iOS */
+    touch-action: pan-x;               /* Dice al touch screen di consentire lo scroll orizzontale fluido */
+    padding: 20px 30px;
+    background-color: var(--vanilla-cream);
+    box-sizing: border-box;
+    scrollbar-width: none;             /* Nasconde la barra su Firefox per pulizia */
+}
+
+/* Nasconde la barra di scorrimento su Chrome/Safari mobile per un look più pulito */
+.collage-scorrevole::-webkit-scrollbar {
+    display: none;
+}
+
+.masonry-row {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 12px;
+    width: 100%;
+}
+
+.masonry-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.masonry-item {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+    overflow: hidden;
+}
+
+.masonry-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Gestione delle diverse altezze */
+.masonry-item.small {
+    height: 85px;
+}
+
+.masonry-item.medium {
+    height: 130px;
+}
+
+.masonry-item.tall {
+    height: 182px;
+}
+
+/* Responsive per smartphone: scroll orizzontale fluido */
 @media (max-width: 768px) {
     .collage-scorrevole {
         padding: 20px 16px;
+        -webkit-overflow-scrolling: touch;
     }
 
     .masonry-row {
-        flex-wrap: nowrap;     /* Impedisce alle colonne di andare a capo */
+        flex-wrap: nowrap;     
         gap: 12px;
-        width: max-content;    /* Si adatta automaticamente alla larghezza totale delle colonne senza forzare 1100px fissi */
+        width: max-content;    
         padding-right: 20px;   
     }
 
     .masonry-col {
-        flex: 0 0 130px;       /* Larghezza fissa per ogni colonna nello scroll */
+        flex: 0 0 130px;       
         min-width: 130px;
     }
 }
