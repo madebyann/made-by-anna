@@ -206,6 +206,9 @@ button:hover, .btn:hover {
 }
 
 .masonry-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     flex: 1;           /* Si stringono tutte equamente per entrare nello schermo */
     min-width: 0;      /* Evita che il contenuto leghi la larghezza minima */
 }
