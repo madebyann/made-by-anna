@@ -260,22 +260,25 @@ button:hover, .btn:hover {
     height: 182px;
 }
 
-/* Responsive per smartphone: blocco dello scroll orizzontale pulito */
-/* Responsive per smartphone: scroll orizzontale completo */
+/* Responsive per smartphone: scroll orizzontale fluido e completo */
 @media (max-width: 768px) {
     .collage-scorrevole {
         padding: 20px 16px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .masonry-row {
+        display: flex;
         flex-wrap: nowrap;     
-        width: max-content;    
-        gap: 10px;
-        padding-bottom: 15px;
-        padding-right: 20px;   /* Aggiunge lo spazio finale per far scorrere tutto fino in fondo */
+        gap: 12px;
+        /* Calcoliamo dinamicamente lo spazio di tutte le colonne per forzare il browser a farle entrare tutte */
+        width: calc(10px * 10 + 120px * 8); 
+        padding-right: 40px;   /* Margine extra generoso alla fine per non tagliare nulla */
     }
 
     .masonry-col {
         flex: 0 0 120px;       
+        min-width: 120px;
     }
 }
