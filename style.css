@@ -206,27 +206,29 @@ button:hover, .btn:hover {
 
 .collage-scorrevole {
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     overflow-x: auto;
-    padding: 20px 0;
-    background-color: --vanilla-cream;
+    padding: 20px 16px; /* Spazio simmetrico sui bordi anche su PC */
+    background-color: var(--vanilla-cream);
+    box-sizing: border-box;
 }
 
 .masonry-row {
     display: flex;
-    flex-wrap: nowrap; /* Tengono la riga unica */
-    gap: 12px;          /* Spazio ridotto tra le colonne */
-    width: 100%
-    padding-left: 16px;   /* Spazio sul bordo sinistro */
-    padding-right: 16px;  /* Spazio sul bordo destro */;
+    flex-wrap: wrap; /* Su PC vanno a capo normalmente se serve */
+    gap: 12px;
+    width: 100%;
 }
 
 .masonry-col {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    flex: 1;           /* Si stringono tutte equamente per entrare nello schermo */
-    min-width: 0;      /* Evita che il contenuto leghi la larghezza minima */
+    flex: 1;
+    min-width: 0;
 }
+
 .masonry-item {
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
@@ -239,13 +241,32 @@ button:hover, .btn:hover {
 
 /* Gestione delle diverse altezze */
 .masonry-item.small {
-    height: 85px;  /* Usato quando ci sono 3 elementi nella colonna */
+    height: 85px;
 }
 
 .masonry-item.medium {
-    height: 130px; /* Usato per elementi medi */
+    height: 130px;
 }
 
 .masonry-item.tall {
-    height: 182px; /* Usato per elementi lunghi */
+    height: 182px;
+}
+
+/* Responsive per smartphone: qui attiviamo lo scroll orizzontale */
+@media (max-width: 768px) {
+    .collage-scorrevole {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .masonry-row {
+        flex-wrap: nowrap;     /* Solo su telefono diventano un'unica riga scorrevole */
+        overflow-x: auto;      
+        -webkit-overflow-scrolling: touch; 
+        padding-bottom: 15px;
+    }
+
+    .masonry-col {
+        flex: 0 0 138px;       /* Larghezza fissa per le colonne sul telefono */
+    }
 }
