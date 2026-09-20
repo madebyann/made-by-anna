@@ -204,12 +204,11 @@ button:hover, .btn:hover {
 }
 
 
+/* Semplifichiamo azzerando i margini in eccesso sul collage */
 .collage-scorrevole {
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
     overflow-x: auto;
-    padding: 20px 0; /* Via il padding laterale qui, usiamo la larghezza standard */
+    padding: 20px 0;
     background-color: var(--vanilla-cream);
     box-sizing: border-box;
 }
@@ -252,14 +251,8 @@ button:hover, .btn:hover {
     height: 182px;
 }
 
-/* Responsive per smartphone */
+/* Responsive per smartphone: scroll orizzontale */
 @media (max-width: 768px) {
-    .collage-scorrevole {
-        /* Qui mettiamo un piccolo margine solo su telefono per non attaccarlo ai bordi dello schermo */
-        padding-left: 16px;
-        padding-right: 16px;
-    }
-
     .masonry-row {
         flex-wrap: nowrap;     
         overflow-x: auto;      
