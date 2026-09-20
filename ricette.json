@@ -229,6 +229,69 @@
       }
     }
   },
+  "Torta Moderna Cioccolato e Pere": {
+    "porzioni": 10,
+    "teglia": {
+      "forma": "tonda",
+      "diametro": 20
+    },
+    "foto": "immagini/torta-cioccolato-pere.jpg",
+    "procedimento": [
+      "Prepara il cremoso al cioccolato cuocendo latte, panna e tuorli con lo zucchero, unendo il cioccolato fondente e la gelatina precedentemente idratata, quindi colando uno strato di circa 6 mm.",
+      "Prepara la composta di pere cuocendo le pere (metà frullate e metà a cubetti) con lo zucchero e il succo di limone, unendo a fine cottura la gelatina idratata, e colando uno strato di circa 10 mm.",
+      "Prepara il crumble al cacao mescolando burro morbido, zucchero a velo, cacao e farina di nocciole, aggiungendo la farina e per ultimi i corn flakes, poi stendi tra carta forno a 4 mm e cuoci a 160°C per 12 minuti.",
+      "Prepara la bavarese al cioccolato scaldando il latte, unendo i tuorli montati con lo zucchero, sciogliendo il cioccolato fondente e la gelatina idratata, e infine incorporando la panna fresca semimontata.",
+      "Prepara la glassa al cacao scaldando acqua, panna, zucchero e cacao amaro, unendo la gelatina idratata.",
+      "Prepara le pere essiccate tagliandole sottili e cuocendole in forno o friggitrice d'aria a 100-120°C fino a cottura.",
+      "Assembla la torta moderna inserendo i vari strati (cremoso, composta, crumble, bavarese) e glassa con la glassa al cacao."
+    ],
+    "ingredienti": {
+      "Cremoso al cioccolato": {
+        "cioccolato fondente 60%": { "quantità": 55, "unità": "g" },
+        "latte intero": { "quantità": 60, "unità": "g" },
+        "panna fresca": { "quantità": 60, "unità": "g" },
+        "tuorlo": { "quantità": 18, "unità": "g" },
+        "zucchero": { "quantità": 10, "unità": "g" },
+        "gelatina 240 bloom": { "quantità": 1.6, "unità": "g" },
+        "acqua per idratazione": { "quantità": 8, "unità": "g" }
+      },
+      "Composta di pere": {
+        "pere (175 frullate, 175 a cubetti)": { "quantità": 350, "unità": "g" },
+        "zucchero": { "quantità": 45, "unità": "g" },
+        "succo di limone": { "quantità": 10, "unità": "g" },
+        "gelatina 240 bloom": { "quantità": 5, "unità": "g" },
+        "acqua per idratazione": { "quantità": 25, "unità": "g" }
+      },
+      "Crumble al cacao": {
+        "burro morbido": { "quantità": 48, "unità": "g" },
+        "farina debole": { "quantità": 31, "unità": "g" },
+        "zucchero a velo": { "quantità": 36, "unità": "g" },
+        "nocciole tritate finemente": { "quantità": 18, "unità": "g" },
+        "corn flakes": { "quantità": 12, "unità": "g" },
+        "cacao amaro": { "quantità": 5, "unità": "g" }
+      },
+      "Bavarese al cioccolato": {
+        "panna fresca semimontata (35% grassi)": { "quantità": 375, "unità": "g" },
+        "cioccolato fondente (60–70%)": { "quantità": 225, "unità": "g" },
+        "latte intero": { "quantità": 190, "unità": "g" },
+        "tuorli": { "quantità": 60, "unità": "g" },
+        "zucchero": { "quantità": 45, "unità": "g" },
+        "gelatina 240 Bloom": { "quantità": 5.5, "unità": "g" },
+        "acqua per idratazione": { "quantità": 27.5, "unità": "g" }
+      },
+      "Glassa al cacao": {
+        "gelatina 240 bloom": { "quantità": 1.8, "unità": "g" },
+        "acqua per idratazione": { "quantità": 9, "unità": "g" },
+        "acqua": { "quantità": 39, "unità": "g" },
+        "zucchero": { "quantità": 50, "unità": "g" },
+        "panna": { "quantità": 16, "unità": "g" },
+        "cacao amaro": { "quantità": 33, "unità": "g" }
+      },
+      "Decorazione": {
+        "pere essiccate": { "quantità": 1, "unità": "q.b." }
+      }
+    }
+  };
   
   "Torta Pan di Spagna al Cacao con Doppia Diplomatica": {
     "porzioni": 12,
