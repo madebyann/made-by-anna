@@ -204,64 +204,6 @@ button:hover, .btn:hover {
 }
 
 
-/* Semplifichiamo azzerando i margini in eccesso sul collage */
-.collage-scorrevole {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 20px 30px;
-    background-color: var(--vanilla-cream);
-    box-sizing: border-box;
-}
-
-.masonry-row {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 12px;
-    width: 100%;
-}
-
-.masonry-col {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    flex: 1;
-    min-width: 0;
-}
-
-.masonry-item {
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease;
-    overflow: hidden;
-}
-
-.masonry-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.masonry-item:hover {
-    transform: scale(1.03);
-}
-
-/* Gestione delle diverse altezze */
-.masonry-item.small {
-    height: 85px;
-}
-
-.masonry-item.medium {
-    height: 130px;
-}
-
-.masonry-item.tall {
-    height: 182px;
-}
-
-/* Responsive per smartphone: scroll orizzontale fluido e completo */
-/* --- COLLAGE SCORREVOLE --- */
 
 .collage-scorrevole {
     width: 100%;
