@@ -265,21 +265,28 @@ button:hover, .btn:hover {
 }
 
 /* Responsive per smartphone: scroll orizzontale fluido */
+/* Responsive per smartphone: scroll orizzontale fluido e senza intoppi */
 @media (max-width: 768px) {
     .collage-scorrevole {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch; /* Attiva l'inerzia dello scroll su iOS */
+        touch-action: pan-x;               /* Ottimizza il tocco orizzontale */
         padding: 20px 16px;
-        -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
     }
 
     .masonry-row {
+        display: inline-flex;  /* Fondamentale: permette alla riga di estendersi orizzontalmente in modo nativo */
         flex-wrap: nowrap;     
         gap: 12px;
-        width: max-content;    
-        padding-right: 20px;   
+        width: auto;           /* Lascia che si adatti agli elementi senza forzature */
+        padding-right: 16px;   /* Spazio di respiro alla fine dello scroll */
     }
 
     .masonry-col {
-        flex: 0 0 130px;       
+        flex: 0 0 130px;       /* Blocca la larghezza fissa di ogni colonna a 130px */
         min-width: 130px;
     }
 }
