@@ -200,18 +200,15 @@ button:hover, .btn:hover {
 
 .masonry-row {
     display: flex;
-    gap: 12px;
-    width: max-content;
-    padding: 0 20px;
+    flex-wrap: nowrap; /* Tengono la riga unica */
+    gap: 12px;          /* Spazio ridotto tra le colonne */
+    width: 100%;
 }
 
 .masonry-col {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 138.5px; /* Larghezza della colonna */
+    flex: 1;           /* Si stringono tutte equamente per entrare nello schermo */
+    min-width: 0;      /* Evita che il contenuto leghi la larghezza minima */
 }
-
 .masonry-item {
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
