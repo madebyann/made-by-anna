@@ -209,7 +209,7 @@ button:hover, .btn:hover {
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 20px 0;
+    padding: 20px 30px;
     background-color: var(--vanilla-cream);
     box-sizing: border-box;
 }
@@ -261,19 +261,21 @@ button:hover, .btn:hover {
 }
 
 /* Responsive per smartphone: blocco dello scroll orizzontale pulito */
+/* Responsive per smartphone: scroll orizzontale completo */
 @media (max-width: 768px) {
     .collage-scorrevole {
         padding: 20px 16px;
     }
 
     .masonry-row {
-        flex-wrap: nowrap;     /* Forza tutte le colonne sulla stessa riga */
-        width: max-content;    /* Evita che si stringano schiacciandosi */
+        flex-wrap: nowrap;     
+        width: max-content;    
         gap: 10px;
         padding-bottom: 15px;
+        padding-right: 20px;   /* Aggiunge lo spazio finale per far scorrere tutto fino in fondo */
     }
 
     .masonry-col {
-        flex: 0 0 120px;       /* Larghezza fissa per ogni singola colonna sul telefono */
+        flex: 0 0 120px;       
     }
 }
