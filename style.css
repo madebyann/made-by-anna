@@ -263,25 +263,18 @@ button:hover, .btn:hover {
 /* Responsive per smartphone: scroll orizzontale fluido e completo */
 @media (max-width: 768px) {
     .collage-scorrevole {
-        width: 100%;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
         padding: 20px 16px;
-        box-sizing: border-box;
     }
 
     .masonry-row {
-        display: flex;
-        flex-wrap: nowrap;     
+        flex-wrap: nowrap;     /* Impedisce alle colonne di andare a capo */
         gap: 12px;
-        /* Forziamo una larghezza minima generosa basata sul numero di colonne (es. 8 colonne da 120px + gap) */
-        min-width: 1100px; 
-        padding-right: 30px;   
+        width: max-content;    /* Si adatta automaticamente alla larghezza totale delle colonne senza forzare 1100px fissi */
+        padding-right: 20px;   
     }
 
     .masonry-col {
-        flex: 0 0 120px;       
-        min-width: 120px;
+        flex: 0 0 130px;       /* Larghezza fissa per ogni colonna nello scroll */
+        min-width: 130px;
     }
 }
