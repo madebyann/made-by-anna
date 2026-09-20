@@ -208,9 +208,9 @@ button:hover, .btn:hover {
 .collage-scorrevole {
     width: 100%;
     overflow-x: auto;
-    padding: 20px 0;
+    padding: 20px 30px; /* Qui rimettiamo un padding simmetrico a destra e a sinistra per staccarlo dai bordi */
     background-color: var(--vanilla-cream);
-    box-sizing: border-box;
+    box-sizing: border-box; /* Fondamentale per calcolare i bordi dentro la larghezza totale */
 }
 
 .masonry-row {
