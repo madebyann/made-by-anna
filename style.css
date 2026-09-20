@@ -209,7 +209,7 @@ button:hover, .btn:hover {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: 139px; /* Larghezza della colonna */
+    width: 138.5px; /* Larghezza della colonna */
 }
 
 .masonry-item {
