@@ -189,6 +189,19 @@ button:hover, .btn:hover {
     main {
         padding: 20px;
     }
+
+    .masonry-row {
+        display: flex;
+        flex-wrap: nowrap;     /* Rimangono tutte sulla stessa riga */
+        overflow-x: auto;      /* Abilita lo scroll orizzontale */
+        -webkit-overflow-scrolling: touch; /* Scroll fluido su iOS/Android */
+        padding-bottom: 10px;
+    }
+
+    .masonry-col {
+        flex: 0 0 138px;        /* Larghezza fissa di 90px (puoi regolarla) e niente compressione */
+    }
+}
 }
 
 .collage-scorrevole {
