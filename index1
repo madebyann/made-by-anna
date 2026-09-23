@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Made by Anna - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Aggiungiamo la transizione fluida per la dissolvenza delle immagini */
+        .masonry-img {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div></div>
+        <nav>
+            <ul>
+                <li><a href="codice.html">Codice</a></li>
+                <li><a href="progetti.html">Maglia</a></li>
+                <li><a href="ricette.html">Ricette</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-section">
+            <img src="immagini/anna.jpg" alt="Foto di Anna" class="profile-img">
+            <div class="about-text">
+                <h2>Benvenuti!</h2>
+                <p>Mi chiamo Anna e sono una laureanda in Matematica all'Università di Padova. Qui troverete alcuni progetti di matematica e le cose che amo fare, dalla cucina, in particolare la pasticceria, al lavoro a maglia.</p>
+            </div>
+        </section>
+    </main>
+
+    <section style="margin-top: 0px; margin-bottom: 5px; padding: 0; text-align: center;">
+        <h2 style="margin: 0; font-size: 1.5rem; line-height: 1.2;">I miei lavori</h2>
+    </section>
+
+    <section class="collage-scorrevole">
+        <div class="masonry-row">
+            
+            <!-- Colonna 1 -->
+            <div class="masonry-col">
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #E3EAC3); height: 152px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+                <div class="masonry-item">
+                    <img src="immagini/bigne.jpg" alt="Bignè" class="masonry-img" data-category="cucina" style="width: 100%; height: 110px; object-fit: cover; display: block; border-radius: 12px;">
+                </div>
+            </div>
+
+            <!-- Colonna 2 -->
+            <div class="masonry-col">
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #A6CB90); height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+                <div class="masonry-item">
+                    <img src="immagini/curry-lenticchie.jpg" alt="Curry di lenticchie" class="masonry-img" data-category="cucina" style="width: 100%; height: 110px; object-fit: cover; display: block; border-radius: 12px;">
+                </div>
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #B3A094); height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+            </div>
+
+            <!-- Colonna 3 -->
+            <div class="masonry-col">
+                <div class="masonry-item">
+                    <img src="immagini/codice1.jpg" alt="Codice" class="masonry-img" data-category="codice" style="width: 100%; height: 110px; object-fit: cover; display: block; border-radius: 12px;">
+                </div>
+                <div class="masonry-item">
+                    <img src="immagini/jenny-sweater1.jpg" alt="Maglia" class="masonry-img" data-category="maglia" style="width: 100%; height: 152px; object-fit: cover; display: block; border-radius: 12px;">
+                </div>
+            </div>
+
+            <!-- Colonna 4 -->
+            <div class="masonry-col">
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #FEDE85); height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+                <div class="masonry-item">
+                    <img src="immagini/torta-cioccolato-pere.jpg" alt="Torta cioccolato e pere" class="masonry-img" data-category="cucina" style="width: 100%; height: 110px; object-fit: cover; display: block; border-radius: 12px;">
+                </div>
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #79B159); height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+            </div>
+
+            <!-- Colonna 5 -->
+            <div class="masonry-col">
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #E3EAC3); height: 152px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+                <div class="masonry-item">
+                    <img src="immagini/codice2.jpg" alt="Codice 2" class="masonry-img" data-category="codice" style="width: 100%; height: 110px; object-fit: cover; display: block; border-radius: 12px;">
+                </div>
+            </div>
+
+            <!-- Colonna 6 -->
+            <div class="masonry-col">
+                <div class="masonry-item">
+                    <img src="immagini/brioche-more.jpg" alt="Brioche con more" class="masonry-img" data-category="cucina" style="width: 100%; height: 152px; object-fit: cover; display: block; border-radius: 12px;">
+                </div>
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #8F7666); height: 110px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+            </div>
+
+            <!-- Colonna 7 -->
+            <div class="masonry-col">
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #A6CB90); height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+                <div class="masonry-item">
+                    <img src="immagini/sweater-no15.jpg" alt="Maglia No. 15" class="masonry-img" data-category="maglia" style="width: 100%; height: 110px; object-fit: cover; display: block; border-radius: 12px;">
+                </div>
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #FEDE85); height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+            </div>
+
+            <!-- Colonna 8 -->
+            <div class="masonry-col">
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #B3A094); height: 110px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+                <div class="masonry-item">
+                    <img src="immagini/torta-cocco-lime.jpg" alt="Torta cocco e lime" class="masonry-img" data-category="cucina" style="width: 100%; height: 152px; object-fit: cover; display: block; border-radius: 12px;">
+                </div>
+            </div>
+
+            <!-- Colonna 9 -->
+            <div class="masonry-col">
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #79B159); height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+                <div class="masonry-item">
+                    <img src="immagini/udon.jpg" alt="Udon" class="masonry-img" data-category="cucina" style="width: 100%; height: 110px; object-fit: cover; display: block; border-radius: 12px;">
+                </div>
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #A6CB90); height: 70px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+            </div>
+
+            <!-- Colonna 10 -->
+            <div class="masonry-col">
+                <div class="masonry-item">
+                    <img src="immagini/torta-nocciola.jpg" alt="Torta alla nocciola" class="masonry-img" data-category="cucina" style="width: 100%; height: 152px; object-fit: cover; display: block; border-radius: 12px;">
+                </div>
+                <div class="masonry-item" style="background-color: var(--lavender-blush, #E3EAC3); height: 110px; border-radius: 12px; display: flex; align-items: center; justify-content: center; text-align: center;">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Script JavaScript per la rotazione per categorie -->
+    <script>
+        // Pool di immagini divise per categoria
+        const categories = {
+            cucina: [
+                "immagini/bigne.jpg",
+                "immagini/curry-lenticchie.jpg",
+                "immagini/torta-cioccolato-pere.jpg",
+                "immagini/brioche-more.jpg",
+                "immagini/torta-cocco-lime.jpg",
+                "immagini/udon.jpg",
+                "immagini/torta-nocciola.jpg"
+            ],
+            maglia: [
+                "immagini/jenny-sweater1.jpg",
+                "immagini/sweater-no15.jpg"
+            ],
+            codice: [
+                "immagini/codice1.jpg",
+                "immagini/codice2.jpg"
+            ]
+        };
+
+        // Funzione per mescolare un array in modo casuale
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function rotateCategorizedImages() {
+            // Crea pool mescolati per ogni categoria
+            const shuffledPools = {};
+            for (const cat in categories) {
+                shuffledPools[cat] = shuffleArray(categories[cat]);
+            }
+
+            const indices = { cucina: 0, maglia: 0, codice: 0 };
+            const imgElements = document.querySelectorAll('.masonry-img');
+
+            imgElements.forEach(img => {
+                const cat = img.getAttribute('data-category');
+                if (!cat || !categories[cat]) return;
+
+                // Effetto dissolvenza in uscita
+                img.style.opacity = 0;
+
+                setTimeout(() => {
+                    const pool = shuffledPools[cat];
+                    const currentIndex = indices[cat];
+
+                    // Assegna la nuova immagine dalla categoria corrispondente
+                    img.src = pool[currentIndex % pool.length];
+                    indices[cat]++;
+
+                    // Effetto dissolvenza in entrata
+                    img.style.opacity = 1;
+                }, 300);
+            });
+        }
+
+        // Avvia la rotazione ogni 5 secondi (5000 millisecondi)
+        setInterval(rotateCategorizedImages, 5000);
+    </script>
+</body>
+</html>
