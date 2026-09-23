@@ -117,13 +117,13 @@
             <div id="corpoDettaglioRicetta"></div>
         </div>
 
-        <!-- 2. IL CALCOLATORE ORIGINALE -->
+        <!-- 2. CALCOLATORI DI DOSI -->
         <div id="vistaCalcolatore" class="sezione-contenuto">
             <h2>Calcolatore di dosi</h2>
             <p>Ridimensiona gli ingredienti in base alle porzioni, alla teglia o agli ingredienti che hai in casa.</p>
             
             <label for="selezionaRicetta"><strong>Scegli ricetta:</strong></label>
-            <select id="selezionaRicetta">
+            <select id="selezionaRicetta" style="width: 100%; padding: 8px; margin-top: 5px; margin-bottom: 15px; border-radius: 6px; border: 1px solid #ccc;">
                 <option value="">-- Seleziona una ricetta --</option>
             </select>
             
@@ -131,8 +131,7 @@
         </div>
     </main>
 
-   
-    <!-- Script che carica la vetrina e le tab -->
+    <!-- Script esterno -->
     <script src="script.js"></script>
     <script>
         let datiGlobali = {};
@@ -142,7 +141,9 @@
             .then(data => {
                 datiGlobali = data;
                 creaVetrina(data);
-            });
+                popolaSelectRicette(data);
+            })
+            .catch(err => console.error("Errore nel caricamento di ricette.json:", err));
 
         function creaVetrina(data) {
             const griglia = document.getElementById("grigliaCard");
