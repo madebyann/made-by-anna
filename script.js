@@ -35,6 +35,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// Funzione ausiliaria per estrarre tutti gli ingredienti in una lista piatta per il menu a tendina
+function estraiListaIngredienti(obj, prefisso = "") {
+    let lista = [];
+    for (let key in obj) {
+        let item = obj[key];
+        if (item && typeof item === 'object' && item.hasOwnProperty('quantità')) {
+            let etichetta = prefisso ? `${prefisso} ➔ ${key}` : key;
+            lista.push({
+                chiave: etichetta,
+                quantita: parseFloat(item.quantità) || 0,
+                unita: item.unità || ''
+            });
+        } else if (item && typeof item === 'object') {
+            let nuovoPrefisso = prefisso ? `${prefisso} ➔ ${key}` : key;
+            lista = lista.concat(estraiListaIngredienti(item, nuovoPrefisso));
+        }
+    }
+    return lista;
+}
+
 function mostraRicetta(ricetta) {
     const dettagliRicetta = document.getElementById("dettagliRicetta");
     if (!dettagliRicetta) return;
@@ -64,64 +84,32 @@ function mostraRicetta(ricetta) {
         html += `<img src="${r.foto}" alt="${ricetta}" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">`;
     }
 
-   
     // Sezione di calcolo dosi dinamico
     html += `
         <hr style="margin: 20px 0;">
         <h3>Modifica quantità</h3>
         <label for="criterio">Scegli il criterio:</label>
-        <select id="criterio" onchange="aggiornaECalcola()">
+        <select id="criterio" onchange="aggiornaECalcola()" style="width: 100%; padding: 8px; margin-top: 5px; margin-bottom: 10px;">
             <option value="porzioni">Numero di porzioni</option>
             ${r.teglia && r.teglia.forma === "tonda" ? '<option value="teglia">Diametro della teglia (cm)</option>' : ''}
+            <option value="ingrediente">Ingrediente limitante</option>
         </select>
-        <br><br>
-        <label id="etichettaValore" for="valore">Nuovo numero di porzioni:</label><br>
-        <input type="number" id="valore" value="${r.porzioni || 1}" step="any" oninput="calcolaIngredienti()" style="width: 100%; padding: 8px; margin-top: 5px;">
+        
+        <!-- Contenitore dinamico per gli input del criterio selezionato -->
+        <div id="contenitoreInputCriterio"></div>
         
         <div id="risultatoCalcolo" style="margin-top: 20px;"></div>
     `;
 
-
     dettagliRicetta.innerHTML = html;
     
-    // Calcola subito il risultato iniziale all'apertura
-    calcolaIngredienti();
-}
-
-function generaHTMLIngredienti(obj) {
-    let haSottocategorie = false;
-    for (let chiave in obj) {
-        if (typeof obj[chiave] === 'object' && obj[chiave] !== null && !obj[chiave].hasOwnProperty('quantità')) {
-            haSottocategorie = true;
-            break;
-        }
-    }
-
-    let html = `<ul>`;
-    if (haSottocategorie) {
-        for (let categoria in obj) {
-            html += `<li><strong>${categoria}</strong><ul>`;
-            let sottogruppo = obj[categoria];
-            for (let ing in sottogruppo) {
-                let dati = sottogruppo[ing];
-                html += `<li>${ing}: ${dati.quantità} ${dati.unità}</li>`;
-            }
-            html += `</ul></li>`;
-        }
-    } else {
-        for (let ing in obj) {
-            let dati = obj[ing];
-            html += `<li>${ing}: ${dati.quantità} ${dati.unità}</li>`;
-        }
-    }
-    html += `</ul>`;
-    return html;
+    // Inizializza i campi di input corretti e calcola
+    aggiornaECalcola();
 }
 
 function aggiornaECalcola() {
     const criterio = document.getElementById("criterio").value;
-    const etichetta = document.getElementById("etichettaValore");
-    const inputValore = document.getElementById("valore");
+    const contenitoreInput = document.getElementById("contenitoreInputCriterio");
     
     const selectRicetta = document.getElementById("selezionaRicetta");
     if (!selectRicetta) return;
@@ -129,11 +117,30 @@ function aggiornaECalcola() {
     if (!r) return;
 
     if (criterio === "porzioni") {
-        etichetta.textContent = "Nuovo numero di porzioni:";
-        inputValore.value = r.porzioni;
+        contenitoreInput.innerHTML = `
+            <label for="valore">Nuovo numero di porzioni:</label><br>
+            <input type="number" id="valore" value="${r.porzioni || 1}" step="any" oninput="calcolaIngredienti()" style="width: 100%; padding: 8px; margin-top: 5px;">
+        `;
     } else if (criterio === "teglia") {
-        etichetta.textContent = "Nuovo diametro della teglia (cm):";
-        inputValore.value = r.teglia.diametro;
+        contenitoreInput.innerHTML = `
+            <label for="valore">Nuovo diametro della teglia (cm):</label><br>
+            <input type="number" id="valore" value="${r.teglia ? r.teglia.diametro : ''}" step="any" oninput="calcolaIngredienti()" style="width: 100%; padding: 8px; margin-top: 5px;">
+        `;
+    } else if (criterio === "ingrediente") {
+        const listaIng = estraiListaIngredienti(r.ingredienti);
+        let opzioniIng = listaIng.map((ing, idx) => {
+            return `<option value="${idx}">${ing.chiave} (Orig: ${ing.quantita} ${ing.unita})</option>`;
+        }).join("");
+
+        contenitoreInput.innerHTML = `
+            <label for="selectIngGuida">Scegli ingrediente guida:</label>
+            <select id="selectIngGuida" onchange="calcolaIngredienti()" style="width: 100%; padding: 8px; margin-top: 5px; margin-bottom: 10px;">
+                ${opzioniIng}
+            </select>
+            <br>
+            <label for="valore">Quantità che possiedi:</label><br>
+            <input type="number" id="valore" placeholder="Es. 100" step="any" oninput="calcolaIngredienti()" style="width: 100%; padding: 8px; margin-top: 5px;">
+        `;
     }
     
     calcolaIngredienti();
@@ -148,22 +155,38 @@ function calcolaIngredienti() {
 
     const r = ricette[ricettaSelezionata];
     const criterio = document.getElementById("criterio").value;
-    const valore = parseFloat(document.getElementById("valore").value);
+    const inputValore = document.getElementById("valore");
     const divRisultato = document.getElementById("risultatoCalcolo");
 
+    if (!inputValore) return;
+
+    const valore = parseFloat(inputValore.value);
+
     if (isNaN(valore) || valore <= 0) {
-        divRisultato.innerHTML = "<p style='color: red;'>Inserisci un valore valido maggiore di zero.</p>";
+        divRisultato.innerHTML = "<p style='color: #d9534f;'>Inserisci un valore valido maggiore di zero.</p>";
         return;
     }
 
     let fattoreScala = 1;
 
     if (criterio === "porzioni") {
-        fattoreScala = valore / r.porzioni;
-    } else if (criterio === "teglia" && r.teglia.forma === "tonda") {
+        fattoreScala = valore / (r.porzioni || 1);
+    } else if (criterio === "teglia" && r.teglia && r.teglia.forma === "tonda") {
         let diametroVecchio = r.teglia.diametro;
         let diametroNuovo = valore;
         fattoreScala = Math.pow(diametroNuovo / diametroVecchio, 2);
+    } else if (criterio === "ingrediente") {
+        const listaIng = estraiListaIngredienti(r.ingredienti);
+        const idxIng = document.getElementById("selectIngGuida").value;
+        const ingGuida = listaIng[idxIng];
+
+        if (!ingGuida || ingGuida.quantita <= 0) {
+            divRisultato.innerHTML = "<p style='color: #d9534f;'>L'ingrediente selezionato non ha una dose valida per la proporzione.</p>";
+            return;
+        }
+
+        // Calcolo del rapporto k = (Quantità Posseduta) / (Quantità Originale)
+        fattoreScala = valore / ingGuida.quantita;
     }
 
     function scalaElementi(obj, fattore) {
@@ -189,7 +212,7 @@ function calcolaIngredienti() {
         return resHTML;
     }
 
-    let htmlRisultato = `<h4>Dosi ricalcolate:</h4>`;
+    let htmlRisultato = `<h4>Dosi ricalcolate (fattore: ${fattoreScala.toFixed(2)}x):</h4>`;
     htmlRisultato += scalaElementi(r.ingredienti, fattoreScala);
     divRisultato.innerHTML = htmlRisultato;
 }
