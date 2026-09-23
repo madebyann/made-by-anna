@@ -35,24 +35,69 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// Funzione ausiliaria per estrarre tutti gli ingredienti in una lista piatta per il menu a tendina
-function estraiListaIngredienti(obj, prefisso = "") {
-    let lista = [];
-    for (let key in obj) {
-        let item = obj[key];
-        if (item && typeof item === 'object' && item.hasOwnProperty('quantità')) {
-            let etichetta = prefisso ? `${prefisso} ➔ ${key}` : key;
-            lista.push({
-                chiave: etichetta,
-                quantita: parseFloat(item.quantità) || 0,
-                unita: item.unità || ''
-            });
-        } else if (item && typeof item === 'object') {
-            let nuovoPrefisso = prefisso ? `${prefisso} ➔ ${key}` : key;
-            lista = lista.concat(estraiListaIngredienti(item, nuovoPrefisso));
+// Estrae sia i singoli ingredienti che i totali degli ingredienti ripetuti (es. Latte, Zucchero, Uova)
+function estraiMappaIngredienti(obj) {
+    let singoli = [];
+    let mappaTotali = {};
+
+    function naviga(nodo, prefisso = "") {
+        for (let key in nodo) {
+            let item = nodo[key];
+            if (item && typeof item === 'object' && item.hasOwnProperty('quantità')) {
+                let etichetta = prefisso ? `${prefisso} ➔ ${key}` : key;
+                let qta = parseFloat(item.quantità) || 0;
+                let unita = item.unità || '';
+
+                singoli.push({
+                    chiave: etichetta,
+                    nomeIngrediente: key,
+                    quantita: qta,
+                    unita: unita,
+                    tipo: "singolo"
+                });
+
+                // Aggregazione per nome ingrediente (normalizzato in minuscolo per confronto)
+                let nomeNorm = key.trim().toLowerCase();
+                if (!mappaTotali[nomeNorm]) {
+                    mappaTotali[nomeNorm] = {
+                        nomeDispiegato: key.trim(),
+                        quantitaTotale: 0,
+                        unita: unita,
+                        conteggio: 0
+                    };
+                }
+                mappaTotali[nomeNorm].quantitaTotale += qta;
+                mappaTotali[nomeNorm].conteggio += 1;
+            } else if (item && typeof item === 'object') {
+                let nuovoPrefisso = prefisso ? `${prefisso} ➔ ${key}` : key;
+                naviga(item, nuovoPrefisso);
+            }
         }
     }
-    return lista;
+
+    naviga(obj);
+
+    // Costruiamo la lista finale opzioni: prima i totali condivisi, poi i dettagli singoli
+    let opzioniFinali = [];
+
+    // Aggiungi i totali per ingredienti che compaiono in più sotto-ricette/sezioni
+    Object.keys(mappaTotali).forEach(keyNorm => {
+        let tot = mappaTotali[keyNorm];
+        if (tot.conteggio > 1) {
+            opzioniFinali.push({
+                chiave: `TOTALE ${tot.nomeDispiegato.toUpperCase()} (somma di tutte le preparazioni)`,
+                quantita: tot.quantitaTotale,
+                unita: tot.unita,
+                tipo: "totale",
+                nomeIngrediente: keyNorm
+            });
+        }
+    });
+
+    // Aggiungi tutti i singoli elementi della ricetta
+    singoli.forEach(s => opzioniFinali.push(s));
+
+    return opzioniFinali;
 }
 
 function mostraRicetta(ricetta) {
@@ -95,15 +140,12 @@ function mostraRicetta(ricetta) {
             <option value="ingrediente">Ingrediente limitante</option>
         </select>
         
-        <!-- Contenitore dinamico per gli input del criterio selezionato -->
         <div id="contenitoreInputCriterio"></div>
         
         <div id="risultatoCalcolo" style="margin-top: 20px;"></div>
     `;
 
     dettagliRicetta.innerHTML = html;
-    
-    // Inizializza i campi di input corretti e calcola
     aggiornaECalcola();
 }
 
@@ -127,7 +169,7 @@ function aggiornaECalcola() {
             <input type="number" id="valore" value="${r.teglia ? r.teglia.diametro : ''}" step="any" oninput="calcolaIngredienti()" style="width: 100%; padding: 8px; margin-top: 5px;">
         `;
     } else if (criterio === "ingrediente") {
-        const listaIng = estraiListaIngredienti(r.ingredienti);
+        const listaIng = estraiMappaIngredienti(r.ingredienti);
         let opzioniIng = listaIng.map((ing, idx) => {
             return `<option value="${idx}">${ing.chiave} (Orig: ${ing.quantita} ${ing.unita})</option>`;
         }).join("");
@@ -138,8 +180,8 @@ function aggiornaECalcola() {
                 ${opzioniIng}
             </select>
             <br>
-            <label for="valore">Quantità che possiedi:</label><br>
-            <input type="number" id="valore" placeholder="Es. 100" step="any" oninput="calcolaIngredienti()" style="width: 100%; padding: 8px; margin-top: 5px;">
+            <label for="valore">Quantità totale che possiedi:</label><br>
+            <input type="number" id="valore" placeholder="Es. 300" step="any" oninput="calcolaIngredienti()" style="width: 100%; padding: 8px; margin-top: 5px;">
         `;
     }
     
@@ -176,7 +218,7 @@ function calcolaIngredienti() {
         let diametroNuovo = valore;
         fattoreScala = Math.pow(diametroNuovo / diametroVecchio, 2);
     } else if (criterio === "ingrediente") {
-        const listaIng = estraiListaIngredienti(r.ingredienti);
+        const listaIng = estraiMappaIngredienti(r.ingredienti);
         const idxIng = document.getElementById("selectIngGuida").value;
         const ingGuida = listaIng[idxIng];
 
@@ -185,7 +227,6 @@ function calcolaIngredienti() {
             return;
         }
 
-        // Calcolo del rapporto k = (Quantità Posseduta) / (Quantità Originale)
         fattoreScala = valore / ingGuida.quantita;
     }
 
