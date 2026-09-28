@@ -1,4 +1,14 @@
 {
+  "Daisy Clutch": {
+    "data": "Settembre 2026",
+    "filato": "Drops Magic & Drops Kid Silk",
+    "fotoGalleria": [
+      "immagini/daisy-clutch1.jpg",
+      "immagini/daisy-clutch2.jpg",
+      "immagini/daisy-clutch3.jpg"
+    ],
+    "descrizione": "Lavorata con uncinetto 4.5 mm, aggiunta di una chiusura a molla di 20 cm e foderata con tessuto in raso bordeaux."
+  },
   "Jenny Sweater": {
     "data": "Ottobre 2025",
     "filato": "Drops Fabel & Drops Kid Silk",
@@ -17,15 +27,5 @@
       "immagini/sweater-no15-1.jpg"
     ],
     "descrizione": "Lavorato a doppio capo seguendo fedelmente le istruzioni originali, bloccato a freddo."
-  },
-  "Daisy Clutch": {
-    "data": "Settembre 2026",
-    "filato": "Drops Magic & Drops Kid Silk",
-    "fotoGalleria": [
-      "immagini/daisy-clutch1.jpg",
-      "immagini/daisy-clutch2.jpg",
-      "immagini/daisy-clutch3.jpg"
-    ],
-    "descrizione": "Lavorata con uncinetto 5 mm, aggiunta di una chiusura a molla di 20 cm e foderata con tessuto in raso bordeaux."
   }
 }
